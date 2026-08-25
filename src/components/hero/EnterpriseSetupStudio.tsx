@@ -71,15 +71,15 @@ export const EnterpriseSetupStudio: React.FC<EnterpriseSetupStudioProps> = ({
   };
 
   return (
-    <div className="bg-[#0f1422]/95 border border-white/[0.08] hover:border-amber-500/30 rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.6)] w-full max-w-full sm:max-w-[440px] text-slate-100 transition-all font-sans backdrop-blur-2xl relative">
+    <div className="bg-gradient-to-b from-[#0e172e]/95 via-[#0b1329]/95 to-[#070b16]/98 border border-sky-500/30 hover:border-sky-400/60 rounded-3xl overflow-hidden shadow-[0_0_50px_rgba(56,189,248,0.15)] w-full max-w-full sm:max-w-[440px] text-slate-100 transition-all font-sans backdrop-blur-2xl relative">
       
-      {/* Top Ambient Warm Ribbon */}
-      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-amber-500/40 via-amber-300/30 to-amber-600/40" />
+      {/* Top Ambient Glow Ribbon */}
+      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-sky-400 via-cyan-400 to-indigo-500" />
 
       {/* Header Bar */}
-      <div className="bg-[#0b0f1a]/95 px-4 sm:px-5 py-3.5 border-b border-white/[0.08] flex items-center justify-between">
+      <div className="bg-[#080e20]/90 px-4 sm:px-5 py-3 border-b border-white/[0.08] flex items-center justify-between">
         <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-amber-500 to-amber-300 text-slate-950 flex items-center justify-center shadow-md shadow-amber-500/20">
+          <div className="w-7 h-7 rounded-xl bg-gradient-to-tr from-sky-500 to-cyan-400 text-slate-950 flex items-center justify-center shadow-[0_0_15px_rgba(56,189,248,0.4)]">
             <Calculator className="w-4 h-4 font-black" />
           </div>
           <div>
@@ -92,7 +92,7 @@ export const EnterpriseSetupStudio: React.FC<EnterpriseSetupStudioProps> = ({
           </div>
         </div>
 
-        <span className="text-[10px] font-mono px-2.5 py-1 rounded-full bg-emerald-950/80 text-emerald-400 border border-emerald-500/40 font-bold shadow-sm">
+        <span className="text-[10px] font-mono px-2.5 py-1 rounded-full bg-emerald-950/90 text-emerald-400 border border-emerald-600/60 font-bold shadow-sm">
           ● Live 2026 Rates
         </span>
       </div>
@@ -104,9 +104,9 @@ export const EnterpriseSetupStudio: React.FC<EnterpriseSetupStudioProps> = ({
         <div className="space-y-1.5">
           <div className="flex items-center justify-between text-[11px] font-mono">
             <span className="font-bold text-slate-200 uppercase tracking-wide">
-              1. {isAr ? 'الهيكل القانوني:' : 'Jurisdiction Structure:'}
+              1. {isAr ? 'الهيكل القانوني:' : 'JURISDICTION STRUCTURE:'}
             </span>
-            <span className="text-amber-400 text-[10px] font-semibold">
+            <span className="text-sky-400 text-[10px] font-semibold">
               {jurisdiction === 'freezone' ? '100% Tax-Free' : jurisdiction === 'mainland' ? 'Direct UAE Trade' : 'Asset Protection'}
             </span>
           </div>
@@ -121,10 +121,10 @@ export const EnterpriseSetupStudio: React.FC<EnterpriseSetupStudioProps> = ({
                 key={j.key}
                 type="button"
                 onClick={() => setJurisdiction(j.key as any)}
-                className={'p-2 sm:p-2.5 rounded-2xl border text-center transition-all cursor-pointer ' + (
+                className={'p-2 rounded-2xl border text-center transition-all cursor-pointer ' + (
                   jurisdiction === j.key
-                    ? 'bg-amber-500 text-slate-950 border-amber-400 font-bold shadow-md shadow-amber-500/25'
-                    : 'bg-[#141a29] border-white/[0.08] text-slate-300 hover:border-slate-500 hover:text-white'
+                    ? 'bg-sky-500 text-white border-sky-400 font-bold shadow-[0_0_15px_rgba(56,189,248,0.3)]'
+                    : 'bg-[#0a1024] border-white/[0.08] text-slate-300 hover:border-slate-500 hover:text-white'
                 )}
               >
                 <span className="font-bold text-[11px] sm:text-xs block">{j.title}</span>
@@ -137,7 +137,7 @@ export const EnterpriseSetupStudio: React.FC<EnterpriseSetupStudioProps> = ({
         {/* 2. Activity Code */}
         <div className="space-y-1.5">
           <span className="text-[11px] font-mono font-bold text-slate-200 uppercase tracking-wide block">
-            2. {isAr ? 'النشاط التجاري:' : 'Commercial Activity:'}
+            2. {isAr ? 'النشاط التجاري:' : 'COMMERCIAL ACTIVITY:'}
           </span>
 
           <div className="grid grid-cols-2 gap-1.5 text-[11px]">
@@ -151,10 +151,10 @@ export const EnterpriseSetupStudio: React.FC<EnterpriseSetupStudioProps> = ({
                 key={act.key}
                 type="button"
                 onClick={() => setActivity(act.key as any)}
-                className={'p-2 sm:p-2.5 rounded-xl border text-center transition-all cursor-pointer truncate font-medium ' + (
+                className={'p-2 rounded-xl border text-center transition-all cursor-pointer truncate font-medium ' + (
                   activity === act.key
-                    ? 'bg-amber-500/15 text-amber-300 border-amber-400/60 font-bold shadow-sm'
-                    : 'bg-[#141a29] border-white/[0.08] text-slate-300 hover:border-slate-600'
+                    ? 'bg-sky-950/90 text-sky-300 border-sky-400 font-bold shadow-sm'
+                    : 'bg-[#0a1024] border-white/[0.08] text-slate-300 hover:border-slate-600'
                 )}
               >
                 {act.label}
@@ -164,7 +164,7 @@ export const EnterpriseSetupStudio: React.FC<EnterpriseSetupStudioProps> = ({
         </div>
 
         {/* 3. Visas Counter Stepper */}
-        <div className="bg-[#141a29] p-3 rounded-2xl border border-white/[0.08] flex items-center justify-between">
+        <div className="bg-[#0a1024] p-3 rounded-2xl border border-white/[0.08] flex items-center justify-between">
           <div>
             <span className="text-[11px] sm:text-xs font-bold text-slate-100 block">
               3. {isAr ? 'تأشيرات الإقامة والهوية:' : 'Residence Visas & EID:'}
@@ -174,31 +174,31 @@ export const EnterpriseSetupStudio: React.FC<EnterpriseSetupStudioProps> = ({
             </span>
           </div>
 
-          <div className="flex items-center gap-2 bg-[#0c101c] p-1.5 rounded-xl border border-white/[0.08]">
+          <div className="flex items-center gap-2 bg-[#060a17] p-1 rounded-xl border border-white/[0.08]">
             <button
               type="button"
               onClick={() => setVisaCount(Math.max(0, visaCount - 1))}
-              className="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-white flex items-center justify-center transition-colors cursor-pointer"
+              className="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 text-white flex items-center justify-center transition-colors cursor-pointer"
             >
-              <Minus className="w-4 h-4" />
+              <Minus className="w-3.5 h-3.5" />
             </button>
-            <span className="text-xs font-black font-mono text-amber-300 w-14 text-center">
+            <span className="text-xs font-black font-mono text-sky-400 w-14 text-center">
               {visaCount} {visaCount === 1 ? 'Visa' : 'Visas'}
             </span>
             <button
               type="button"
               onClick={() => setVisaCount(Math.min(6, visaCount + 1))}
-              className="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-white flex items-center justify-center transition-colors cursor-pointer"
+              className="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 text-white flex items-center justify-center transition-colors cursor-pointer"
             >
-              <Plus className="w-4 h-4" />
+              <Plus className="w-3.5 h-3.5" />
             </button>
           </div>
         </div>
 
-        {/* Total Price Banner with Cozy Warm Glow */}
-        <div className="p-3.5 bg-gradient-to-r from-[#171e30] via-[#121827] to-[#171e30] rounded-2xl border border-amber-500/30 flex items-center justify-between shadow-inner">
+        {/* Total Price Banner with Metallic Glow */}
+        <div className="p-3.5 bg-gradient-to-r from-[#0c1630] via-[#091124] to-[#0c1630] rounded-2xl border border-sky-500/40 flex items-center justify-between shadow-inner">
           <div>
-            <span className="text-[10px] font-mono uppercase text-amber-400 font-bold block tracking-wider">
+            <span className="text-[10px] font-mono uppercase text-sky-400 font-bold block tracking-wider">
               ALL-INCLUSIVE ESTIMATE:
             </span>
             <span className="text-xl sm:text-2xl font-black text-white font-mono block mt-0.5 tracking-tight">
@@ -208,7 +208,7 @@ export const EnterpriseSetupStudio: React.FC<EnterpriseSetupStudioProps> = ({
 
           <div className="text-right space-y-1 font-mono text-[10px]">
             <div className="flex items-center gap-1 text-slate-200 justify-end">
-              <Clock className="w-3.5 h-3.5 text-amber-400" />
+              <Clock className="w-3.5 h-3.5 text-sky-400" />
               <span className="font-bold text-white">2-4 Days SLA</span>
             </div>
             <div className="flex items-center gap-1 text-emerald-400 justify-end font-semibold">
@@ -234,7 +234,7 @@ export const EnterpriseSetupStudio: React.FC<EnterpriseSetupStudioProps> = ({
                 value={clientName}
                 onChange={(e) => setClientName(e.target.value)}
                 placeholder={isAr ? 'الاسم بالكامل *' : 'Full Name *'}
-                className="w-full bg-[#0c101c] border border-white/[0.1] rounded-xl px-3 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 transition-colors"
+                className="w-full bg-[#060a17] border border-white/[0.1] rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-sky-400"
               />
 
               <input
@@ -243,7 +243,7 @@ export const EnterpriseSetupStudio: React.FC<EnterpriseSetupStudioProps> = ({
                 value={clientPhone}
                 onChange={(e) => setClientPhone(e.target.value)}
                 placeholder={isAr ? 'الهاتف / واتساب *' : 'Phone / WhatsApp *'}
-                className="w-full bg-[#0c101c] border border-white/[0.1] rounded-xl px-3 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 transition-colors"
+                className="w-full bg-[#060a17] border border-white/[0.1] rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-sky-400"
               />
             </div>
 
@@ -251,15 +251,16 @@ export const EnterpriseSetupStudio: React.FC<EnterpriseSetupStudioProps> = ({
               type="submit"
               variant="primary"
               size="sm"
-              className="w-full justify-center text-xs font-bold py-3 rounded-xl shadow-md"
+              className="w-full justify-center text-xs font-bold shadow-[0_0_20px_rgba(56,189,248,0.3)] py-2.5"
             >
               <Send className={'w-3.5 h-3.5 mr-1.5 ' + (isAr ? 'rotate-180' : '')} />
               <span>{isAr ? 'تثبيت السعر وبدء الإجراءات' : 'Lock in Quote & Start Setup'}</span>
             </Button>
           </form>
         )}
-
       </div>
     </div>
   );
 };
+
+
