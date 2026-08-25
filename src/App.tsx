@@ -14,6 +14,7 @@ import { QuickConsultationModal } from './components/consultation/QuickConsultat
 import { AuthModal, UserSession } from './components/auth/AuthModal';
 import { SettingsModal } from './components/settings/SettingsModal';
 import { AdminDashboard } from './components/admin/AdminDashboard';
+import { AmbientBackgroundCanvas } from './components/layout/AmbientBackgroundCanvas';
 import { ScrollReveal } from './components/ui/ScrollReveal';
 import { Language, TRANSLATIONS } from './data/translations';
 import { Sparkles, MessageCircle } from 'lucide-react';
@@ -79,11 +80,14 @@ export function App() {
   const t = TRANSLATIONS[lang];
 
   return (
-    <div className={'min-h-screen ' + (isDarkMode ? 'dark bg-[#050811] text-slate-100' : 'light bg-[#f8fafc] text-slate-900') + ' flex flex-col antialiased selection:bg-sky-500 selection:text-white font-sans transition-colors duration-300'}>
+    <div className={'min-h-screen ' + (isDarkMode ? 'dark bg-[#050811] text-slate-100' : 'light bg-[#f8fafc] text-slate-900') + ' flex flex-col antialiased selection:bg-sky-500 selection:text-white font-sans transition-colors duration-300 relative'}>
       
+      {/* Dynamic, Reactive Ambient Canvas: Blueprint Mesh Grid + Mouse Spotlight + Floating Color Waves */}
+      <AmbientBackgroundCanvas />
+
       {/* Navigation Header */}
       <Navbar
-        onOpenConsultation={() => handleOpenConsultation()}
+        onOpenConsultation={(svc) => handleOpenConsultation(svc)}
         onOpenAuth={() => setIsAuthOpen(true)}
         onOpenSettings={() => setIsSettingsOpen(true)}
         onOpenAdmin={() => setIsAdminOpen(true)}
@@ -94,8 +98,8 @@ export function App() {
       />
 
       {/* Main Content Sections with Scroll-Driven Motion */}
-      <main className="flex-grow">
-        {/* 1. High-Impact 1-Screen Hero & Draggable VentureIQ™ Setup Studio */}
+      <main className="flex-grow relative z-10">
+        {/* 1. High-Impact 1-Screen Hero & Venture — The Estimator */}
         <HeroCompanyConfigurator
           onOpenConsultation={(details) => handleOpenConsultation(details)}
           lang={lang}
@@ -115,7 +119,7 @@ export function App() {
           />
         </ScrollReveal>
 
-        {/* 4. Complete Formation Packages (Free Zone, Mainland, Offshore, Consultancy) */}
+        {/* 4. Complete Formation Packages (Free Zone, Mainland, Offshore, Dual License) */}
         <ScrollReveal direction="up" delay={0.1}>
           <PackagesSection
             onSelectPackage={(pkgTitle) => handleOpenConsultation(pkgTitle)}
@@ -124,7 +128,7 @@ export function App() {
           />
         </ScrollReveal>
 
-        {/* 5. 40+ Free Zones Explorer & Cost Calculator */}
+        {/* 5. 40+ Free Zones Explorer & Discovery Hub */}
         <ScrollReveal direction="up" delay={0.1}>
           <FreeZonesDirectory
             onOpenConsultation={() => handleOpenConsultation('Free Zone Company')}

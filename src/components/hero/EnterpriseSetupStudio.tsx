@@ -68,10 +68,10 @@ export const EnterpriseSetupStudio: React.FC<EnterpriseSetupStudioProps> = ({
   };
 
   return (
-    <div className="bg-[#0b1329]/95 border border-[#1e293b] hover:border-sky-500/50 rounded-2xl overflow-hidden shadow-2xl w-full max-w-[420px] text-slate-100 transition-all font-sans">
+    <div className="bg-[#0b1329]/95 border border-[#1e293b] hover:border-sky-500/50 rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl w-full max-w-full sm:max-w-[420px] text-slate-100 transition-all font-sans">
       
       {/* Compact Top Header Bar */}
-      <div className="bg-[#080e20] px-4 py-2.5 border-b border-[#1e293b] flex items-center justify-between">
+      <div className="bg-[#080e20] px-3.5 sm:px-4 py-2.5 border-b border-[#1e293b] flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="w-6 h-6 rounded-lg bg-gradient-to-tr from-sky-600 to-cyan-400 text-white flex items-center justify-center shadow-sm">
             <Zap className="w-3.5 h-3.5" />
@@ -89,7 +89,7 @@ export const EnterpriseSetupStudio: React.FC<EnterpriseSetupStudioProps> = ({
       </div>
 
       {/* Compact Body */}
-      <div className="p-3.5 sm:p-4 space-y-3">
+      <div className="p-3.5 sm:p-4 space-y-2.5 sm:space-y-3">
         
         {/* 1. Jurisdiction Selection */}
         <div className="space-y-1">
@@ -112,13 +112,13 @@ export const EnterpriseSetupStudio: React.FC<EnterpriseSetupStudioProps> = ({
                 key={j.key}
                 type="button"
                 onClick={() => setJurisdiction(j.key as any)}
-                className={'p-2 rounded-xl border text-center transition-all cursor-pointer ' + (
+                className={'p-1.5 sm:p-2 rounded-xl border text-center transition-all cursor-pointer ' + (
                   jurisdiction === j.key
                     ? 'bg-sky-950/90 border-sky-400 text-white shadow-sm'
                     : 'bg-[#0e1628] border-[#1e293b] text-slate-400 hover:border-slate-600 hover:text-white'
                 )}
               >
-                <span className="font-bold text-[11px] block">{j.title}</span>
+                <span className="font-bold text-[10px] sm:text-[11px] block">{j.title}</span>
                 <span className="text-[9px] font-mono text-sky-400 block mt-0.5">{j.fee}</span>
               </button>
             ))}
@@ -131,7 +131,7 @@ export const EnterpriseSetupStudio: React.FC<EnterpriseSetupStudioProps> = ({
             2. {isAr ? 'النشاط التجاري:' : 'Commercial Activity:'}
           </span>
 
-          <div className="grid grid-cols-2 gap-1.5 text-[11px]">
+          <div className="grid grid-cols-2 gap-1.5 text-[10px] sm:text-[11px]">
             {[
               { key: 'tech', label: 'AI, Tech & Software' },
               { key: 'trading', label: 'General Trading / Import' },
@@ -157,29 +157,29 @@ export const EnterpriseSetupStudio: React.FC<EnterpriseSetupStudioProps> = ({
         {/* 3. Visas Counter Stepper */}
         <div className="bg-[#0e1628] p-2 rounded-xl border border-[#1e293b] flex items-center justify-between">
           <div>
-            <span className="text-[11px] font-bold text-slate-200 block">
+            <span className="text-[10px] sm:text-[11px] font-bold text-slate-200 block">
               3. {isAr ? 'تأشيرات الإقامة والهوية:' : 'Residence Visas & EID:'}
             </span>
-            <span className="text-[9px] text-slate-400 font-mono">
+            <span className="text-[8px] sm:text-[9px] text-slate-400 font-mono">
               VIP Medical & Typing Included
             </span>
           </div>
 
-          <div className="flex items-center gap-2 bg-[#080e20] p-1 rounded-lg border border-[#1e293b]">
+          <div className="flex items-center gap-1.5 sm:gap-2 bg-[#080e20] p-1 rounded-lg border border-[#1e293b]">
             <button
               type="button"
               onClick={() => setVisaCount(Math.max(0, visaCount - 1))}
-              className="w-5 h-5 rounded bg-slate-800 hover:bg-slate-700 text-white flex items-center justify-center transition-colors cursor-pointer"
+              className="w-6 h-6 rounded bg-slate-800 hover:bg-slate-700 text-white flex items-center justify-center transition-colors cursor-pointer"
             >
               <Minus className="w-3 h-3" />
             </button>
-            <span className="text-xs font-black font-mono text-sky-400 w-10 text-center">
+            <span className="text-xs font-black font-mono text-sky-400 w-12 text-center">
               {visaCount} {visaCount === 1 ? 'Visa' : 'Visas'}
             </span>
             <button
               type="button"
               onClick={() => setVisaCount(Math.min(6, visaCount + 1))}
-              className="w-5 h-5 rounded bg-slate-800 hover:bg-slate-700 text-white flex items-center justify-center transition-colors cursor-pointer"
+              className="w-6 h-6 rounded bg-slate-800 hover:bg-slate-700 text-white flex items-center justify-center transition-colors cursor-pointer"
             >
               <Plus className="w-3 h-3" />
             </button>
@@ -192,12 +192,12 @@ export const EnterpriseSetupStudio: React.FC<EnterpriseSetupStudioProps> = ({
             <span className="text-[9px] font-mono uppercase text-sky-400 font-bold block">
               ALL-INCLUSIVE ESTIMATE:
             </span>
-            <span className="text-xl font-black text-white font-mono block mt-0.5">
+            <span className="text-lg sm:text-xl font-black text-white font-mono block mt-0.5">
               {formattedTotal}
             </span>
           </div>
 
-          <div className="text-right space-y-0.5 font-mono text-[10px]">
+          <div className="text-right space-y-0.5 font-mono text-[9px] sm:text-[10px]">
             <div className="flex items-center gap-1 text-slate-300 justify-end">
               <Clock className="w-3 h-3 text-sky-400" />
               <span className="font-bold text-white">2-4 Days SLA</span>
@@ -218,7 +218,7 @@ export const EnterpriseSetupStudio: React.FC<EnterpriseSetupStudioProps> = ({
           </div>
         ) : (
           <form onSubmit={handleStudioSubmit} className="space-y-1.5">
-            <div className="grid grid-cols-2 gap-1.5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
               <input
                 type="text"
                 required
