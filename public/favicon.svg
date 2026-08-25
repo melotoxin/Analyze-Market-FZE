@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <defs>
+    <linearGradient id="amDxbGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7" />
+      <stop offset="100%" stop-color="#0ea5e9" />
+    </linearGradient>
+  </defs>
+  <rect width="100" height="100" rx="24" fill="#030712" />
+  <circle cx="50" cy="50" r="42" stroke="url(#amDxbGrad)" stroke-width="4" stroke-opacity="0.4" />
+  <path d="M22 72 L42 26 L62 72" stroke="url(#amDxbGrad)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M48 44 L62 26 L80 72" stroke="#38bdf8" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
+  <circle cx="78" cy="24" r="5" fill="#38bdf8" />
+</svg>

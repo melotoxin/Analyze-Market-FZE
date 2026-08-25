@@ -2,7 +2,8 @@
 <html lang="en" class="scroll-smooth dark">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='none'%3E%3Ccircle cx='50' cy='50' r='46' stroke='%230ea5e9' stroke-width='6'/%3E%3Cpath d='M20 72 L42 28 L62 72' stroke='%230ea5e9' stroke-width='6.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M48 42 L62 28 L80 72' stroke='%230ea5e9' stroke-width='6.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
     
     <!-- Primary SEO Metadata -->
@@ -39,12 +40,12 @@
       "name": "AnalyzeMarkets FZE",
       "alternateName": "AM DXB",
       "url": "https://amdxb.com",
-      "logo": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=400&q=80",
+      "logo": "https://amdxb.com/favicon.svg",
       "description": "Premier corporate advisory firm specializing in UAE company formation, free zone licensing, mainland business setup, Golden Visa processing, and tier-1 corporate banking.",
       "telephone": "+971563396961",
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "Sharjah Research Technology and Innovation Park (SRTI Park)",
+        "streetAddress": "Sharjah Research Technology and Innovation Park (SRTI Park), Block B, Office B34-B047",
         "addressLocality": "Sharjah",
         "addressRegion": "Sharjah",
         "addressCountry": "AE"
@@ -62,7 +63,38 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   </head>
   <body class="bg-[#030712] text-slate-100 antialiased selection:bg-sky-500 selection:text-white font-sans transition-colors duration-300">
-    <div id="root"></div>
+    
+    <!-- Semantic Pre-Render DOM (Ensures Search Crawlers & No-JS Clients See Full Corporate Data) -->
+    <div id="root">
+      <header style="padding: 24px; text-align: center; font-family: sans-serif; background: #030712; color: #f8fafc;">
+        <h1 style="font-size: 24px; font-weight: 800; color: #38bdf8; margin: 0 0 8px 0;">AnalyzeMarkets FZE (AM DXB)</h1>
+        <p style="font-size: 14px; color: #94a3b8; max-width: 600px; margin: 0 auto 16px auto;">
+          Licensed Management Consultancy & Corporate Structuring at Sharjah Research Technology and Innovation Park (SRTI Park), Block B, Office #B34-B047.
+        </p>
+        <div style="display: flex; justify-content: center; gap: 16px; font-size: 13px;">
+          <a href="tel:+971563396961" style="color: #34d399; text-decoration: none; font-weight: 600;">📞 +971 56 339 6961</a>
+          <a href="mailto:info@amdxb.com" style="color: #38bdf8; text-decoration: none;">✉️ info@amdxb.com</a>
+        </div>
+      </header>
+      <main style="padding: 24px; max-width: 800px; margin: 0 auto; font-family: sans-serif; color: #cbd5e1;">
+        <h2>Turnkey UAE Business Incorporation, Free Zones & Golden Visas</h2>
+        <ul>
+          <li>40+ UAE Free Zones (SRTI Park, IFZA, DMCC, SHAMS, Meydan, DAFZA, RAKEZ, AFZ)</li>
+          <li>Mainland Commercial LLC Licensing with 100% Foreign Ownership</li>
+          <li>10-Year UAE Golden Visa Investor & Executive Handholding</li>
+          <li>Tier-1 Corporate Banking & Multi-Currency IBAN Clearance</li>
+          <li>9% Corporate Tax & VAT Registration (Federal Tax Authority Agent)</li>
+        </ul>
+      </main>
+    </div>
+
+    <!-- Fallback for JavaScript Disabled Browsers -->
+    <noscript>
+      <div style="padding: 16px; background: #1e293b; color: #f8fafc; text-align: center; font-family: sans-serif; font-size: 13px;">
+        For the full interactive cost simulator and 3D experience, please enable JavaScript in your browser, or contact our executive team directly at <a href="tel:+971563396961" style="color: #38bdf8;">+971 56 339 6961</a> / <a href="https://wa.me/971563396961" style="color: #34d399;">WhatsApp</a>.
+      </div>
+    </noscript>
+
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

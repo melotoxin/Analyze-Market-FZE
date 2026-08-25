@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { Building2, Phone, MapPin, Globe, ExternalLink } from 'lucide-react';
 import { COMPANY_DETAILS } from '../../data/mockData';
 import { Button } from '../ui/Button';
@@ -134,10 +134,15 @@ export const Footer: React.FC<FooterProps> = ({ onOpenConsultation, onNavigateSe
       <div className="border-t border-slate-200 dark:border-[#1e293b] bg-slate-200/50 dark:bg-[#050811] py-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-slate-500 dark:text-slate-400 font-mono">
           <div>
-            {t.footerCopyright}
+            Copyright © 2026 AnalyzeMarkets FZE. All rights reserved.
           </div>
-          <div>
-            {t.footerPoweredBy} <a href="https://www.instagram.com/adrevnview/" target="_blank" rel="noreferrer" className="text-sky-600 dark:text-sky-400 hover:underline font-semibold">adrevnview</a>
+          <div className="flex items-center gap-1.5">
+            <span>Official Portal:</span>
+            <a href="https://amdxb.com/" target="_blank" rel="noreferrer" className="text-sky-600 dark:text-sky-400 hover:underline font-bold">
+              amdxb.com
+            </a>
+            <span className="text-slate-400">|</span>
+            <span className="text-emerald-500 font-bold">SRTI Park Accredited</span>
           </div>
         </div>
       </div>

@@ -61,35 +61,37 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
         {/* 2-Column Corporate Card Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           
-          {/* Left 7 Cols: Official License Details & Corporate Mandate with High-Res Background Image */}
-          <div className="lg:col-span-7 relative overflow-hidden rounded-3xl p-7 sm:p-9 space-y-6 shadow-2xl border border-sky-400/40 group flex flex-col justify-between">
+          {/* Left 7 Cols: Official License Details & Corporate Mandate */}
+          <div className="lg:col-span-7 relative overflow-hidden rounded-3xl p-7 sm:p-9 space-y-6 shadow-2xl border border-sky-400/30 group flex flex-col justify-between bg-slate-950">
             
-            {/* Background Photography & Overlay */}
+            {/* Full-Bleed Softly Blurred Photographic Background (No gaps, no seams) */}
             <div 
-              className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105"
+              className="absolute -inset-4 bg-cover bg-center filter blur-[5px] scale-105 opacity-30 transition-transform duration-700 ease-out group-hover:scale-110"
               style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80)' }}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/75 to-slate-950/40 backdrop-blur-[1px]" />
+            {/* Uniform Deep Dark Overlay */}
+            <div className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm" />
+            <div className="absolute inset-0 bg-gradient-to-b from-slate-950/90 via-slate-950/70 to-slate-950/90 pointer-events-none" />
 
             <div className="relative z-10 space-y-6">
-              <div className="flex items-center justify-between border-b border-white/[0.15] pb-4">
+              <div className="flex items-center justify-between border-b border-white/[0.12] pb-4">
                 <div className="space-y-1">
                   <span className="text-xs font-mono text-sky-400 uppercase tracking-wider font-bold">Licensed Entity:</span>
                   <h3 className="text-2xl sm:text-3xl font-black text-white font-sans drop-shadow-md">AnalyzeMarkets FZE</h3>
                 </div>
-                <span className="text-xs font-mono px-3.5 py-1.5 rounded-full bg-emerald-500/25 border border-emerald-400/50 text-emerald-300 font-bold backdrop-blur-md shadow-sm">
+                <span className="text-xs font-mono px-3.5 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 font-bold backdrop-blur-md shadow-sm">
                   Active & Good Standing
                 </span>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-mono text-slate-200">
-                <div className="p-4 rounded-2xl bg-white/10 dark:bg-slate-900/80 border border-white/20 backdrop-blur-md space-y-1 shadow-inner">
+                <div className="p-4 rounded-2xl bg-white/[0.06] border border-white/10 backdrop-blur-md space-y-1 shadow-inner">
                   <span className="text-slate-400 block uppercase text-[10px]">Registered Location:</span>
                   <span className="text-white font-bold block text-sm">SRTI Park, Block B</span>
                   <span className="text-sky-300 text-xs block font-semibold">Office #B34-B047</span>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-white/10 dark:bg-slate-900/80 border border-white/20 backdrop-blur-md space-y-1 shadow-inner">
+                <div className="p-4 rounded-2xl bg-white/[0.06] border border-white/10 backdrop-blur-md space-y-1 shadow-inner">
                   <span className="text-slate-400 block uppercase text-[10px]">Official Contact:</span>
                   <span className="text-white font-bold block text-sm">+971 56 339 6961</span>
                   <span className="text-slate-300 text-xs block">info@amdxb.com</span>
@@ -101,12 +103,12 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
               </p>
             </div>
 
-            <div className="relative z-10 flex flex-wrap items-center gap-3 pt-6 border-t border-white/[0.15]">
+            <div className="relative z-10 flex flex-wrap items-center gap-3 pt-6 border-t border-white/[0.12]">
               <a
                 href="https://amdxb.com/"
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 hover:border-sky-400 text-xs font-bold text-white transition-all cursor-pointer shadow-md backdrop-blur-md"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/15 hover:border-sky-400 text-xs font-bold text-white transition-all cursor-pointer shadow-md backdrop-blur-md"
               >
                 <span>Visit amdxb.com</span>
                 <ExternalLink className="w-3.5 h-3.5 text-sky-400" />
@@ -124,18 +126,20 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
             </div>
           </div>
 
-          {/* Right 5 Cols: Regulatory Guarantee Card with High-Res Background Image */}
-          <div className="lg:col-span-5 relative overflow-hidden rounded-3xl p-7 sm:p-9 space-y-6 shadow-2xl border border-sky-400/40 group flex flex-col justify-between">
+          {/* Right 5 Cols: Regulatory Guarantee Card */}
+          <div className="lg:col-span-5 relative overflow-hidden rounded-3xl p-7 sm:p-9 space-y-6 shadow-2xl border border-sky-400/30 group flex flex-col justify-between bg-slate-950">
             
-            {/* Background Photography & Overlay */}
+            {/* Full-Bleed Softly Blurred Photographic Background (No gaps, no seams) */}
             <div 
-              className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105"
-              style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=80)' }}
+              className="absolute -inset-4 bg-cover bg-center filter blur-[5px] scale-105 opacity-30 transition-transform duration-700 ease-out group-hover:scale-110"
+              style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1580674684081-7617fbf3d745?auto=format&fit=crop&w=1200&q=80)' }}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/75 to-slate-950/40 backdrop-blur-[1px]" />
+            {/* Uniform Deep Dark Overlay */}
+            <div className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm" />
+            <div className="absolute inset-0 bg-gradient-to-b from-slate-950/90 via-slate-950/70 to-slate-950/90 pointer-events-none" />
 
             <div className="relative z-10 space-y-5">
-              <div className="p-3.5 rounded-2xl bg-sky-500/25 border border-sky-400/50 text-sky-300 w-fit backdrop-blur-md shadow-inner">
+              <div className="p-3.5 rounded-2xl bg-sky-500/20 border border-sky-400/40 text-sky-300 w-fit backdrop-blur-md shadow-inner">
                 <Award className="w-7 h-7" />
               </div>
               <h4 className="text-2xl font-black text-white font-sans drop-shadow-md">
@@ -157,7 +161,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
               </ul>
             </div>
 
-            <div className="relative z-10 pt-4 border-t border-white/[0.15] flex items-center justify-between text-xs font-mono text-sky-300">
+            <div className="relative z-10 pt-4 border-t border-white/[0.12] flex items-center justify-between text-xs font-mono text-sky-300">
               <span>Sharjah Research & Tech Park</span>
               <span className="font-bold px-2.5 py-0.5 rounded-full bg-sky-500/20 border border-sky-400/40">Govt Accredited</span>
             </div>

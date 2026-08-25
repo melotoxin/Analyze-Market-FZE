@@ -1,0 +1,8 @@
+# Production Robots.txt for AnalyzeMarkets FZE
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /api/
+
+# Sitemaps
+Sitemap: https://amdxb.com/sitemap.xml
