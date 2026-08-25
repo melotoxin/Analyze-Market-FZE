@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/layout/Navbar';
 import { TrustBar } from './components/trust/TrustBar';
 import { Footer } from './components/layout/Footer';
@@ -84,6 +84,23 @@ export function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleNavigateSection = (sectionId: string) => {
+    if (activeServiceSlug) {
+      setActiveServiceSlug(null);
+      setTimeout(() => {
+        const el = document.getElementById(sectionId);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 60);
+    } else {
+      const el = document.getElementById(sectionId);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
+
   const handleLoginSuccess = (session: UserSession) => {
     setUser(session);
   };
@@ -111,6 +128,7 @@ export function App() {
         lang={lang}
         onToggleLang={toggleLanguage}
         onNavigateService={handleNavigateService}
+        onNavigateSection={handleNavigateSection}
         onNavigateHome={handleNavigateHome}
       />
 
