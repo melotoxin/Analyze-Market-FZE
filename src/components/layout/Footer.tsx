@@ -136,13 +136,20 @@ export const Footer: React.FC<FooterProps> = ({ onOpenConsultation, onNavigateSe
           <div>
             Copyright © 2026 AnalyzeMarkets FZE. All rights reserved.
           </div>
-          <div className="flex items-center gap-1.5">
-            <span>Official Portal:</span>
-            <a href="https://amdxb.com/" target="_blank" rel="noreferrer" className="text-sky-600 dark:text-sky-400 hover:underline font-bold">
-              amdxb.com
+          <div className="flex flex-wrap items-center gap-2">
+            <span>Powered by</span>
+            <a 
+              href="https://www.instagram.com/adrevnview/" 
+              target="_blank" 
+              rel="noreferrer" 
+              className="text-sky-600 dark:text-sky-400 hover:text-sky-500 dark:hover:text-sky-300 transition-colors font-bold underline underline-offset-2"
+            >
+              AdRevnView
             </a>
             <span className="text-slate-400">|</span>
-            <span className="text-emerald-500 font-bold">SRTI Park Accredited</span>
+            <a href="https://amdxb.com/" target="_blank" rel="noreferrer" className="text-slate-600 dark:text-slate-300 hover:text-sky-400 font-semibold">
+              amdxb.com
+            </a>
           </div>
         </div>
       </div>
