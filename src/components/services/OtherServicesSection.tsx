@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { Badge } from '../ui/Badge';
 import { Button } from '../ui/Button';
 import {
@@ -154,7 +154,7 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({
   ];
 
   return (
-    <section id="other-services" className="py-24 sm:py-32 bg-[#050811] border-t border-white/[0.08] relative overflow-hidden transition-colors duration-300 font-sans">
+    <section id="other-services" className="py-24 sm:py-32 bg-white dark:bg-[#030712] border-t border-slate-200 dark:border-white/[0.08] relative overflow-hidden transition-colors duration-300 font-sans">
       
       {/* Ambient background glow */}
       <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-96 h-96 bg-sky-500/10 rounded-full blur-[140px] pointer-events-none" />
@@ -163,20 +163,20 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({
         
         {/* Section Header matching live amdxb.com */}
         <div className="max-w-3xl mb-14 space-y-3">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-900 border border-sky-500/30 text-xs font-mono font-bold text-sky-400 uppercase tracking-widest shadow-sm">
-            <Sparkles className="w-3.5 h-3.5 text-sky-400" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-sky-100 dark:bg-slate-900 border border-sky-400/30 text-xs font-mono font-bold text-sky-600 dark:text-sky-400 uppercase tracking-widest shadow-sm">
+            <Sparkles className="w-3.5 h-3.5 text-sky-500 dark:text-sky-400" />
             <span>{isAr ? 'خدمات الشركات المتكاملة' : 'Complete Corporate Lifecycle'}</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight font-sans">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white tracking-tight font-sans">
             {isAr ? 'كافة خدمات الأعمال والاستشارات تحت سقف واحد' : (
               <>
-                <span className="font-light text-slate-300">All 7 official services </span>
-                <span className="font-bold text-white">bundled under one roof</span>
+                <span className="font-light text-slate-600 dark:text-slate-300">All 7 official services </span>
+                <span className="font-bold text-slate-900 dark:text-white">bundled under one roof</span>
               </>
             )}
           </h2>
-          <p className="text-sm sm:text-base text-slate-400 leading-relaxed max-w-2xl">
+          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl">
             {isAr 
               ? 'حلول مؤسسية شاملة من أنالايز ماركتس ش.م.ح (AnalyzeMarkets FZE) تشمل التأسيس، الإقامة الذهبية، الضرائب، التدقيق، والتصفية.'
               : 'End-to-end corporate and advisory services provided directly by AnalyzeMarkets FZE from Sharjah Innovation District (SRTI Park).'
@@ -192,14 +192,14 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({
             return (
               <div
                 key={svc.id}
-                className={svc.colSpan + ' bg-[#0b1329] border border-white/[0.08] hover:border-sky-400/60 rounded-3xl p-7 flex flex-col justify-between transition-all group motion-card shadow-xl relative overflow-hidden'}
+                className={svc.colSpan + ' bg-white dark:bg-[#0b1329] border border-slate-200 dark:border-white/[0.08] hover:border-sky-400/60 rounded-3xl p-7 flex flex-col justify-between transition-all group motion-card shadow-xl relative overflow-hidden'}
               >
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div className="p-3 rounded-2xl bg-sky-500/15 text-sky-400 border border-sky-500/20 group-hover:scale-105 transition-transform">
                       <Icon className="w-6 h-6" />
                     </div>
-                    <span className="text-xs font-mono font-bold px-3 py-0.5 rounded-full bg-sky-950/80 text-sky-300 border border-sky-800">
+                    <span className="text-xs font-mono font-bold px-3 py-0.5 rounded-full bg-sky-50 dark:bg-sky-950/80 text-sky-600 dark:text-sky-300 border border-sky-200 dark:border-sky-800">
                       {svc.tag}
                     </span>
                   </div>
@@ -207,27 +207,27 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({
                   <div className="space-y-2">
                     <h3
                       onClick={() => onNavigateService && onNavigateService(svc.slug)}
-                      className="text-xl font-bold text-white font-sans group-hover:text-sky-300 transition-colors cursor-pointer"
+                      className="text-xl font-bold text-slate-900 dark:text-white font-sans group-hover:text-sky-500 dark:group-hover:text-sky-300 transition-colors cursor-pointer"
                     >
                       {svc.title}
                     </h3>
-                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
                       {svc.desc}
                     </p>
                   </div>
 
-                  <div className="space-y-1.5 pt-2 border-t border-white/[0.08] font-mono text-xs text-slate-300">
+                  <div className="space-y-1.5 pt-2 border-t border-slate-200 dark:border-white/[0.08] font-mono text-xs text-slate-700 dark:text-slate-300">
                     {svc.features.map((f, i) => (
                       <div key={i} className="flex items-center gap-2">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 dark:text-emerald-400 shrink-0" />
                         <span>{f}</span>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                <div className="pt-5 mt-5 border-t border-white/[0.08] flex items-center justify-between">
-                  <span className="text-[11px] font-mono text-slate-400">
+                <div className="pt-5 mt-5 border-t border-slate-200 dark:border-white/[0.08] flex items-center justify-between">
+                  <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
                     SRTI Accredited Delivery
                   </span>
 

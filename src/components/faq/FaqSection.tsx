@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { Badge } from '../ui/Badge';
 import { Button } from '../ui/Button';
 import { HelpCircle, ChevronDown, ChevronUp, MessageCircle, Phone, ArrowRight, Sparkles } from 'lucide-react';
@@ -51,7 +51,7 @@ export const FaqSection: React.FC<FaqSectionProps> = ({
   ];
 
   return (
-    <section id="faq" className="py-24 sm:py-32 bg-[#060913] border-t border-white/[0.08] relative overflow-hidden transition-colors duration-300 font-sans">
+    <section id="faq" className="py-24 sm:py-32 bg-slate-50 dark:bg-[#040815] border-t border-slate-200 dark:border-white/[0.08] relative overflow-hidden transition-colors duration-300 font-sans">
       
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
@@ -59,21 +59,21 @@ export const FaqSection: React.FC<FaqSectionProps> = ({
           
           {/* Left Column: Heading & Support Card */}
           <div className="lg:col-span-5 space-y-6 text-left">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-900 border border-sky-500/30 text-xs font-mono font-bold text-sky-400 uppercase tracking-widest shadow-sm">
-              <HelpCircle className="w-3.5 h-3.5 text-sky-400" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-sky-100 dark:bg-slate-900 border border-sky-400/30 text-xs font-mono font-bold text-sky-600 dark:text-sky-400 uppercase tracking-widest shadow-sm">
+              <HelpCircle className="w-3.5 h-3.5 text-sky-500 dark:text-sky-400" />
               <span>{isAr ? 'الأسئلة الشائعة' : 'Frequently Asked Questions'}</span>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight font-sans">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white tracking-tight font-sans">
               {isAr ? 'كل ما تحتاج معرفته عن التأسيس في الإمارات' : (
                 <>
-                  <span className="font-light text-slate-300">Clear answers for </span>
-                  <span className="font-bold text-white">international founders</span>
+                  <span className="font-light text-slate-600 dark:text-slate-300">Clear answers for </span>
+                  <span className="font-bold text-slate-900 dark:text-white">international founders</span>
                 </>
               )}
             </h2>
 
-            <p className="text-sm sm:text-base text-slate-400 leading-relaxed">
+            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
               {isAr 
                 ? 'إجابات رسمية ومباشرة حول القوانين والضرائب والحسابات البنكية والإقامة الذهبية.'
                 : 'Direct answers to critical questions about 100% expat ownership, corporate tax exemptions, banking clearance, and legal licensing.'
@@ -81,12 +81,12 @@ export const FaqSection: React.FC<FaqSectionProps> = ({
             </p>
 
             {/* Direct Contact Card */}
-            <div className="bg-[#0b1329] border border-sky-500/30 rounded-3xl p-6 space-y-4 shadow-xl">
-              <div className="flex items-center gap-2 text-white font-bold text-sm">
-                <MessageCircle className="w-4 h-4 text-emerald-400" />
+            <div className="bg-white dark:bg-[#0b1329] border border-sky-500/30 rounded-3xl p-6 space-y-4 shadow-xl">
+              <div className="flex items-center gap-2 text-slate-900 dark:text-white font-bold text-sm">
+                <MessageCircle className="w-4 h-4 text-emerald-500 dark:text-emerald-400" />
                 <span>Need immediate guidance on your specific case?</span>
               </div>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-slate-600 dark:text-slate-400">
                 Speak directly with an accredited senior formation director in Sharjah or Dubai.
               </p>
               <div className="flex items-center gap-3">
@@ -113,8 +113,8 @@ export const FaqSection: React.FC<FaqSectionProps> = ({
                   key={idx}
                   className={'border rounded-2xl overflow-hidden transition-all ' + (
                     isOpen
-                      ? 'bg-[#0b1329] border-sky-400/80 shadow-xl shadow-sky-500/10'
-                      : 'bg-[#0b1329]/70 border-white/[0.08] hover:border-slate-600'
+                      ? 'bg-white dark:bg-[#0b1329] border-sky-400 shadow-xl shadow-sky-500/10'
+                      : 'bg-white/80 dark:bg-[#0b1329]/70 border-slate-200 dark:border-white/[0.08] hover:border-slate-400 dark:hover:border-slate-600'
                   )}
                 >
                   <button
@@ -122,18 +122,18 @@ export const FaqSection: React.FC<FaqSectionProps> = ({
                     onClick={() => setOpenIndex(isOpen ? null : idx)}
                     className="w-full p-5 text-left flex items-center justify-between gap-4 cursor-pointer"
                   >
-                    <span className="font-bold text-sm sm:text-base text-white font-sans leading-snug">
+                    <span className="font-bold text-sm sm:text-base text-slate-900 dark:text-white font-sans leading-snug">
                       {faq.q}
                     </span>
                     <div className={'p-1.5 rounded-lg border shrink-0 transition-colors ' + (
-                      isOpen ? 'bg-sky-500 text-white border-sky-400' : 'bg-slate-800 text-slate-400 border-white/[0.06]'
+                      isOpen ? 'bg-sky-500 text-white border-sky-400' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-white/[0.06]'
                     )}>
                       {isOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                     </div>
                   </button>
 
                   {isOpen && (
-                    <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-slate-300 leading-relaxed border-t border-white/[0.04]">
+                    <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-100 dark:border-white/[0.04]">
                       {faq.a}
                     </div>
                   )}

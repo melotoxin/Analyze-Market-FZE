@@ -1,9 +1,11 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/layout/Navbar';
 import { TrustBar } from './components/trust/TrustBar';
 import { Footer } from './components/layout/Footer';
 import { HeroCompanyConfigurator } from './components/hero/HeroCompanyConfigurator';
+import { FormationRoadmapSection } from './components/roadmap/FormationRoadmapSection';
 import { JurisdictionComparison } from './components/comparison/JurisdictionComparison';
+import { UaeCostVisualizerSection } from './components/calculator/UaeCostVisualizerSection';
 import { PackagesSection } from './components/packages/PackagesSection';
 import { FreeZonesDirectory } from './components/freezones/FreeZonesDirectory';
 import { OtherServicesSection } from './components/services/OtherServicesSection';
@@ -20,6 +22,8 @@ import { ServiceSlug } from './data/servicesData';
 import { ScrollReveal } from './components/ui/ScrollReveal';
 import { Language, TRANSLATIONS } from './data/translations';
 import { Sparkles, MessageCircle } from 'lucide-react';
+import { CommandPalette } from './components/ui/CommandPalette';
+import { SystemStatusBar } from './components/layout/SystemStatusBar';
 
 export function App() {
   const [isConsultationOpen, setIsConsultationOpen] = useState(false);
@@ -37,6 +41,7 @@ export function App() {
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isAdminOpen, setIsAdminOpen] = useState(false);
+  const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
 
   // Authentication session
   const [user, setUser] = useState<UserSession | null>(null);
@@ -112,10 +117,17 @@ export function App() {
   const t = TRANSLATIONS[lang];
 
   return (
-    <div className={'min-h-screen ' + (isDarkMode ? 'dark bg-[#050811] text-slate-100' : 'light bg-[#f8fafc] text-slate-900') + ' flex flex-col antialiased selection:bg-sky-500 selection:text-white font-sans transition-colors duration-300 relative'}>
+    <div className={'min-h-screen ' + (isDarkMode ? 'dark bg-[#030712] text-slate-100' : 'light bg-[#f8fafc] text-slate-900') + ' flex flex-col antialiased selection:bg-sky-500 selection:text-white font-sans transition-colors duration-300 relative'}>
       
       {/* Dynamic, Reactive Ambient Canvas: Blueprint Mesh Grid + Mouse Spotlight + Floating Color Waves */}
       <AmbientBackgroundCanvas />
+
+      {/* Enterprise System Live Status & Quick Search Header Bar */}
+      <SystemStatusBar
+        lang={lang}
+        onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
+        onOpenConsultation={() => handleOpenConsultation()}
+      />
 
       {/* Navigation Header */}
       <Navbar
@@ -127,6 +139,10 @@ export function App() {
         onLogout={handleLogout}
         lang={lang}
         onToggleLang={toggleLanguage}
+        isDarkMode={isDarkMode}
+        onToggleTheme={toggleTheme}
+        currency={currency}
+        onSetCurrency={setCurrency}
         onNavigateService={handleNavigateService}
         onNavigateSection={handleNavigateSection}
         onNavigateHome={handleNavigateHome}
@@ -157,7 +173,15 @@ export function App() {
             <TrustBar lang={lang} />
           </ScrollReveal>
 
-          {/* 3. Interactive 3-Way Jurisdiction Comparison Matrix */}
+          {/* 3. Turnkey Formation Roadmap & SLA Timeline */}
+          <ScrollReveal direction="up" delay={0.1}>
+            <FormationRoadmapSection
+              onOpenConsultation={(step) => handleOpenConsultation(step)}
+              lang={lang}
+            />
+          </ScrollReveal>
+
+          {/* 4. Interactive 3-Way Jurisdiction Comparison Matrix */}
           <ScrollReveal direction="up" delay={0.1}>
             <JurisdictionComparison
               onOpenConsultation={(jurisdiction) => handleOpenConsultation(jurisdiction)}
@@ -165,7 +189,16 @@ export function App() {
             />
           </ScrollReveal>
 
-          {/* 4. Complete Formation Packages (Free Zone, Mainland, Offshore, Dual License) */}
+          {/* 5. Interactive UAE Setup Cost & Tax Simulator */}
+          <ScrollReveal direction="up" delay={0.1}>
+            <UaeCostVisualizerSection
+              onOpenConsultation={(quote) => handleOpenConsultation(quote)}
+              lang={lang}
+              currency={currency}
+            />
+          </ScrollReveal>
+
+          {/* 6. Complete Formation Packages (Free Zone, Mainland, Offshore, Dual License) */}
           <ScrollReveal direction="up" delay={0.1}>
             <PackagesSection
               onSelectPackage={(pkgTitle) => handleOpenConsultation(pkgTitle)}
@@ -174,7 +207,7 @@ export function App() {
             />
           </ScrollReveal>
 
-          {/* 5. 40+ Free Zones Explorer & Discovery Hub */}
+          {/* 7. 40+ Free Zones Explorer & Discovery Hub */}
           <ScrollReveal direction="up" delay={0.1}>
             <FreeZonesDirectory
               onOpenConsultation={() => handleOpenConsultation('Free Zone Company')}
@@ -183,7 +216,7 @@ export function App() {
             />
           </ScrollReveal>
 
-          {/* 6. Complete Corporate Lifecycle Services (from amdxb.com) */}
+          {/* 8. Complete Corporate Lifecycle Services (from amdxb.com) */}
           <ScrollReveal direction="up" delay={0.1}>
             <OtherServicesSection
               onOpenConsultation={(svc) => handleOpenConsultation(svc)}
@@ -192,7 +225,7 @@ export function App() {
             />
           </ScrollReveal>
 
-          {/* 7. Why UAE? Global Economic Power */}
+          {/* 9. Why UAE? Global Economic Power */}
           <ScrollReveal direction="up" delay={0.1}>
             <WhyUaeSection
               onOpenConsultation={() => handleOpenConsultation()}
@@ -200,17 +233,17 @@ export function App() {
             />
           </ScrollReveal>
 
-          {/* 8. Interactive Frequently Asked Questions */}
+          {/* 10. About AnalyzeMarkets FZE (SRTI Sharjah HQ) */}
           <ScrollReveal direction="up" delay={0.1}>
-            <FaqSection
+            <AboutSection
               onOpenConsultation={() => handleOpenConsultation()}
               lang={lang}
             />
           </ScrollReveal>
 
-          {/* 9. About AnalyzeMarkets FZE (SRTI Sharjah HQ) */}
+          {/* 11. Interactive Frequently Asked Questions */}
           <ScrollReveal direction="up" delay={0.1}>
-            <AboutSection
+            <FaqSection
               onOpenConsultation={() => handleOpenConsultation()}
               lang={lang}
             />
@@ -258,6 +291,22 @@ export function App() {
         isOpen={isAdminOpen}
         onClose={() => setIsAdminOpen(false)}
         lang={lang}
+      />
+
+      {/* Global Enterprise Command Palette (Ctrl+K / ⌘+K) */}
+      <CommandPalette
+        isOpen={isCommandPaletteOpen}
+        onClose={() => setIsCommandPaletteOpen(false)}
+        onNavigateService={handleNavigateService}
+        onNavigateSection={handleNavigateSection}
+        onOpenConsultation={(pkg) => handleOpenConsultation(pkg)}
+        onOpenAdmin={() => setIsAdminOpen(true)}
+        isDarkMode={isDarkMode}
+        onToggleTheme={toggleTheme}
+        lang={lang}
+        onToggleLang={toggleLanguage}
+        currency={currency}
+        onSetCurrency={setCurrency}
       />
 
       {/* Floating Action Buttons: WhatsApp & Quick Consultation */}

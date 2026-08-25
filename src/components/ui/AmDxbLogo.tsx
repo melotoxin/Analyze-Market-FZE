@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 
 interface AmDxbLogoProps {
   className?: string;
@@ -78,14 +78,14 @@ export const AmDxbLogo: React.FC<AmDxbLogoProps> = ({
         />
       </svg>
 
-      {/* AM DXB Brand Text (Clean without FZE clutter) */}
+      {/* AM DXB Brand Text */}
       {showText && (
         <div className="flex flex-col whitespace-nowrap">
           <div className={`font-extrabold tracking-wider ${currentSize.text} font-sans flex items-center gap-1.5 leading-none`}>
             <span className="text-sky-400 tracking-widest font-black">AM</span>
-            <span className="text-slate-100 font-bold tracking-widest">DXB</span>
+            <span className="text-slate-900 dark:text-slate-100 font-bold tracking-widest transition-colors">DXB</span>
           </div>
-          <span className="text-[10px] text-slate-400 font-mono tracking-tight mt-0.5 hidden sm:block">
+          <span className="text-[10px] text-slate-500 dark:text-slate-400 font-mono tracking-tight mt-0.5 hidden sm:block">
             Analyze Markets
           </span>
         </div>
