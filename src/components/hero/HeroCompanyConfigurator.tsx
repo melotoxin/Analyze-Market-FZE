@@ -75,7 +75,7 @@ export const HeroCompanyConfigurator: React.FC<HeroCompanyConfiguratorProps> = (
             {/* Two-Tone Typography with Warm Subtle Glow */}
             <h1 className="text-3xl sm:text-5xl lg:text-6xl tracking-tight leading-[1.1] font-sans">
               <span className="font-light bg-gradient-to-r from-slate-100 via-white to-slate-300 bg-clip-text text-transparent block">
-                {isAr ? 'تأسيس وإطلاق الشركات الذكية' : 'Incorporate your enterprise'}
+                {isAr ? 'تأسيس وإطلاق الشركات الذكية' : 'Incorporate your Enterprise'}
               </span>
               <span className="font-black text-white block mt-1 drop-shadow-[0_0_35px_rgba(212,175,55,0.15)]">
                 {isAr ? 'في دولة الإمارات العربية المتحدة' : 'in the United Arab Emirates'}
