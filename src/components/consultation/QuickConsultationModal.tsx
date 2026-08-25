@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
 import { Modal } from '../ui/Modal';
 import { Button } from '../ui/Button';
@@ -19,10 +19,16 @@ export const QuickConsultationModal: React.FC<QuickConsultationModalProps> = ({
 }) => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
-  const [packageChoice, setPackageChoice] = useState(defaultPackage || 'Free Zone Company (100% Foreign Ownership)');
+  const [packageChoice, setPackageChoice] = useState(defaultPackage || 'Company Incorporation');
   const [notes, setNotes] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  useEffect(() => {
+    if (defaultPackage) {
+      setPackageChoice(defaultPackage);
+    }
+  }, [defaultPackage]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,8 +49,8 @@ export const QuickConsultationModal: React.FC<QuickConsultationModalProps> = ({
     <Modal
       isOpen={isOpen}
       onClose={handleReset}
-      title={isSubmitted ? 'Consultation Request Sent' : 'Quick Consultation Now'}
-      subtitle={isSubmitted ? 'An AnalyzeMarkets advisor will reach out to you.' : 'Send Consultation Request - AnalyzeMarkets FZE'}
+      title={isSubmitted ? 'Consultation Request Sent' : 'Book a Consultation / Call'}
+      subtitle={isSubmitted ? 'An AnalyzeMarkets advisor will reach out to you.' : 'Direct Corporate Advisory — AnalyzeMarkets FZE'}
       maxWidth="md"
     >
       {isSubmitted ? (
@@ -56,14 +62,14 @@ export const QuickConsultationModal: React.FC<QuickConsultationModalProps> = ({
           <div className="space-y-1">
             <h4 className="text-base font-bold text-slate-900 dark:text-white">Consultation Request Received</h4>
             <p className="text-xs text-slate-500 dark:text-[#94a3b8]">
-              Our business incorporation team at <span className="text-sky-500 font-bold">SRTI Park Sharjah</span> has received your details.
+              Our advisory team at <span className="text-sky-500 font-bold">SRTI Park Sharjah</span> has received your mandate.
             </p>
           </div>
 
           <div className="bg-slate-50 dark:bg-[#182032] p-3.5 rounded-xl border border-slate-200 dark:border-[#1e293b] text-left text-xs space-y-1.5 shadow-sm">
             <div className="flex justify-between text-slate-500 dark:text-[#94a3b8]"><span>Contact Name:</span><span className="text-slate-900 dark:text-white font-bold">{name || 'Client'}</span></div>
             <div className="flex justify-between text-slate-500 dark:text-[#94a3b8]"><span>Phone Number:</span><span className="text-sky-600 dark:text-sky-400 font-bold">{phone}</span></div>
-            <div className="flex justify-between text-slate-500 dark:text-[#94a3b8]"><span>Package:</span><span className="text-slate-800 dark:text-slate-200">{packageChoice}</span></div>
+            <div className="flex justify-between text-slate-500 dark:text-[#94a3b8]"><span>Selected Service:</span><span className="text-slate-800 dark:text-slate-200 font-bold">{packageChoice}</span></div>
             <div className="flex justify-between text-slate-500 dark:text-[#94a3b8]"><span>Direct Hotline:</span><span className="text-emerald-600 dark:text-emerald-400 font-bold">+971 56 339 6961</span></div>
           </div>
 
@@ -75,45 +81,48 @@ export const QuickConsultationModal: React.FC<QuickConsultationModalProps> = ({
         <form onSubmit={handleSubmit} className="space-y-3.5 font-mono text-xs">
           <div className="space-y-1">
             <label className="text-[11px] font-semibold uppercase text-slate-600 dark:text-[#94a3b8] block">
-              Name *
+              Full Name *
             </label>
             <input
               type="text"
               required
               value={name}
               onChange={e => setName(e.target.value)}
-              placeholder="Your Full Name"
+              placeholder="e.g. Alexander Vance"
               className="w-full bg-slate-50 dark:bg-[#182032] border border-slate-200 dark:border-[#1e293b] rounded-xl px-3 py-2 text-xs text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-sky-500 transition-colors"
             />
           </div>
 
           <div className="space-y-1">
             <label className="text-[11px] font-semibold uppercase text-slate-600 dark:text-[#94a3b8] block">
-              Phone Number *
+              Phone / WhatsApp *
             </label>
             <input
               type="tel"
               required
               value={phone}
               onChange={e => setPhone(e.target.value)}
-              placeholder="+971 50 123 4567"
+              placeholder="+971 56 339 6961"
               className="w-full bg-slate-50 dark:bg-[#182032] border border-slate-200 dark:border-[#1e293b] rounded-xl px-3 py-2 text-xs text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-sky-500 transition-colors"
             />
           </div>
 
           <div className="space-y-1">
             <label className="text-[11px] font-semibold uppercase text-slate-600 dark:text-[#94a3b8] block">
-              Package / Formation Type
+              Required Service (from amdxb.com)
             </label>
             <select
               value={packageChoice}
               onChange={e => setPackageChoice(e.target.value)}
               className="w-full bg-slate-50 dark:bg-[#182032] border border-slate-200 dark:border-[#1e293b] rounded-xl px-3 py-2 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-sky-500 cursor-pointer"
             >
-              <option value="Free Zone Company (100% Foreign Ownership)">Free Zone Company (Single / Multi-Shareholder)</option>
-              <option value="Mainland LLC Company (Direct UAE Trading)">Mainland LLC Company (Direct UAE Market Trade)</option>
-              <option value="Offshore & Holding Entity">Offshore & Holding Company</option>
-              <option value="Management Consultancy & Market Entry">Management Consultancy & Research</option>
+              <option value="Company Incorporation">1. Company Incorporation (Mainland / Free Zone / Offshore)</option>
+              <option value="Company Liquidation Services">2. Company Liquidation Services</option>
+              <option value="Golden Visa Services">3. Golden Visa Services (10-Year Long-Term)</option>
+              <option value="License Renewal (PRO) Services">4. License Renewal (PRO) Services</option>
+              <option value="VAT & Corporate Tax Filing Services">5. VAT & Corporate Tax Filing Services (FTA 9%)</option>
+              <option value="Audit & Assurance Services">6. Audit & Assurance Services</option>
+              <option value="Accounting Services">7. Accounting & Cloud Bookkeeping Services</option>
             </select>
           </div>
 
@@ -125,7 +134,7 @@ export const QuickConsultationModal: React.FC<QuickConsultationModalProps> = ({
               rows={2}
               value={notes}
               onChange={e => setNotes(e.target.value)}
-              placeholder="e.g. General Trading, E-commerce license with 2 investor visas..."
+              placeholder="e.g. AI & Tech startup with 2 investor visas and corporate bank opening..."
               className="w-full bg-slate-50 dark:bg-[#182032] border border-slate-200 dark:border-[#1e293b] rounded-xl px-3 py-2 text-xs text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-sky-500 transition-colors"
             />
           </div>
