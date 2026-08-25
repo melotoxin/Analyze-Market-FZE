@@ -139,7 +139,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenConsultation, onNavigateSe
           <div className="flex flex-wrap items-center gap-2">
             <span>Powered by</span>
             <a 
-              href="https://www.instagram.com/adrevnview/" 
+              href="https://www.adrevnview.com/" 
               target="_blank" 
               rel="noreferrer" 
               className="text-sky-600 dark:text-sky-400 hover:text-sky-500 dark:hover:text-sky-300 transition-colors font-bold underline underline-offset-2"
