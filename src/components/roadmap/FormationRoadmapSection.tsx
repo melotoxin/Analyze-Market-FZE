@@ -104,18 +104,18 @@ export const FormationRoadmapSection: React.FC<FormationRoadmapSectionProps> = (
   ];
 
   return (
-    <section className="py-24 sm:py-32 bg-slate-50 dark:bg-[#040815] border-t border-slate-200 dark:border-white/[0.08] relative overflow-hidden transition-colors duration-300 font-sans">
+    <section className="py-24 sm:py-32 bg-slate-50 dark:bg-[#090d16] border-t border-slate-200 dark:border-white/[0.08] relative overflow-hidden transition-colors duration-300 font-sans">
       
       {/* Visual Accent Ambient Orbs */}
-      <div className="absolute top-1/2 left-10 -translate-y-1/2 w-[500px] h-[500px] bg-sky-500/10 rounded-full blur-[160px] pointer-events-none" />
-      <div className="absolute top-1/2 right-10 -translate-y-1/2 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[160px] pointer-events-none" />
+      <div className="absolute top-1/2 left-10 -translate-y-1/2 w-[500px] h-[500px] bg-amber-500/06 rounded-full blur-[160px] pointer-events-none" />
+      <div className="absolute top-1/2 right-10 -translate-y-1/2 w-[500px] h-[500px] bg-slate-600/06 rounded-full blur-[160px] pointer-events-none" />
 
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
         <div className="max-w-3xl mb-14 space-y-3">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-sky-100 dark:bg-slate-900 border border-sky-400/30 text-xs font-mono font-bold text-sky-600 dark:text-sky-400 uppercase tracking-widest shadow-sm">
-            <Zap className="w-3.5 h-3.5 text-sky-500 dark:text-sky-400" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-50 dark:bg-slate-900 border border-amber-400/30 text-xs font-mono font-bold text-amber-600 dark:text-amber-400 uppercase tracking-widest shadow-sm">
+            <Zap className="w-3.5 h-3.5 text-amber-500 dark:text-amber-400" />
             <span>{isAr ? 'مسار التأسيس خطوة بخطوة' : 'Turnkey Formation Roadmap'}</span>
           </div>
 
@@ -123,7 +123,7 @@ export const FormationRoadmapSection: React.FC<FormationRoadmapSectionProps> = (
             {isAr ? 'مسار التأسيس السريع من اليوم الأول حتى الحساب البنكي' : (
               <>
                 <span className="font-light text-slate-600 dark:text-slate-300">From Name Reservation to Bank IBAN in </span>
-                <span className="font-bold text-slate-900 dark:text-white bg-gradient-to-r from-sky-500 to-cyan-400 bg-clip-text text-transparent">7 Business Days</span>
+                <span className="font-bold text-slate-900 dark:text-white bg-gradient-to-r from-amber-400 via-amber-200 to-amber-500 bg-clip-text text-transparent">7 Business Days</span>
               </>
             )}
           </h2>
@@ -147,21 +147,21 @@ export const FormationRoadmapSection: React.FC<FormationRoadmapSectionProps> = (
                 onClick={() => setActiveStep(idx)}
                 className={'p-4 sm:p-5 rounded-3xl border text-left transition-all cursor-pointer relative group flex flex-col justify-between ' + (
                   isCurrent
-                    ? 'bg-white dark:bg-gradient-to-b dark:from-[#0d1c3e] dark:to-[#09132a] border-sky-400 shadow-xl shadow-sky-500/20 ring-1 ring-sky-400/50'
-                    : 'bg-white/80 dark:bg-[#070d1e]/80 border-slate-200 dark:border-white/[0.08] hover:border-slate-400 dark:hover:border-slate-600'
+                    ? 'bg-white dark:bg-gradient-to-b dark:from-[#151c2e] dark:to-[#0f1524] border-amber-400/80 shadow-xl shadow-amber-500/10 ring-1 ring-amber-400/40'
+                    : 'bg-white/80 dark:bg-[#0f1422]/80 border-slate-200 dark:border-white/[0.08] hover:border-slate-400 dark:hover:border-slate-600'
                 )}
               >
                 <div className="flex items-center justify-between w-full mb-3">
                   <span className={'text-[11px] font-mono font-black px-2.5 py-0.5 rounded-full border ' + (
                     isCurrent
-                      ? 'bg-sky-500 text-white border-sky-400'
+                      ? 'bg-amber-500 text-slate-950 border-amber-400'
                       : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-white/[0.08]'
                   )}>
                     {s.day}
                   </span>
 
                   <div className={'p-2 rounded-xl transition-colors ' + (
-                    isCurrent ? 'bg-sky-500/20 text-sky-500 dark:text-sky-300' : 'bg-slate-100 dark:bg-slate-800 text-slate-400 group-hover:text-slate-200'
+                    isCurrent ? 'bg-amber-500/15 text-amber-400' : 'bg-slate-100 dark:bg-slate-800 text-slate-400 group-hover:text-slate-200'
                   )}>
                     <Icon className="w-4 h-4" />
                   </div>
@@ -181,7 +181,7 @@ export const FormationRoadmapSection: React.FC<FormationRoadmapSectionProps> = (
 
                 {/* Active Indicator bottom line */}
                 {isCurrent && (
-                  <div className="absolute -bottom-[1px] left-6 right-6 h-[2px] bg-gradient-to-r from-sky-400 to-cyan-300 rounded-full" />
+                  <div className="absolute -bottom-[1px] left-6 right-6 h-[2px] bg-gradient-to-r from-amber-400 to-amber-300 rounded-full" />
                 )}
               </button>
             );
@@ -189,11 +189,11 @@ export const FormationRoadmapSection: React.FC<FormationRoadmapSectionProps> = (
         </div>
 
         {/* Active Step Deep-Dive Showcase Bento Card */}
-        <div className="bg-white dark:bg-gradient-to-r dark:from-[#0c1833] dark:via-[#091226] dark:to-[#0c1833] border border-slate-200 dark:border-white/[0.12] rounded-3xl p-6 sm:p-10 shadow-2xl backdrop-blur-2xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div className="bg-white dark:bg-gradient-to-r dark:from-[#131929] dark:via-[#0e1422] dark:to-[#131929] border border-slate-200 dark:border-white/[0.12] rounded-3xl p-6 sm:p-10 shadow-2xl backdrop-blur-2xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           
           <div className="lg:col-span-7 space-y-5">
             <div className="flex items-center gap-3">
-              <span className="text-xs font-mono font-bold px-3 py-1 rounded-full bg-sky-500 text-white shadow-md shadow-sky-500/30">
+              <span className="text-xs font-mono font-bold px-3 py-1 rounded-full bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20">
                 Step {steps[activeStep].id} of 5
               </span>
               <span className="text-xs font-mono text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1.5">
@@ -217,7 +217,7 @@ export const FormationRoadmapSection: React.FC<FormationRoadmapSectionProps> = (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 {steps[activeStep].deliverables.map((item, i) => (
                   <div key={i} className="flex items-center gap-2 p-3 rounded-2xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-white/[0.06] text-xs font-medium text-slate-800 dark:text-slate-200">
-                    <CheckCircle2 className="w-4 h-4 text-sky-500 shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-amber-500 shrink-0" />
                     <span>{item}</span>
                   </div>
                 ))}
@@ -225,7 +225,7 @@ export const FormationRoadmapSection: React.FC<FormationRoadmapSectionProps> = (
             </div>
           </div>
 
-          <div className="lg:col-span-5 bg-slate-50 dark:bg-[#070e22] border border-slate-200 dark:border-white/[0.08] rounded-3xl p-6 sm:p-7 space-y-5 flex flex-col justify-between">
+          <div className="lg:col-span-5 bg-slate-50 dark:bg-[#0c101c] border border-slate-200 dark:border-white/[0.08] rounded-3xl p-6 sm:p-7 space-y-5 flex flex-col justify-between">
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase">Dedicated Concierge</span>
@@ -244,7 +244,7 @@ export const FormationRoadmapSection: React.FC<FormationRoadmapSectionProps> = (
                 onClick={() => onOpenConsultation(`Roadmap Step ${steps[activeStep].id}: ${steps[activeStep].title}`)}
                 variant="primary"
                 size="md"
-                className="w-full font-bold text-xs shadow-lg shadow-sky-500/25 py-3"
+                className="w-full font-bold text-xs shadow-lg shadow-amber-500/20 py-3 bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 text-slate-950 hover:from-amber-300 hover:to-amber-400 border-none"
               >
                 <span>Start This Step With AM DXB</span>
                 <ArrowRight className="w-3.5 h-3.5 ml-1.5" />

@@ -61,17 +61,17 @@ export const UaeCostVisualizerSection: React.FC<UaeCostVisualizerSectionProps> =
   const convertedMonthly = Math.round((totalAed / 12) * curr.rate).toLocaleString();
 
   return (
-    <section id="cost-calculator" className="py-24 sm:py-32 bg-white dark:bg-[#030712] border-t border-slate-200 dark:border-white/[0.08] relative overflow-hidden transition-colors duration-300 font-sans">
+    <section id="cost-calculator" className="py-24 sm:py-32 bg-slate-50 dark:bg-[#090d16] border-t border-slate-200 dark:border-white/[0.08] relative overflow-hidden transition-colors duration-300 font-sans">
       
-      {/* Ambient background glow */}
-      <div className="absolute top-1/3 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-sky-500/10 rounded-full blur-[180px] pointer-events-none" />
+      {/* Ambient background warm glow */}
+      <div className="absolute top-1/3 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-amber-500/06 rounded-full blur-[180px] pointer-events-none" />
 
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
         <div className="max-w-3xl mb-14 space-y-3">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-sky-50 dark:bg-slate-900 border border-sky-400/30 text-xs font-mono font-bold text-sky-600 dark:text-sky-400 uppercase tracking-widest shadow-sm">
-            <Calculator className="w-3.5 h-3.5 text-sky-500 dark:text-sky-400" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-50 dark:bg-slate-900 border border-amber-400/30 text-xs font-mono font-bold text-amber-600 dark:text-amber-400 uppercase tracking-widest shadow-sm">
+            <Calculator className="w-3.5 h-3.5 text-amber-500 dark:text-amber-400" />
             <span>{isAr ? 'حاسبة التكاليف التفاعلية' : 'Interactive UAE Cost Simulator'}</span>
           </div>
 
@@ -79,7 +79,7 @@ export const UaeCostVisualizerSection: React.FC<UaeCostVisualizerSectionProps> =
             {isAr ? 'احسب تكلفة تأسيس شركتك بدقة وشفافية' : (
               <>
                 <span className="font-light text-slate-600 dark:text-slate-300">Simulate your exact </span>
-                <span className="font-bold text-slate-900 dark:text-white bg-gradient-to-r from-sky-500 via-cyan-400 to-emerald-400 bg-clip-text text-transparent">UAE setup investment</span>
+                <span className="font-bold text-slate-900 dark:text-white bg-gradient-to-r from-amber-400 via-amber-200 to-amber-500 bg-clip-text text-transparent">UAE setup investment</span>
               </>
             )}
           </h2>
@@ -95,7 +95,7 @@ export const UaeCostVisualizerSection: React.FC<UaeCostVisualizerSectionProps> =
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           {/* Left 7 Columns: Interactive Configuration Controls */}
-          <div className="lg:col-span-7 bg-slate-50 dark:bg-[#070d1e] border border-slate-200 dark:border-white/[0.08] rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl">
+          <div className="lg:col-span-7 bg-white dark:bg-[#0f1422] border border-slate-200 dark:border-white/[0.08] rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl">
             
             {/* 1. Jurisdiction Choice */}
             <div className="space-y-3">
@@ -114,12 +114,12 @@ export const UaeCostVisualizerSection: React.FC<UaeCostVisualizerSectionProps> =
                     onClick={() => setJurisdiction(j.id as any)}
                     className={'p-4 rounded-2xl border text-left transition-all cursor-pointer ' + (
                       jurisdiction === j.id
-                        ? 'bg-white dark:bg-sky-950/40 border-sky-500 shadow-md ring-1 ring-sky-400'
+                        ? 'bg-amber-50/50 dark:bg-amber-500/15 border-amber-500 shadow-md ring-1 ring-amber-400'
                         : 'bg-white/60 dark:bg-slate-900/60 border-slate-200 dark:border-white/[0.06] hover:border-slate-400'
                     )}
                   >
                     <span className="font-bold text-xs sm:text-sm text-slate-900 dark:text-white block">{j.label}</span>
-                    <span className="text-[10px] text-sky-600 dark:text-sky-300 font-mono mt-1 block">{j.sub}</span>
+                    <span className="text-[10px] text-amber-600 dark:text-amber-300 font-mono mt-1 block">{j.sub}</span>
                   </button>
                 ))}
               </div>
@@ -131,7 +131,7 @@ export const UaeCostVisualizerSection: React.FC<UaeCostVisualizerSectionProps> =
                 <label className="text-xs font-mono font-bold uppercase text-slate-500 dark:text-slate-400">
                   2. Executive & Investor Visas:
                 </label>
-                <span className="text-sm font-mono font-black px-3 py-1 rounded-full bg-sky-500 text-white shadow-sm">
+                <span className="text-sm font-mono font-black px-3 py-1 rounded-full bg-amber-500 text-slate-950 shadow-sm">
                   {visas} {visas === 1 ? 'Visa' : 'Visas'}
                 </span>
               </div>
@@ -141,7 +141,7 @@ export const UaeCostVisualizerSection: React.FC<UaeCostVisualizerSectionProps> =
                 max={6}
                 value={visas}
                 onChange={(e) => setVisas(parseInt(e.target.value))}
-                className="w-full accent-sky-500 cursor-pointer h-2 bg-slate-200 dark:bg-slate-800 rounded-lg"
+                className="w-full accent-amber-500 cursor-pointer h-2 bg-slate-200 dark:bg-slate-800 rounded-lg"
               />
               <div className="flex justify-between text-[10px] font-mono text-slate-500 dark:text-slate-400">
                 <span>0 Visas (Solo Holding)</span>
@@ -168,7 +168,7 @@ export const UaeCostVisualizerSection: React.FC<UaeCostVisualizerSectionProps> =
                     onClick={() => setOfficeType(o.id as any)}
                     className={'p-4 rounded-2xl border text-left transition-all cursor-pointer ' + (
                       officeType === o.id
-                        ? 'bg-white dark:bg-sky-950/40 border-sky-500 shadow-md ring-1 ring-sky-400'
+                        ? 'bg-amber-50/50 dark:bg-amber-500/15 border-amber-500 shadow-md ring-1 ring-amber-400'
                         : 'bg-white/60 dark:bg-slate-900/60 border-slate-200 dark:border-white/[0.06] hover:border-slate-400'
                     )}
                   >
@@ -182,13 +182,13 @@ export const UaeCostVisualizerSection: React.FC<UaeCostVisualizerSectionProps> =
           </div>
 
           {/* Right 5 Columns: Dynamic Quote Card & Breakdown */}
-          <div className="lg:col-span-5 bg-gradient-to-br from-slate-900 via-[#0a142c] to-slate-950 border border-sky-500/40 rounded-3xl p-7 sm:p-8 text-white space-y-6 shadow-2xl relative overflow-hidden">
+          <div className="lg:col-span-5 bg-gradient-to-br from-[#131929] via-[#0e1422] to-[#0a0e18] border border-amber-500/30 rounded-3xl p-7 sm:p-8 text-white space-y-6 shadow-2xl relative overflow-hidden">
             
-            {/* Ambient inner glow */}
-            <div className="absolute top-0 right-0 w-48 h-48 bg-sky-500/20 rounded-full blur-3xl pointer-events-none" />
+            {/* Ambient inner warm glow */}
+            <div className="absolute top-0 right-0 w-48 h-48 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
 
             <div className="space-y-1">
-              <span className="text-xs font-mono uppercase tracking-widest text-sky-400 block">
+              <span className="text-xs font-mono uppercase tracking-widest text-amber-400 block font-bold">
                 Estimated Turnkey Investment
               </span>
               <div className="flex items-baseline gap-2">
@@ -224,8 +224,8 @@ export const UaeCostVisualizerSection: React.FC<UaeCostVisualizerSectionProps> =
             </div>
 
             <div className="p-4 rounded-2xl bg-white/[0.05] border border-white/[0.08] space-y-1.5 text-xs">
-              <div className="flex items-center gap-1.5 text-sky-300 font-bold">
-                <ShieldCheck className="w-4 h-4 text-sky-400" />
+              <div className="flex items-center gap-1.5 text-amber-300 font-bold">
+                <ShieldCheck className="w-4 h-4 text-amber-400" />
                 <span>All-Inclusive Fixed Pricing Guarantee</span>
               </div>
               <p className="text-[11px] text-slate-300 leading-relaxed">
@@ -237,7 +237,7 @@ export const UaeCostVisualizerSection: React.FC<UaeCostVisualizerSectionProps> =
               onClick={() => onOpenConsultation(`Custom Setup: ${jurisdiction.toUpperCase()} with ${visas} Visas (${curr.symbol}${convertedTotal})`)}
               variant="primary"
               size="md"
-              className="w-full font-bold text-xs shadow-lg shadow-sky-500/30 py-3.5"
+              className="w-full font-bold text-xs shadow-lg shadow-amber-500/20 py-3.5 bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 text-slate-950 hover:from-amber-300 hover:to-amber-400 border-none"
             >
               <span>Lock In This Quotation</span>
               <ArrowRight className="w-4 h-4 ml-1.5" />

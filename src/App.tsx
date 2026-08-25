@@ -117,9 +117,9 @@ export function App() {
   const t = TRANSLATIONS[lang];
 
   return (
-    <div className={'min-h-screen ' + (isDarkMode ? 'dark bg-[#030712] text-slate-100' : 'light bg-[#f8fafc] text-slate-900') + ' flex flex-col antialiased selection:bg-sky-500 selection:text-white font-sans transition-colors duration-300 relative'}>
+    <div className={'min-h-screen ' + (isDarkMode ? 'dark bg-[#090d16] text-slate-100' : 'light bg-[#f8fafc] text-slate-900') + ' flex flex-col antialiased selection:bg-amber-500/30 selection:text-white font-sans transition-colors duration-300 relative'}>
       
-      {/* Dynamic, Reactive Ambient Canvas: Blueprint Mesh Grid + Mouse Spotlight + Floating Color Waves */}
+      {/* Dynamic, Reactive Ambient Canvas: Warm Luxury Atmospheric Lights */}
       <AmbientBackgroundCanvas />
 
       {/* Enterprise System Live Status & Quick Search Header Bar */}

@@ -1,4 +1,4 @@
-﻿import React, { useRef } from 'react';
+import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import {
   Sparkles,
@@ -64,20 +64,20 @@ export const HeroCompanyConfigurator: React.FC<HeroCompanyConfiguratorProps> = (
           {/* Left 6 Cols: Linear / Stripe Inspired Luxury Typography & Narrative */}
           <div className="lg:col-span-6 xl:col-span-6 space-y-4 text-left">
             
-            {/* Glowing Shimmer Authority Pill */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-950/80 backdrop-blur-2xl border border-sky-500/30 text-[11px] sm:text-xs font-mono text-slate-300 shadow-[0_0_20px_rgba(56,189,248,0.15)]">
-              <span className="w-2 h-2 rounded-full bg-sky-400 animate-ping shrink-0" />
-              <span className="font-bold text-sky-400 tracking-wider truncate max-w-[280px] sm:max-w-none">
+            {/* Warm Shimmer Authority Pill */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 backdrop-blur-2xl border border-amber-500/20 text-[11px] sm:text-xs font-mono text-slate-300 shadow-sm">
+              <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping shrink-0" />
+              <span className="font-bold text-amber-300 tracking-wider truncate max-w-[280px] sm:max-w-none">
                 {isAr ? 'مجمع الشارقة للبحوث والابتكار (SRTI Park) • ترخيص B34-B047' : 'SHARJAH INNOVATION DISTRICT • LICENSE #B34-B047'}
               </span>
             </div>
 
-            {/* Apple-Tier Two-Tone Typography with Metallic Glow */}
+            {/* Two-Tone Typography with Warm Subtle Glow */}
             <h1 className="text-3xl sm:text-5xl lg:text-6xl tracking-tight leading-[1.1] font-sans">
-              <span className="font-light bg-gradient-to-r from-slate-200 via-white to-slate-400 bg-clip-text text-transparent block">
+              <span className="font-light bg-gradient-to-r from-slate-100 via-white to-slate-300 bg-clip-text text-transparent block">
                 {isAr ? 'تأسيس وإطلاق الشركات الذكية' : 'Incorporate your enterprise'}
               </span>
-              <span className="font-black text-white block mt-1 drop-shadow-[0_0_40px_rgba(56,189,248,0.25)]">
+              <span className="font-black text-white block mt-1 drop-shadow-[0_0_35px_rgba(212,175,55,0.15)]">
                 {isAr ? 'في دولة الإمارات العربية المتحدة' : 'in the United Arab Emirates'}
               </span>
             </h1>
@@ -92,19 +92,19 @@ export const HeroCompanyConfigurator: React.FC<HeroCompanyConfiguratorProps> = (
 
             {/* High-Tech Glassmorphic Value Chips */}
             <div className="grid grid-cols-2 gap-2 sm:gap-2.5 max-w-md text-[11px] sm:text-xs font-mono text-slate-200">
-              <div className="flex items-center gap-1.5 sm:gap-2 bg-gradient-to-b from-slate-900/80 to-slate-950/90 backdrop-blur-xl px-3 py-2 rounded-xl border border-white/[0.08] shadow-sm hover:border-sky-500/30 transition-colors">
+              <div className="flex items-center gap-1.5 sm:gap-2 bg-slate-900/80 backdrop-blur-xl px-3 py-2 rounded-xl border border-white/[0.08] shadow-sm hover:border-amber-500/30 transition-colors">
                 <CheckCircle2 className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-emerald-400 shrink-0" />
                 <span className="truncate">{isAr ? 'ملكية أجنبية 100%' : '100% Expat Ownership'}</span>
               </div>
-              <div className="flex items-center gap-1.5 sm:gap-2 bg-gradient-to-b from-slate-900/80 to-slate-950/90 backdrop-blur-xl px-3 py-2 rounded-xl border border-white/[0.08] shadow-sm hover:border-sky-500/30 transition-colors">
+              <div className="flex items-center gap-1.5 sm:gap-2 bg-slate-900/80 backdrop-blur-xl px-3 py-2 rounded-xl border border-white/[0.08] shadow-sm hover:border-amber-500/30 transition-colors">
                 <CheckCircle2 className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-emerald-400 shrink-0" />
                 <span className="truncate">{isAr ? '0% ضريبة دخل شخصي' : '0% Personal Income Tax'}</span>
               </div>
-              <div className="flex items-center gap-1.5 sm:gap-2 bg-gradient-to-b from-slate-900/80 to-slate-950/90 backdrop-blur-xl px-3 py-2 rounded-xl border border-white/[0.08] shadow-sm hover:border-sky-500/30 transition-colors">
+              <div className="flex items-center gap-1.5 sm:gap-2 bg-slate-900/80 backdrop-blur-xl px-3 py-2 rounded-xl border border-white/[0.08] shadow-sm hover:border-amber-500/30 transition-colors">
                 <CheckCircle2 className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-emerald-400 shrink-0" />
                 <span className="truncate">{isAr ? 'إصدار الرخصة في 48 ساعة' : '2-4 Days Fast-Track'}</span>
               </div>
-              <div className="flex items-center gap-1.5 sm:gap-2 bg-gradient-to-b from-slate-900/80 to-slate-950/90 backdrop-blur-xl px-3 py-2 rounded-xl border border-white/[0.08] shadow-sm hover:border-sky-500/30 transition-colors">
+              <div className="flex items-center gap-1.5 sm:gap-2 bg-slate-900/80 backdrop-blur-xl px-3 py-2 rounded-xl border border-white/[0.08] shadow-sm hover:border-amber-500/30 transition-colors">
                 <CheckCircle2 className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-emerald-400 shrink-0" />
                 <span className="truncate">{isAr ? 'حسابات بنكية من الفئة الأولى' : 'Tier-1 Bank IBAN Setup'}</span>
               </div>
@@ -114,7 +114,7 @@ export const HeroCompanyConfigurator: React.FC<HeroCompanyConfiguratorProps> = (
             <div className="flex flex-wrap items-center gap-2.5 pt-2">
               <button
                 onClick={() => onOpenConsultation('Free Zone Setup')}
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-sky-400 via-cyan-400 to-sky-500 hover:from-sky-300 hover:to-cyan-300 text-slate-950 font-black text-xs uppercase tracking-wider shadow-[0_0_25px_rgba(56,189,248,0.35)] transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-black text-xs uppercase tracking-wider shadow-lg shadow-amber-500/20 transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
               >
                 <span>{isAr ? 'احجز استشارتك المجانية' : 'Get started for free'}</span>
                 <ChevronRight className={'w-4 h-4 ' + (isAr ? 'rotate-180' : '')} />
@@ -132,9 +132,9 @@ export const HeroCompanyConfigurator: React.FC<HeroCompanyConfiguratorProps> = (
 
               <a
                 href="tel:+971563396961"
-                className="inline-flex items-center gap-1.5 px-3.5 py-3 rounded-xl bg-slate-900/60 border border-white/10 hover:border-sky-400 text-xs font-mono text-slate-300 hover:text-white transition-all backdrop-blur-xl"
+                className="inline-flex items-center gap-1.5 px-3.5 py-3 rounded-xl bg-slate-900/60 border border-white/10 hover:border-amber-400 text-xs font-mono text-slate-300 hover:text-white transition-all backdrop-blur-xl"
               >
-                <Phone className="w-3.5 h-3.5 text-sky-400" />
+                <Phone className="w-3.5 h-3.5 text-emerald-400" />
                 <span dir="ltr">+971 56 339 6961</span>
               </a>
             </div>
