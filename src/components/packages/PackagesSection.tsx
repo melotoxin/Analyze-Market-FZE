@@ -86,10 +86,10 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
   ];
 
   return (
-    <section id="packages" className="py-24 sm:py-32 bg-[#060913] border-t border-white/[0.08] relative overflow-hidden transition-colors duration-300 font-sans">
+    <section id="packages" className="py-24 sm:py-32 bg-[#050811] border-t border-white/[0.08] relative overflow-hidden transition-colors duration-300 font-sans">
       
       {/* Ambient background glow */}
-      <div className="absolute top-1/2 left-1/3 -translate-y-1/2 w-[500px] h-[500px] bg-sky-500/10 rounded-full blur-[160px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/3 -translate-y-1/2 w-[550px] h-[550px] bg-sky-500/10 rounded-full blur-[180px] pointer-events-none" />
 
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
@@ -117,22 +117,22 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
         </div>
 
         {/* 4 Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {packages.map((pkg) => {
             const Icon = pkg.icon;
 
             return (
               <div
                 key={pkg.id}
-                className={'bg-[#0b1329] border rounded-3xl p-6 flex flex-col justify-between transition-all group motion-card relative ' + (
+                className={'bg-gradient-to-b from-[#0e172e]/85 to-[#070b16]/95 border rounded-3xl p-6 sm:p-7 flex flex-col justify-between transition-all group motion-card relative backdrop-blur-2xl shadow-xl hover:shadow-[0_0_40px_rgba(56,189,248,0.18)] hover:-translate-y-1 ' + (
                   pkg.popular
-                    ? 'border-sky-400 shadow-2xl shadow-sky-500/15'
+                    ? 'border-sky-400/80 ring-1 ring-sky-400/50'
                     : 'border-white/[0.08] hover:border-sky-500/50'
                 )}
               >
                 {/* Popular Glow Indicator */}
                 {pkg.popular && (
-                  <div className="absolute top-0 right-8 -translate-y-1/2 px-3 py-0.5 rounded-full bg-gradient-to-r from-sky-500 to-cyan-400 text-slate-950 font-bold font-mono text-[10px] uppercase tracking-wider shadow-md">
+                  <div className="absolute top-0 right-8 -translate-y-1/2 px-3.5 py-1 rounded-full bg-gradient-to-r from-sky-400 via-cyan-400 to-sky-500 text-slate-950 font-black font-mono text-[10px] uppercase tracking-wider shadow-[0_0_20px_rgba(56,189,248,0.5)]">
                     {pkg.badge}
                   </div>
                 )}
@@ -141,44 +141,44 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
                   
                   {/* Top Header with Icon */}
                   <div className="flex items-start justify-between">
-                    <div className="p-3 rounded-2xl bg-sky-500/15 text-sky-400 border border-sky-500/20 group-hover:scale-105 transition-transform">
+                    <div className="p-3 rounded-2xl bg-sky-500/15 text-sky-400 border border-sky-500/25 group-hover:scale-105 transition-transform shadow-inner">
                       <Icon className="w-6 h-6" />
                     </div>
                     {!pkg.popular && (
-                      <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-slate-900 text-slate-400 border border-white/[0.08]">
+                      <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-slate-900/90 text-slate-400 border border-white/[0.08]">
                         {pkg.badge}
                       </span>
                     )}
                   </div>
 
                   <div>
-                    <h3 className="text-lg sm:text-xl font-bold text-white font-sans group-hover:text-sky-300 transition-colors">
+                    <h3 className="text-xl font-bold text-white font-sans group-hover:text-sky-300 transition-colors">
                       {pkg.title}
                     </h3>
-                    <p className="text-xs text-slate-400 mt-1 leading-relaxed">
+                    <p className="text-xs text-slate-300 mt-1.5 leading-relaxed">
                       {pkg.subtitle}
                     </p>
                   </div>
 
                   {/* Price Banner */}
-                  <div className="p-3.5 bg-[#080e20] rounded-2xl border border-white/[0.08] space-y-1 font-mono">
+                  <div className="p-4 bg-[#080e20]/90 rounded-2xl border border-white/[0.08] space-y-1 font-mono shadow-inner">
                     <span className="text-[10px] text-slate-400 uppercase tracking-wider block">Starting Investment:</span>
-                    <span className="text-2xl font-black text-white block">{pkg.price}</span>
-                    <div className="flex items-center gap-1.5 text-[11px] text-emerald-400 pt-0.5">
+                    <span className="text-2xl font-black text-white block tracking-tight">{pkg.price}</span>
+                    <div className="flex items-center gap-1.5 text-[11px] text-emerald-400 pt-1 font-semibold">
                       <Clock className="w-3.5 h-3.5" />
                       <span>{pkg.turnaround}</span>
                     </div>
                   </div>
 
                   {/* Key Highlights */}
-                  <div className="space-y-2 pt-2 border-t border-white/[0.08]">
+                  <div className="space-y-2.5 pt-3 border-t border-white/[0.08]">
                     <span className="text-[11px] font-mono uppercase text-slate-400 font-bold block">
                       Included Deliverables:
                     </span>
                     <ul className="space-y-2">
                       {pkg.features.map((feat, idx) => (
                         <li key={idx} className="flex items-start gap-2 text-xs text-slate-300">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
+                          <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
                           <span className="leading-snug">{feat}</span>
                         </li>
                       ))}
@@ -193,7 +193,7 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
                     onClick={() => onSelectPackage(pkg.title)}
                     variant={pkg.popular ? 'primary' : 'secondary'}
                     size="md"
-                    className="w-full justify-center text-xs font-bold shadow-md py-2.5"
+                    className="w-full justify-center text-xs font-bold shadow-md py-3"
                   >
                     <span>{isAr ? 'طلب التأسيس الآن' : 'Incorporate Now'}</span>
                     <ArrowRight className={'w-3.5 h-3.5 ml-1.5 ' + (isAr ? 'rotate-180' : '')} />
