@@ -23,6 +23,7 @@ import { Button } from '../ui/Button';
 import { Language, TRANSLATIONS } from '../../data/translations';
 import { UserSession } from '../auth/AuthModal';
 import { AmDxbLogo } from '../ui/AmDxbLogo';
+import { ServiceSlug } from '../../data/servicesData';
 
 interface NavbarProps {
   onOpenConsultation: (serviceName?: string) => void;
@@ -33,6 +34,8 @@ interface NavbarProps {
   onLogout: () => void;
   lang: Language;
   onToggleLang: () => void;
+  onNavigateService?: (slug: ServiceSlug) => void;
+  onNavigateHome?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -43,7 +46,9 @@ export const Navbar: React.FC<NavbarProps> = ({
   user,
   onLogout,
   lang,
-  onToggleLang
+  onToggleLang,
+  onNavigateService,
+  onNavigateHome
 }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
@@ -76,23 +81,31 @@ export const Navbar: React.FC<NavbarProps> = ({
     };
   }, []);
 
-  const servicesList = [
-    { name: isAr ? 'تأسيس الشركات' : 'Company Incorporation', href: '#packages', serviceKey: 'Company Incorporation' },
-    { name: isAr ? 'خدمات تصفية وإلغاء الشركات' : 'Company Liquidation Services', href: '#other-services', serviceKey: 'Company Liquidation' },
-    { name: isAr ? 'خدمات الإقامة الذهبية' : 'Golden Visa Services', href: '#other-services', serviceKey: 'Golden Visa Services' },
-    { name: isAr ? 'خدمات تجديد الرخص (PRO)' : 'License Renewal (PRO) Services', href: '#other-services', serviceKey: 'License Renewal (PRO)' },
-    { name: isAr ? 'خدمات ضريبة الشركات وضريبة القيمة المضافة' : 'VAT & Corporate Tax Filing Services', href: '#other-services', serviceKey: 'VAT & Corporate Tax' },
-    { name: isAr ? 'خدمات التدقيق والضمان المالي' : 'Audit & Assurance Services', href: '#other-services', serviceKey: 'Audit & Assurance' },
-    { name: isAr ? 'خدمات المحاسبة ومسك الدفاتر' : 'Accounting Services', href: '#other-services', serviceKey: 'Accounting Services' },
+  const servicesList: { name: string; slug: ServiceSlug }[] = [
+    { name: isAr ? 'تأسيس الشركات' : 'Company Incorporation', slug: 'company-incorporation' },
+    { name: isAr ? 'خدمات تصفية وإلغاء الشركات' : 'Company Liquidation Services', slug: 'company-liquidation-services' },
+    { name: isAr ? 'خدمات الإقامة الذهبية' : 'Golden Visa Services', slug: 'golden-visa-services' },
+    { name: isAr ? 'خدمات تجديد الرخص (PRO)' : 'License Renewal (PRO) Services', slug: 'license-renewal-pro-services' },
+    { name: isAr ? 'خدمات ضريبة الشركات وضريبة القيمة المضافة' : 'VAT & Corporate Tax Filing Services', slug: 'vat-corporate-tax-filing-services' },
+    { name: isAr ? 'خدمات التدقيق والضمان المالي' : 'Audit & Assurance Services', slug: 'audit-and-assurance-services' },
+    { name: isAr ? 'خدمات المحاسبة ومسك الدفاتر' : 'Accounting Services', slug: 'accounting-services' },
   ];
 
-  const handleServiceClick = (item: typeof servicesList[0]) => {
+  const handleServiceClick = (slug: ServiceSlug) => {
     setServicesOpen(false);
     setMobileMenuOpen(false);
-    const elem = document.querySelector(item.href);
-    if (elem) {
-      elem.scrollIntoView({ behavior: 'smooth' });
+    if (onNavigateService) {
+      onNavigateService(slug);
     }
+  };
+
+  const handleHomeClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setMobileMenuOpen(false);
+    if (onNavigateHome) {
+      onNavigateHome();
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -104,20 +117,20 @@ export const Navbar: React.FC<NavbarProps> = ({
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-3">
         
         {/* Brand Logo */}
-        <a href="#" className="flex items-center gap-3 shrink-0 whitespace-nowrap group">
+        <button onClick={handleHomeClick} className="flex items-center gap-3 shrink-0 whitespace-nowrap group text-left cursor-pointer">
           <AmDxbLogo size="sm" />
-        </a>
+        </button>
 
         {/* Central Navigation Menu matching live amdxb.com */}
         <nav className="hidden lg:flex items-center space-x-1 xl:space-x-2 whitespace-nowrap font-sans">
           
           {/* Home */}
-          <a
-            href="#"
-            className="text-xs font-semibold text-slate-200 hover:text-white px-3 py-1.5 rounded-lg hover:bg-white/[0.06] transition-colors whitespace-nowrap"
+          <button
+            onClick={handleHomeClick}
+            className="text-xs font-semibold text-slate-200 hover:text-white px-3 py-1.5 rounded-lg hover:bg-white/[0.06] transition-colors whitespace-nowrap cursor-pointer"
           >
             {isAr ? 'الرئيسية' : 'Home'}
-          </a>
+          </button>
 
           {/* Our Services Dropdown Menu Box */}
           <div
@@ -138,16 +151,17 @@ export const Navbar: React.FC<NavbarProps> = ({
               <ChevronDown className={'w-3.5 h-3.5 transition-transform duration-200 ' + (servicesOpen ? 'rotate-180 text-sky-400' : 'text-slate-400')} />
             </button>
 
-            {/* Dropped Menu Box (Matching amdxb.com exact list) */}
+            {/* Dropped Menu Box (7 Dedicated Service Pages) */}
             {servicesOpen && (
               <div className="absolute left-0 mt-1 w-72 bg-[#090e1f] border border-[#1e293b] rounded-2xl shadow-2xl py-2 z-50 animate-scaleUp font-sans text-xs divide-y divide-[#1e293b]/60">
                 {servicesList.map((svc, idx) => (
                   <button
                     key={idx}
-                    onClick={() => handleServiceClick(svc)}
+                    onClick={() => handleServiceClick(svc.slug)}
                     className="w-full text-left px-4 py-2.5 text-slate-200 hover:text-sky-300 hover:bg-sky-500/10 transition-colors cursor-pointer flex items-center justify-between group"
                   >
                     <span className="font-medium text-xs leading-snug">{svc.name}</span>
+                    <span className="text-[10px] font-mono text-sky-400 opacity-0 group-hover:opacity-100 transition-opacity">➔</span>
                   </button>
                 ))}
               </div>
@@ -157,6 +171,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Free Zones */}
           <a
             href="#freezones"
+            onClick={() => { if (onNavigateHome) onNavigateHome(); }}
             className="text-xs font-semibold text-slate-200 hover:text-white px-3 py-1.5 rounded-lg hover:bg-white/[0.06] transition-colors whitespace-nowrap"
           >
             {isAr ? 'المناطق الحرة' : 'Free Zones'}
@@ -165,6 +180,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Packages */}
           <a
             href="#packages"
+            onClick={() => { if (onNavigateHome) onNavigateHome(); }}
             className="text-xs font-semibold text-slate-200 hover:text-white px-3 py-1.5 rounded-lg hover:bg-white/[0.06] transition-colors whitespace-nowrap"
           >
             {isAr ? 'الباقات' : 'Packages'}
@@ -173,6 +189,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* About */}
           <a
             href="#about"
+            onClick={() => { if (onNavigateHome) onNavigateHome(); }}
             className="text-xs font-semibold text-slate-200 hover:text-white px-3 py-1.5 rounded-lg hover:bg-white/[0.06] transition-colors whitespace-nowrap"
           >
             {isAr ? 'عن الشركة' : 'About'}
@@ -181,6 +198,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Contact Us */}
           <a
             href="#faq"
+            onClick={() => { if (onNavigateHome) onNavigateHome(); }}
             className="text-xs font-semibold text-slate-200 hover:text-white px-3 py-1.5 rounded-lg hover:bg-white/[0.06] transition-colors whitespace-nowrap"
           >
             {isAr ? 'اتصل بنا' : 'Contact Us'}
@@ -313,13 +331,12 @@ export const Navbar: React.FC<NavbarProps> = ({
       {mobileMenuOpen && (
         <div className="lg:hidden bg-[#070b16] border-b border-white/[0.08] px-4 pt-3 pb-5 space-y-2.5 mt-2 shadow-2xl font-sans">
           <div className="flex flex-col space-y-1">
-            <a
-              href="#"
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-slate-200 hover:text-sky-400 font-medium py-2 px-3 rounded-lg hover:bg-white/[0.06] text-sm"
+            <button
+              onClick={handleHomeClick}
+              className="text-left text-slate-200 hover:text-sky-400 font-medium py-2 px-3 rounded-lg hover:bg-white/[0.06] text-sm"
             >
               {isAr ? 'الرئيسية' : 'Home'}
-            </a>
+            </button>
 
             <div className="px-3 py-1 text-xs font-mono font-bold text-sky-400 uppercase">
               {isAr ? 'خدماتنا:' : 'Our Services:'}
@@ -327,16 +344,17 @@ export const Navbar: React.FC<NavbarProps> = ({
             {servicesList.map((svc, idx) => (
               <button
                 key={idx}
-                onClick={() => handleServiceClick(svc)}
-                className="text-left text-slate-300 hover:text-sky-300 py-1.5 px-5 text-xs font-medium cursor-pointer"
+                onClick={() => handleServiceClick(svc.slug)}
+                className="text-left text-slate-300 hover:text-sky-300 py-1.5 px-5 text-xs font-medium cursor-pointer flex items-center justify-between"
               >
-                {svc.name}
+                <span>{svc.name}</span>
+                <span className="text-[10px] text-sky-400">➔</span>
               </button>
             ))}
 
             <a
               href="#freezones"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={() => { setMobileMenuOpen(false); if (onNavigateHome) onNavigateHome(); }}
               className="text-slate-200 hover:text-sky-400 font-medium py-2 px-3 rounded-lg hover:bg-white/[0.06] text-sm"
             >
               {isAr ? 'المناطق الحرة' : 'Free Zones'}
@@ -344,7 +362,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             <a
               href="#about"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={() => { setMobileMenuOpen(false); if (onNavigateHome) onNavigateHome(); }}
               className="text-slate-200 hover:text-sky-400 font-medium py-2 px-3 rounded-lg hover:bg-white/[0.06] text-sm"
             >
               {isAr ? 'عن الشركة' : 'About'}
@@ -352,7 +370,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             <a
               href="#faq"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={() => { setMobileMenuOpen(false); if (onNavigateHome) onNavigateHome(); }}
               className="text-slate-200 hover:text-sky-400 font-medium py-2 px-3 rounded-lg hover:bg-white/[0.06] text-sm"
             >
               {isAr ? 'اتصل بنا' : 'Contact Us'}

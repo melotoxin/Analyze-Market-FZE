@@ -4,13 +4,15 @@ import { COMPANY_DETAILS } from '../../data/mockData';
 import { Button } from '../ui/Button';
 import { Language, TRANSLATIONS } from '../../data/translations';
 import { AmDxbLogo } from '../ui/AmDxbLogo';
+import { ServiceSlug } from '../../data/servicesData';
 
 interface FooterProps {
   onOpenConsultation: () => void;
+  onNavigateService?: (slug: ServiceSlug) => void;
   lang: Language;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onOpenConsultation, lang }) => {
+export const Footer: React.FC<FooterProps> = ({ onOpenConsultation, onNavigateService, lang }) => {
   const t = TRANSLATIONS[lang];
   const isAr = lang === 'ar';
   const [quickPhone, setQuickPhone] = useState('');
@@ -24,6 +26,16 @@ export const Footer: React.FC<FooterProps> = ({ onOpenConsultation, lang }) => {
       setQuickPhone('');
     }
   };
+
+  const services = [
+    { name: isAr ? 'تأسيس الشركات (Mainland & Free Zone)' : 'Company Incorporation Services', slug: 'company-incorporation' as ServiceSlug },
+    { name: isAr ? 'خدمات تصفية وإلغاء الشركات' : 'Company Liquidation Services', slug: 'company-liquidation-services' as ServiceSlug },
+    { name: isAr ? 'خدمات الإقامة الذهبية (10 سنوات)' : 'Golden Visa Services (10-Year)', slug: 'golden-visa-services' as ServiceSlug },
+    { name: isAr ? 'تجديد الرخص وخدمات العلاقات العامة' : 'License Renewal (PRO) Services', slug: 'license-renewal-pro-services' as ServiceSlug },
+    { name: isAr ? 'الإقرارات الضريبية وضريبة الشركات' : 'VAT & Corporate Tax Filing', slug: 'vat-corporate-tax-filing-services' as ServiceSlug },
+    { name: isAr ? 'خدمات التدقيق والضمان المالي' : 'Audit & Assurance Services', slug: 'audit-and-assurance-services' as ServiceSlug },
+    { name: isAr ? 'خدمات المحاسبة ومسك الدفاتر' : 'Accounting & Bookkeeping Services', slug: 'accounting-services' as ServiceSlug },
+  ];
 
   return (
     <footer className="bg-slate-100 dark:bg-[#070b16] border-t border-slate-200 dark:border-[#1e293b] text-slate-500 dark:text-slate-400 text-xs relative z-10 font-sans transition-colors duration-300">
@@ -87,12 +99,16 @@ export const Footer: React.FC<FooterProps> = ({ onOpenConsultation, lang }) => {
             {t.footerServicesTitle}
           </h4>
           <ul className="space-y-2 text-xs">
-            <li><a href="#packages" className="hover:text-sky-500 transition-colors">{isAr ? 'تأسيس شركات البر الرئيسي (LLC)' : 'Mainland Companies (LLC Setup)'}</a></li>
-            <li><a href="#freezones" className="hover:text-sky-500 transition-colors">{isAr ? 'شركات المناطق الحرة (40+)' : 'Free Zone Companies (40+ Zones)'}</a></li>
-            <li><a href="#other-services" className="hover:text-sky-500 transition-colors">{isAr ? 'خدمات الإقامة الذهبية (10 سنوات)' : 'Golden Visa Services (10-Year)'}</a></li>
-            <li><a href="#other-services" className="hover:text-sky-500 transition-colors">{isAr ? 'تجديد الرخص وخدمات العلاقات العامة' : 'License Renewal (PRO) Services'}</a></li>
-            <li><a href="#other-services" className="hover:text-sky-500 transition-colors">{isAr ? 'الإقرارات الضريبية وضريبة الشركات' : 'VAT & Corporate Tax Filing'}</a></li>
-            <li><a href="#other-services" className="hover:text-sky-500 transition-colors">{isAr ? 'التدقيق والمحاسبة المالية' : 'Audit & Accounting Services'}</a></li>
+            {services.map((s, idx) => (
+              <li key={idx}>
+                <button
+                  onClick={() => onNavigateService && onNavigateService(s.slug)}
+                  className="hover:text-sky-400 transition-colors text-left cursor-pointer"
+                >
+                  {s.name}
+                </button>
+              </li>
+            ))}
           </ul>
         </div>
 

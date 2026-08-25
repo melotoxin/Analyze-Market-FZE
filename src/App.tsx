@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/layout/Navbar';
 import { TrustBar } from './components/trust/TrustBar';
 import { Footer } from './components/layout/Footer';
@@ -15,6 +15,8 @@ import { AuthModal, UserSession } from './components/auth/AuthModal';
 import { SettingsModal } from './components/settings/SettingsModal';
 import { AdminDashboard } from './components/admin/AdminDashboard';
 import { AmbientBackgroundCanvas } from './components/layout/AmbientBackgroundCanvas';
+import { ServiceDetailPage } from './components/services/ServiceDetailPage';
+import { ServiceSlug } from './data/servicesData';
 import { ScrollReveal } from './components/ui/ScrollReveal';
 import { Language, TRANSLATIONS } from './data/translations';
 import { Sparkles, MessageCircle } from 'lucide-react';
@@ -23,6 +25,9 @@ export function App() {
   const [isConsultationOpen, setIsConsultationOpen] = useState(false);
   const [selectedPackage, setSelectedPackage] = useState<string | undefined>(undefined);
   
+  // Dedicated Service Page routing state
+  const [activeServiceSlug, setActiveServiceSlug] = useState<ServiceSlug | null>(null);
+
   // Theme & Language & Currency State
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [lang, setLang] = useState<Language>('en');
@@ -69,6 +74,16 @@ export function App() {
     setIsConsultationOpen(true);
   };
 
+  const handleNavigateService = (slug: ServiceSlug) => {
+    setActiveServiceSlug(slug);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleNavigateHome = () => {
+    setActiveServiceSlug(null);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const handleLoginSuccess = (session: UserSession) => {
     setUser(session);
   };
@@ -95,84 +110,100 @@ export function App() {
         onLogout={handleLogout}
         lang={lang}
         onToggleLang={toggleLanguage}
+        onNavigateService={handleNavigateService}
+        onNavigateHome={handleNavigateHome}
       />
 
-      {/* Main Content Sections with Scroll-Driven Motion */}
-      <main className="flex-grow relative z-10">
-        {/* 1. High-Impact 1-Screen Hero & Venture — The Estimator */}
-        <HeroCompanyConfigurator
-          onOpenConsultation={(details) => handleOpenConsultation(details)}
-          lang={lang}
-          currency={currency}
-        />
-
-        {/* 2. Official Government Authorities & Tier-1 Banking Partner Bar */}
-        <ScrollReveal direction="up" delay={0.1}>
-          <TrustBar lang={lang} />
-        </ScrollReveal>
-
-        {/* 3. Interactive 3-Way Jurisdiction Comparison Matrix */}
-        <ScrollReveal direction="up" delay={0.1}>
-          <JurisdictionComparison
-            onOpenConsultation={(jurisdiction) => handleOpenConsultation(jurisdiction)}
-            lang={lang}
-          />
-        </ScrollReveal>
-
-        {/* 4. Complete Formation Packages (Free Zone, Mainland, Offshore, Dual License) */}
-        <ScrollReveal direction="up" delay={0.1}>
-          <PackagesSection
-            onSelectPackage={(pkgTitle) => handleOpenConsultation(pkgTitle)}
-            lang={lang}
-            currency={currency}
-          />
-        </ScrollReveal>
-
-        {/* 5. 40+ Free Zones Explorer & Discovery Hub */}
-        <ScrollReveal direction="up" delay={0.1}>
-          <FreeZonesDirectory
-            onOpenConsultation={() => handleOpenConsultation('Free Zone Company')}
-            lang={lang}
-            currency={currency}
-          />
-        </ScrollReveal>
-
-        {/* 6. Complete Corporate Lifecycle Services (from amdxb.com) */}
-        <ScrollReveal direction="up" delay={0.1}>
-          <OtherServicesSection
+      {/* Main Content: Render Dedicated Service Page OR Full Platform Home */}
+      {activeServiceSlug ? (
+        <main className="flex-grow relative z-10">
+          <ServiceDetailPage
+            slug={activeServiceSlug}
+            onBack={handleNavigateHome}
+            onSelectService={handleNavigateService}
             onOpenConsultation={(svc) => handleOpenConsultation(svc)}
             lang={lang}
           />
-        </ScrollReveal>
-
-        {/* 7. Why UAE? Global Economic Power */}
-        <ScrollReveal direction="up" delay={0.1}>
-          <WhyUaeSection
-            onOpenConsultation={() => handleOpenConsultation()}
+        </main>
+      ) : (
+        <main className="flex-grow relative z-10">
+          {/* 1. High-Impact 1-Screen Hero & Venture — The Estimator */}
+          <HeroCompanyConfigurator
+            onOpenConsultation={(details) => handleOpenConsultation(details)}
             lang={lang}
+            currency={currency}
           />
-        </ScrollReveal>
 
-        {/* 8. Interactive Frequently Asked Questions */}
-        <ScrollReveal direction="up" delay={0.1}>
-          <FaqSection
-            onOpenConsultation={() => handleOpenConsultation()}
-            lang={lang}
-          />
-        </ScrollReveal>
+          {/* 2. Official Government Authorities & Tier-1 Banking Partner Bar */}
+          <ScrollReveal direction="up" delay={0.1}>
+            <TrustBar lang={lang} />
+          </ScrollReveal>
 
-        {/* 9. About AnalyzeMarkets FZE (SRTI Sharjah HQ) */}
-        <ScrollReveal direction="up" delay={0.1}>
-          <AboutSection
-            onOpenConsultation={() => handleOpenConsultation()}
-            lang={lang}
-          />
-        </ScrollReveal>
-      </main>
+          {/* 3. Interactive 3-Way Jurisdiction Comparison Matrix */}
+          <ScrollReveal direction="up" delay={0.1}>
+            <JurisdictionComparison
+              onOpenConsultation={(jurisdiction) => handleOpenConsultation(jurisdiction)}
+              lang={lang}
+            />
+          </ScrollReveal>
+
+          {/* 4. Complete Formation Packages (Free Zone, Mainland, Offshore, Dual License) */}
+          <ScrollReveal direction="up" delay={0.1}>
+            <PackagesSection
+              onSelectPackage={(pkgTitle) => handleOpenConsultation(pkgTitle)}
+              lang={lang}
+              currency={currency}
+            />
+          </ScrollReveal>
+
+          {/* 5. 40+ Free Zones Explorer & Discovery Hub */}
+          <ScrollReveal direction="up" delay={0.1}>
+            <FreeZonesDirectory
+              onOpenConsultation={() => handleOpenConsultation('Free Zone Company')}
+              lang={lang}
+              currency={currency}
+            />
+          </ScrollReveal>
+
+          {/* 6. Complete Corporate Lifecycle Services (from amdxb.com) */}
+          <ScrollReveal direction="up" delay={0.1}>
+            <OtherServicesSection
+              onOpenConsultation={(svc) => handleOpenConsultation(svc)}
+              onNavigateService={handleNavigateService}
+              lang={lang}
+            />
+          </ScrollReveal>
+
+          {/* 7. Why UAE? Global Economic Power */}
+          <ScrollReveal direction="up" delay={0.1}>
+            <WhyUaeSection
+              onOpenConsultation={() => handleOpenConsultation()}
+              lang={lang}
+            />
+          </ScrollReveal>
+
+          {/* 8. Interactive Frequently Asked Questions */}
+          <ScrollReveal direction="up" delay={0.1}>
+            <FaqSection
+              onOpenConsultation={() => handleOpenConsultation()}
+              lang={lang}
+            />
+          </ScrollReveal>
+
+          {/* 9. About AnalyzeMarkets FZE (SRTI Sharjah HQ) */}
+          <ScrollReveal direction="up" delay={0.1}>
+            <AboutSection
+              onOpenConsultation={() => handleOpenConsultation()}
+              lang={lang}
+            />
+          </ScrollReveal>
+        </main>
+      )}
 
       {/* Global Footer with AM DXB live links */}
       <Footer
         onOpenConsultation={() => handleOpenConsultation()}
+        onNavigateService={handleNavigateService}
         lang={lang}
       />
 

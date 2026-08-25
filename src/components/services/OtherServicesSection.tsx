@@ -18,21 +18,37 @@ import {
   FileSpreadsheet
 } from 'lucide-react';
 import { Language } from '../../data/translations';
+import { ServiceSlug } from '../../data/servicesData';
 
 interface OtherServicesSectionProps {
   onOpenConsultation: (serviceName?: string) => void;
+  onNavigateService?: (slug: ServiceSlug) => void;
   lang: Language;
 }
 
 export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({
   onOpenConsultation,
+  onNavigateService,
   lang
 }) => {
   const isAr = lang === 'ar';
 
-  const services = [
+  const services: {
+    id: string;
+    slug: ServiceSlug;
+    colSpan: string;
+    title: string;
+    tag: string;
+    tagColor: string;
+    desc: string;
+    features: string[];
+    actionLabel: string;
+    icon: any;
+    featured: boolean;
+  }[] = [
     {
       id: 'golden-visa',
+      slug: 'golden-visa-services',
       colSpan: 'md:col-span-7',
       title: isAr ? 'خدمات الإقامة الذهبية (10 سنوات)' : 'Golden Visa Services',
       tag: '10-Year Long-Term Residence',
@@ -41,12 +57,13 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({
         ? 'إقامة طويلة الأمد لمدة 10 سنوات للمستثمرين العقاريين (2 مليون درهم+) ورواد الأعمال والمدراء التنفيذيين والنوابغ، مع كفالة كاملة للأسرة دون الحاجة لكفيل محلي.'
         : 'Turnkey 10-year Golden Visa processing for property investors (AED 2M+), enterprise founders, senior executives, and specialized talent with 100% family sponsorship.',
       features: ['100% Sponsor-Free', 'Full Family & Staff Sponsorship', 'VIP Medical & Biometrics'],
-      actionLabel: isAr ? 'التحقق من الأهلية' : 'Check Eligibility',
+      actionLabel: isAr ? 'تفاصيل الخدمة' : 'View Full Details',
       icon: Award,
       featured: true
     },
     {
       id: 'tax-vat',
+      slug: 'vat-corporate-tax-filing-services',
       colSpan: 'md:col-span-5',
       title: isAr ? 'خدمات ضريبة الشركات والقيمة المضافة' : 'VAT & Corporate Tax Filing Services',
       tag: 'FTA Registered Agent',
@@ -55,12 +72,13 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({
         ? 'تسجيل رقم ضريبي (TRN)، إقرارات ضريبة الشركات بنسبة 9%، استيفاء شروط الوجود الاقتصادي، وإقرارات ضريبة القيمة المضافة الربع سنوية.'
         : 'Federal Tax Authority (FTA) TRN registration, 9% Corporate Tax filing, Qualifying Free Zone Person (QFZP) 0% optimization, and quarterly VAT returns.',
       features: ['Official FTA TRN Number', 'QFZP 0% Tax Optimization', 'Quarterly VAT 201 Submissions'],
-      actionLabel: isAr ? 'طلب استشارة ضريبية' : 'Request Tax Filing',
+      actionLabel: isAr ? 'تفاصيل الخدمة' : 'View Full Details',
       icon: Receipt,
       featured: false
     },
     {
       id: 'incorporation',
+      slug: 'company-incorporation',
       colSpan: 'md:col-span-4',
       title: isAr ? 'تأسيس الشركات وإصدار التراخيص' : 'Company Incorporation',
       tag: 'Mainland & Free Zone',
@@ -69,12 +87,13 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({
         ? 'تأسيس الشركات في البر الرئيسي والمناطق الحرة والأوفشور مع الموافقة الأولية وحجز الاسم التجاري وتوثيق عقد التأسيس.'
         : 'Turnkey formation across Mainland DED, 40+ Free Zones, and Offshore SPVs with instant trade name reservation and notarized MOA.',
       features: ['100% Expat Ownership', '2-4 Days Fast Track', 'Tier-1 Bank Prequalified'],
-      actionLabel: isAr ? 'بدء التأسيس' : 'Incorporate Entity',
+      actionLabel: isAr ? 'تفاصيل الخدمة' : 'View Full Details',
       icon: Building2,
       featured: false
     },
     {
       id: 'pro-renewal',
+      slug: 'license-renewal-pro-services',
       colSpan: 'md:col-span-4',
       title: isAr ? 'تجديد الرخص وخدمات العلاقات العامة' : 'License Renewal (PRO) Services',
       tag: 'Annual Maintenance',
@@ -83,12 +102,13 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({
         ? 'تجديد الرخص التجارية السنوية، توثيق عقود الإيجار (إيجاري)، بطاقة المنشأة، وتعديل الشركاء وعقود التأسيس.'
         : 'Fast-track trade license renewal, Ejari registration, Establishment Card renewals, and corporate MOA amendments.',
       features: ['Zero Penalty Fast-Track', 'Ejari & Lease Attestation', 'Shareholder Amendments'],
-      actionLabel: isAr ? 'طلب التجديد' : 'Renew License',
+      actionLabel: isAr ? 'تفاصيل الخدمة' : 'View Full Details',
       icon: RefreshCw,
       featured: false
     },
     {
       id: 'liquidation',
+      slug: 'company-liquidation-services',
       colSpan: 'md:col-span-4',
       title: isAr ? 'خدمات تصفية وإلغاء الشركات' : 'Company Liquidation Services',
       tag: 'Official Liquidator',
@@ -97,12 +117,13 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({
         ? 'تعيين مصفٍ قانوني معتمد، إعداد تقرير المصفي (Statement of Affairs)، خطابات براءة الذمة، وإلغاء السجل التجاري رسمياً.'
         : 'Official liquidator appointment, Liquidator Report & No-Liability clearance letters, asset disposal, and formal trade registry cancellation.',
       features: ['Certified Liquidator Report', 'Ministry & Visa Clearance', 'Formal De-Registration'],
-      actionLabel: isAr ? 'طلب تصفية رسمية' : 'Start Liquidation',
+      actionLabel: isAr ? 'تفاصيل الخدمة' : 'View Full Details',
       icon: XCircle,
       featured: false
     },
     {
       id: 'audit',
+      slug: 'audit-and-assurance-services',
       colSpan: 'md:col-span-6',
       title: isAr ? 'خدمات التدقيق والضمان المالي' : 'Audit & Assurance Services',
       tag: 'Certified Audit Reports',
@@ -111,12 +132,13 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({
         ? 'تقارير تدقيق حسابات معتمدة ومقبولة لدى جميع البنوك التجارية وهيئات المناطق الحرة والوزارات الاتحادية بالإمارات.'
         : 'Statutory annual audit reports, balance sheet assurance, and independent financial verification accepted by UAE banks and Free Zone authorities.',
       features: ['Bank-Accepted Audit Reports', 'Free Zone Annual Compliance', 'Independent Verification'],
-      actionLabel: isAr ? 'طلب تقرير تدقيق' : 'Request Audit Report',
+      actionLabel: isAr ? 'تفاصيل الخدمة' : 'View Full Details',
       icon: FileCheck2,
       featured: false
     },
     {
       id: 'accounting',
+      slug: 'accounting-services',
       colSpan: 'md:col-span-6',
       title: isAr ? 'خدمات المحاسبة ومسك الدفاتر' : 'Accounting Services',
       tag: 'Cloud Bookkeeping',
@@ -125,7 +147,7 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({
         ? 'إعداد القوائم المالية الشهرية (الأرباح والخسائر، الميزانية العمومية)، نظام حماية الأجور (WPS)، وربط البرامج المحاسبية السحابية.'
         : 'Monthly bookkeeping, P&L statements, balance sheet reconciliations, Wages Protection System (WPS) payroll, and cloud accounting software.',
       features: ['Monthly P&L & Balance Sheet', 'WPS Compliant Payroll', 'Tax-Ready Financial Records'],
-      actionLabel: isAr ? 'طلب باقة محاسبة' : 'Request Accounting',
+      actionLabel: isAr ? 'تفاصيل الخدمة' : 'View Full Details',
       icon: Calculator,
       featured: false
     }
@@ -183,7 +205,10 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({
                   </div>
 
                   <div className="space-y-2">
-                    <h3 className="text-xl font-bold text-white font-sans group-hover:text-sky-300 transition-colors">
+                    <h3
+                      onClick={() => onNavigateService && onNavigateService(svc.slug)}
+                      className="text-xl font-bold text-white font-sans group-hover:text-sky-300 transition-colors cursor-pointer"
+                    >
                       {svc.title}
                     </h3>
                     <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
@@ -206,13 +231,15 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({
                     SRTI Accredited Delivery
                   </span>
 
-                  <button
-                    onClick={() => onOpenConsultation(svc.title)}
-                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs transition-all cursor-pointer shadow-md shadow-sky-500/20"
-                  >
-                    <span>{svc.actionLabel}</span>
-                    <ArrowRight className={'w-3.5 h-3.5 ' + (isAr ? 'rotate-180' : '')} />
-                  </button>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => onNavigateService ? onNavigateService(svc.slug) : onOpenConsultation(svc.title)}
+                      className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs transition-all cursor-pointer shadow-md shadow-sky-500/20"
+                    >
+                      <span>{svc.actionLabel}</span>
+                      <ArrowRight className={'w-3.5 h-3.5 ' + (isAr ? 'rotate-180' : '')} />
+                    </button>
+                  </div>
                 </div>
               </div>
             );
