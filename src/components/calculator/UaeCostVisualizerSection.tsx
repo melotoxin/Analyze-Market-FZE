@@ -1,17 +1,15 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { 
   Calculator, 
   Building2, 
   Users, 
   Briefcase, 
-  Sparkles, 
   CheckCircle2, 
-  ArrowRight,
-  TrendingDown,
-  ShieldCheck,
-  Coins
+  ArrowRight, 
+  ShieldCheck, 
+  Coins,
+  Clock
 } from 'lucide-react';
-import { Button } from '../ui/Button';
 import { Language } from '../../data/translations';
 
 interface UaeCostVisualizerSectionProps {
@@ -28,17 +26,17 @@ export const UaeCostVisualizerSection: React.FC<UaeCostVisualizerSectionProps> =
   const isAr = lang === 'ar';
 
   const [jurisdiction, setJurisdiction] = useState<'freezone' | 'mainland' | 'offshore'>('freezone');
-  const [visas, setVisas] = useState(1);
+  const [visas, setVisas] = useState(2);
   const [officeType, setOfficeType] = useState<'flexi' | 'smart' | 'dedicated'>('flexi');
 
   // Base pricing matrix in AED
   const baseCost = {
     freezone: 11500,
-    mainland: 16500,
-    offshore: 12800
+    mainland: 17500,
+    offshore: 13500
   }[jurisdiction];
 
-  const visaCost = visas * 3200;
+  const visaCost = visas * 3600;
 
   const officeCost = {
     flexi: 0,
@@ -61,45 +59,36 @@ export const UaeCostVisualizerSection: React.FC<UaeCostVisualizerSectionProps> =
   const convertedMonthly = Math.round((totalAed / 12) * curr.rate).toLocaleString();
 
   return (
-    <section id="cost-calculator" className="py-24 sm:py-32 bg-white dark:bg-[#030712] border-t border-slate-200 dark:border-white/[0.08] relative overflow-hidden transition-colors duration-300 font-sans">
-      
-      {/* Ambient background glow */}
-      <div className="absolute top-1/3 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-sky-500/10 rounded-full blur-[180px] pointer-events-none" />
-
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section id="cost-calculator" className="py-20 sm:py-28 bg-white border-b border-slate-200 font-sans text-slate-900">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="max-w-3xl mb-14 space-y-3">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-sky-50 dark:bg-slate-900 border border-sky-400/30 text-xs font-mono font-bold text-sky-600 dark:text-sky-400 uppercase tracking-widest shadow-sm">
-            <Calculator className="w-3.5 h-3.5 text-sky-500 dark:text-sky-400" />
-            <span>{isAr ? 'حاسبة التكاليف التفاعلية' : 'Interactive UAE Cost Simulator'}</span>
+        <div className="max-w-3xl mb-12 space-y-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-slate-100 border border-slate-200 rounded-full text-xs font-mono font-bold text-slate-700">
+            <Calculator className="w-3.5 h-3.5 text-slate-700" />
+            <span>06 / Cost & Tariff Simulator</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white tracking-tight font-sans">
-            {isAr ? 'احسب تكلفة تأسيس شركتك بدقة وشفافية' : (
-              <>
-                <span className="font-light text-slate-600 dark:text-slate-300">Simulate your exact </span>
-                <span className="font-bold text-slate-900 dark:text-white bg-gradient-to-r from-sky-500 via-cyan-400 to-emerald-400 bg-clip-text text-transparent">UAE setup investment</span>
-              </>
-            )}
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-950 tracking-tight font-sans">
+            {isAr ? 'احسب تكلفة تأسيس شركتك بدقة وشفافية' : 'Simulate your exact UAE setup investment'}
           </h2>
-          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl">
+          <p className="text-base text-slate-600 leading-relaxed max-w-2xl font-normal">
             {isAr 
               ? 'احصل على تفصيل دقيق لرسوم التراخيص الحكومية وحصص التأشيرات وخيارات المساحات المكتبية دون أي رسوم مخفية.'
-              : 'Calculate government licensing fees, residency quotas, and workspace requirements with real-time currency conversion.'
+              : 'Calculate government licensing tariffs, residency quotas, and workspace requirements with live currency conversion.'
             }
           </p>
         </div>
 
-        {/* 2-Column Calculator Architecture */}
+        {/* 2-Column Calculator Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
-          {/* Left 7 Columns: Interactive Configuration Controls */}
-          <div className="lg:col-span-7 bg-slate-50 dark:bg-[#070d1e] border border-slate-200 dark:border-white/[0.08] rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl">
+          {/* Left 7 Columns: Controls */}
+          <div className="lg:col-span-7 bg-[#FBFBFA] border border-slate-200 rounded-2xl p-6 sm:p-8 space-y-6 shadow-sm">
             
             {/* 1. Jurisdiction Choice */}
-            <div className="space-y-3">
-              <label className="text-xs font-mono font-bold uppercase text-slate-500 dark:text-slate-400 block">
+            <div className="space-y-2">
+              <label className="text-xs font-mono font-bold uppercase text-slate-700 block">
                 1. Select Legal Jurisdiction:
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -112,26 +101,28 @@ export const UaeCostVisualizerSection: React.FC<UaeCostVisualizerSectionProps> =
                     key={j.id}
                     type="button"
                     onClick={() => setJurisdiction(j.id as any)}
-                    className={'p-4 rounded-2xl border text-left transition-all cursor-pointer ' + (
+                    className={'p-4 rounded-xl border text-left transition-all cursor-pointer ' + (
                       jurisdiction === j.id
-                        ? 'bg-white dark:bg-sky-950/40 border-sky-500 shadow-md ring-1 ring-sky-400'
-                        : 'bg-white/60 dark:bg-slate-900/60 border-slate-200 dark:border-white/[0.06] hover:border-slate-400'
+                        ? 'bg-slate-900 text-white border-slate-900 shadow-sm'
+                        : 'bg-white border-slate-200 text-slate-800 hover:border-slate-400'
                     )}
                   >
-                    <span className="font-bold text-xs sm:text-sm text-slate-900 dark:text-white block">{j.label}</span>
-                    <span className="text-[10px] text-sky-600 dark:text-sky-300 font-mono mt-1 block">{j.sub}</span>
+                    <span className="font-bold text-xs sm:text-sm block">{j.label}</span>
+                    <span className={'text-[10px] font-mono mt-1 block ' + (jurisdiction === j.id ? 'text-slate-300' : 'text-slate-500')}>
+                      {j.sub}
+                    </span>
                   </button>
                 ))}
               </div>
             </div>
 
             {/* 2. Visa Allocation Slider */}
-            <div className="space-y-3">
+            <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <label className="text-xs font-mono font-bold uppercase text-slate-500 dark:text-slate-400">
+                <label className="text-xs font-mono font-bold uppercase text-slate-700">
                   2. Executive & Investor Visas:
                 </label>
-                <span className="text-sm font-mono font-black px-3 py-1 rounded-full bg-sky-500 text-white shadow-sm">
+                <span className="text-xs font-mono font-bold px-3 py-1 rounded-full bg-slate-900 text-white">
                   {visas} {visas === 1 ? 'Visa' : 'Visas'}
                 </span>
               </div>
@@ -141,20 +132,20 @@ export const UaeCostVisualizerSection: React.FC<UaeCostVisualizerSectionProps> =
                 max={6}
                 value={visas}
                 onChange={(e) => setVisas(parseInt(e.target.value))}
-                className="w-full accent-sky-500 cursor-pointer h-2 bg-slate-200 dark:bg-slate-800 rounded-lg"
+                className="w-full accent-slate-900 cursor-pointer h-2 bg-slate-200 rounded-lg"
               />
-              <div className="flex justify-between text-[10px] font-mono text-slate-500 dark:text-slate-400">
+              <div className="flex justify-between text-[10px] font-mono text-slate-500">
                 <span>0 Visas (Solo Holding)</span>
                 <span>2 Visas (Standard Partners)</span>
-                <span>4 Visas (Family / Co-Founders)</span>
+                <span>4 Visas (Co-Founders)</span>
                 <span>6+ Visas (Enterprise Team)</span>
               </div>
             </div>
 
             {/* 3. Office & Workspace Requirements */}
-            <div className="space-y-3">
-              <label className="text-xs font-mono font-bold uppercase text-slate-500 dark:text-slate-400 block">
-                3. Registered Workspace Facility:
+            <div className="space-y-2">
+              <label className="text-xs font-mono font-bold uppercase text-slate-700 block">
+                3. Workspace Facility:
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 {[
@@ -166,14 +157,16 @@ export const UaeCostVisualizerSection: React.FC<UaeCostVisualizerSectionProps> =
                     key={o.id}
                     type="button"
                     onClick={() => setOfficeType(o.id as any)}
-                    className={'p-4 rounded-2xl border text-left transition-all cursor-pointer ' + (
+                    className={'p-4 rounded-xl border text-left transition-all cursor-pointer ' + (
                       officeType === o.id
-                        ? 'bg-white dark:bg-sky-950/40 border-sky-500 shadow-md ring-1 ring-sky-400'
-                        : 'bg-white/60 dark:bg-slate-900/60 border-slate-200 dark:border-white/[0.06] hover:border-slate-400'
+                        ? 'bg-slate-900 text-white border-slate-900 shadow-sm'
+                        : 'bg-white border-slate-200 text-slate-800 hover:border-slate-400'
                     )}
                   >
-                    <span className="font-bold text-xs text-slate-900 dark:text-white block">{o.label}</span>
-                    <span className="text-[10px] text-slate-500 dark:text-slate-400 font-mono mt-1 block">{o.sub}</span>
+                    <span className="font-bold text-xs block">{o.label}</span>
+                    <span className={'text-[10px] font-mono mt-1 block ' + (officeType === o.id ? 'text-slate-300' : 'text-slate-500')}>
+                      {o.sub}
+                    </span>
                   </button>
                 ))}
               </div>
@@ -181,67 +174,61 @@ export const UaeCostVisualizerSection: React.FC<UaeCostVisualizerSectionProps> =
 
           </div>
 
-          {/* Right 5 Columns: Dynamic Quote Card & Breakdown */}
-          <div className="lg:col-span-5 bg-gradient-to-br from-slate-900 via-[#0a142c] to-slate-950 border border-sky-500/40 rounded-3xl p-7 sm:p-8 text-white space-y-6 shadow-2xl relative overflow-hidden">
-            
-            {/* Ambient inner glow */}
-            <div className="absolute top-0 right-0 w-48 h-48 bg-sky-500/20 rounded-full blur-3xl pointer-events-none" />
-
+          {/* Right 5 Columns: Dynamic Output Card */}
+          <div className="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 text-slate-900 space-y-6 shadow-md">
             <div className="space-y-1">
-              <span className="text-xs font-mono uppercase tracking-widest text-sky-400 block font-bold">
-                Estimated Turnkey Investment
+              <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 block font-bold">
+                Total Estimated Investment
               </span>
               <div className="flex items-baseline gap-2">
-                <span className="text-3xl sm:text-4xl lg:text-5xl font-black font-mono tracking-tight text-white">
+                <span className="text-3xl sm:text-4xl font-black font-mono tracking-tight text-slate-950">
                   {curr.symbol}{convertedTotal}
                 </span>
-                <span className="text-xs font-mono text-slate-400">/ 1st Year Turnkey</span>
+                <span className="text-xs font-mono text-slate-500">/ 1st Year Turnkey</span>
               </div>
-              <span className="text-xs font-mono text-emerald-400 flex items-center gap-1 mt-1">
+              <span className="text-xs font-mono text-emerald-700 flex items-center gap-1 mt-1 font-medium">
                 <Coins className="w-3.5 h-3.5" />
                 <span>Equivalent to ~{curr.symbol}{convertedMonthly} / month</span>
               </span>
             </div>
 
             {/* Itemized Cost Breakdown */}
-            <div className="space-y-3 pt-4 border-t border-white/[0.1] text-xs font-mono">
-              <div className="flex items-center justify-between text-slate-300">
+            <div className="space-y-2.5 pt-4 border-t border-slate-100 text-xs font-mono">
+              <div className="flex items-center justify-between text-slate-600">
                 <span>Government Trade License:</span>
-                <span className="font-bold text-white">{curr.symbol}{Math.round(baseCost * curr.rate).toLocaleString()}</span>
+                <span className="font-bold text-slate-900">{curr.symbol}{Math.round(baseCost * curr.rate).toLocaleString()}</span>
               </div>
-              <div className="flex items-center justify-between text-slate-300">
+              <div className="flex items-center justify-between text-slate-600">
                 <span>Residency Visas ({visas}):</span>
-                <span className="font-bold text-white">{curr.symbol}{Math.round(visaCost * curr.rate).toLocaleString()}</span>
+                <span className="font-bold text-slate-900">{curr.symbol}{Math.round(visaCost * curr.rate).toLocaleString()}</span>
               </div>
-              <div className="flex items-center justify-between text-slate-300">
+              <div className="flex items-center justify-between text-slate-600">
                 <span>Workspace Facility:</span>
-                <span className="font-bold text-white">{officeCost === 0 ? 'Included (Free)' : `${curr.symbol}${Math.round(officeCost * curr.rate).toLocaleString()}`}</span>
+                <span className="font-bold text-slate-900">{officeCost === 0 ? 'Included (Free)' : `${curr.symbol}${Math.round(officeCost * curr.rate).toLocaleString()}`}</span>
               </div>
-              <div className="flex items-center justify-between text-emerald-400 font-bold pt-2 border-t border-white/[0.08]">
+              <div className="flex items-center justify-between text-emerald-700 font-bold pt-2 border-t border-slate-100">
                 <span>Corporate Tax (QFZP Exemption):</span>
-                <span>0% Guaranteed</span>
+                <span>0% Eligible</span>
               </div>
             </div>
 
-            <div className="p-4 rounded-2xl bg-white/[0.05] border border-white/[0.08] space-y-1.5 text-xs">
-              <div className="flex items-center gap-1.5 text-sky-300 font-bold">
-                <ShieldCheck className="w-4 h-4 text-sky-400" />
-                <span>All-Inclusive Fixed Pricing Guarantee</span>
+            <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-1 text-xs">
+              <div className="flex items-center gap-1.5 text-slate-900 font-bold">
+                <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                <span>Fixed Pricing Guarantee</span>
               </div>
-              <p className="text-[11px] text-slate-300 leading-relaxed">
-                Includes official MOA notarization, immigration file, VIP concierge, and guaranteed bank account approval.
+              <p className="text-[11px] text-slate-600 leading-relaxed">
+                Includes MOA notarization, immigration file, VIP concierge, and guaranteed bank account approval.
               </p>
             </div>
 
-            <Button
+            <button
               onClick={() => onOpenConsultation(`Custom Setup: ${jurisdiction.toUpperCase()} with ${visas} Visas (${curr.symbol}${convertedTotal})`)}
-              variant="primary"
-              size="md"
-              className="w-full font-bold text-xs shadow-lg shadow-sky-500/30 py-3.5 bg-gradient-to-r from-sky-400 via-cyan-400 to-sky-500 hover:from-sky-300 hover:to-cyan-300 text-slate-950 border-none"
+              className="w-full py-3.5 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs uppercase tracking-wider rounded-lg flex items-center justify-center gap-2 transition-all cursor-pointer shadow-sm"
             >
               <span>Lock In This Quotation</span>
-              <ArrowRight className="w-4 h-4 ml-1.5" />
-            </Button>
+              <ArrowRight className="w-4 h-4" />
+            </button>
 
           </div>
 

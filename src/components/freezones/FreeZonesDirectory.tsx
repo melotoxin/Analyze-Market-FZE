@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
-import { Badge } from '../ui/Badge';
-import { Button } from '../ui/Button';
-import { Search, Globe, CheckCircle2, ArrowRight, Sparkles, MapPin, Calculator, Building2, Zap, HelpCircle } from 'lucide-react';
+﻿import React, { useState } from 'react';
+import { Search, Globe, ArrowRight, HelpCircle, Building2 } from 'lucide-react';
 import { Language, TRANSLATIONS } from '../../data/translations';
 
 interface FreeZonesDirectoryProps {
@@ -115,47 +113,38 @@ export const FreeZonesDirectory: React.FC<FreeZonesDirectoryProps> = ({
   });
 
   return (
-    <section id="freezones" className="py-24 sm:py-32 bg-slate-50 dark:bg-[#040815] border-t border-slate-200 dark:border-white/[0.08] relative overflow-hidden transition-colors duration-300 font-sans">
-      
-      {/* Ambient background glow */}
-      <div className="absolute top-1/3 left-10 w-96 h-96 bg-sky-500/10 rounded-full blur-[140px] pointer-events-none" />
-
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section id="freezones" className="py-20 sm:py-28 bg-[#FBFBFA] border-b border-slate-200 font-sans text-slate-900">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="max-w-3xl mb-12 space-y-3">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-sky-100 dark:bg-slate-900 border border-sky-400/30 text-xs font-mono font-bold text-sky-600 dark:text-sky-400 uppercase tracking-widest shadow-sm">
-            <Globe className="w-3.5 h-3.5 text-sky-500 dark:text-sky-400" />
-            <span>{isAr ? 'دليل المناطق الحرة' : 'UAE Free Zones Explorer'}</span>
+        <div className="max-w-3xl mb-10 space-y-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-white border border-slate-200 rounded-full text-xs font-mono font-bold text-slate-700">
+            <Globe className="w-3.5 h-3.5 text-slate-700" />
+            <span>05 / Free Zones Hub</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white tracking-tight font-sans">
-            {isAr ? 'أكثر من 40 منطقة حرة معتمدة' : (
-              <>
-                <span className="font-light text-slate-600 dark:text-slate-300">Explore 40+ accredited </span>
-                <span className="font-bold text-slate-900 dark:text-white">UAE Free Zones</span>
-              </>
-            )}
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-950 tracking-tight font-sans">
+            {isAr ? 'دليل أكثر من 40 منطقة حرة بالإمارات' : 'Explore 40+ accredited UAE Free Zones'}
           </h2>
-          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl">
+          <p className="text-base text-slate-600 leading-relaxed max-w-2xl font-normal">
             {isAr 
               ? 'قارن بين الرسوم الحكومية وحصص التأشيرات والأنشطة المعتمدة في الشارقة ودبي ورأس الخيمة وعجمان.'
-              : 'Compare license fees, visa quotas, and approved commercial activities across all 7 Emirates.'
+              : 'Compare license tariffs, visa quotas, and approved commercial activities across all 7 Emirates.'
             }
           </p>
         </div>
 
         {/* Search & Filter Bar */}
-        <div className="bg-white dark:bg-gradient-to-r dark:from-[#0c1630] dark:via-[#091124] dark:to-[#0c1630] border border-slate-200 dark:border-white/[0.08] rounded-3xl p-4 sm:p-5 mb-8 flex flex-col md:flex-row items-center justify-between gap-4 shadow-xl backdrop-blur-xl">
+        <div className="bg-white border border-slate-200 rounded-2xl p-4 mb-8 flex flex-col md:flex-row items-center justify-between gap-4 shadow-sm">
           <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto scrollbar-none pb-1 md:pb-0">
             {emirates.map(em => (
               <button
                 key={em.key}
                 onClick={() => setSelectedEmirate(em.key)}
-                className={'px-4 py-2 rounded-2xl text-xs font-bold whitespace-nowrap transition-all cursor-pointer ' + (
+                className={'px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap transition-all cursor-pointer ' + (
                   selectedEmirate === em.key
-                    ? 'bg-sky-500 text-white shadow-md shadow-sky-500/25'
-                    : 'bg-slate-100 dark:bg-[#080e20] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-slate-800 border border-slate-200 dark:border-white/[0.04]'
+                    ? 'bg-slate-900 text-white shadow-sm'
+                    : 'bg-slate-50 text-slate-700 hover:bg-slate-100 border border-slate-200'
                 )}
               >
                 {em.label}
@@ -169,122 +158,89 @@ export const FreeZonesDirectory: React.FC<FreeZonesDirectoryProps> = ({
               type="text"
               value={search}
               onChange={e => setSearch(e.target.value)}
-              placeholder="Search by zone name or activity..."
-              className="w-full bg-slate-50 dark:bg-[#080e20] border border-slate-200 dark:border-white/[0.1] rounded-2xl py-2.5 pl-10 pr-4 text-xs text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-sky-400"
+              placeholder="Search zone or activity..."
+              className="w-full bg-slate-50 border border-slate-200 rounded-lg py-2 pl-10 pr-4 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-slate-800"
             />
           </div>
         </div>
 
-        {/* Free Zone Cards Grid with Background Photography & High Contrast Overlays */}
+        {/* Free Zone Cards Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {filtered.map(fz => (
             <div
               key={fz.name}
-              className={'relative overflow-hidden rounded-3xl min-h-[280px] p-6 flex flex-col justify-between transition-all group motion-card shadow-2xl hover:shadow-[0_0_40px_rgba(56,189,248,0.3)] hover:-translate-y-1.5 border ' + (
-                fz.featured 
-                  ? 'border-sky-400 ring-2 ring-sky-400/50 shadow-sky-500/20' 
-                  : 'border-slate-300 dark:border-white/[0.12] hover:border-sky-400'
-              )}
+              className="bg-white border border-slate-200 rounded-2xl overflow-hidden flex flex-col justify-between transition-all group shadow-sm hover:shadow-md hover:border-slate-400"
             >
-              {/* Shimmer Skeleton Placeholder */}
-              <div className="absolute inset-0 bg-slate-900">
-                <div className="absolute inset-0 -translate-x-full animate-[shimmer_1.8s_infinite] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-              </div>
-
-              {/* Background Photography with Zoom Effect */}
-              <div 
-                className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-110"
-                style={{ backgroundImage: `url(${fz.image})` }}
-              />
-
-              {/* Vivid High-Contrast Gradient: Clear on top, protective contrast at bottom */}
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/50 to-slate-950/20 transition-all duration-500 group-hover:from-slate-950/90 group-hover:via-slate-950/35" />
-
-              {/* Content Container (z-10 for perfect readability) */}
-              <div className="relative z-10 space-y-4">
-                
-                {/* Top Badges */}
-                <div className="flex items-start justify-between gap-2">
-                  <span className="text-[11px] font-mono px-3 py-1 rounded-full bg-sky-500/25 border border-sky-400/50 text-sky-300 font-bold backdrop-blur-md shadow-sm">
+              <div className="h-40 relative bg-slate-100 overflow-hidden">
+                <img
+                  src={fz.image}
+                  alt={fz.name}
+                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute top-3 left-3 right-3 flex items-center justify-between">
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/95 text-slate-800 font-bold border border-slate-200 backdrop-blur-sm">
                     {fz.emirate}
                   </span>
-                  <span className="text-[11px] font-mono px-3 py-1 rounded-full bg-emerald-500/25 border border-emerald-400/50 text-emerald-300 font-bold backdrop-blur-md shadow-sm">
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-50 text-emerald-800 font-bold border border-emerald-200">
                     {fz.visas}
                   </span>
                 </div>
+              </div>
 
-                {/* Free Zone Name & Focus */}
-                <div className="space-y-1.5 pt-2">
-                  <h3 className="text-lg font-black text-white font-sans group-hover:text-sky-300 transition-colors drop-shadow-md leading-snug">
+              <div className="p-5 space-y-3 flex-1 flex flex-col justify-between">
+                <div className="space-y-1">
+                  <h3 className="text-base font-bold text-slate-900 font-sans">
                     {fz.name}
                   </h3>
-                  <p className="text-xs text-slate-300 font-normal leading-relaxed">
-                    Focus: <span className="text-white font-semibold">{fz.focus}</span>
+                  <p className="text-xs text-slate-500 font-normal">
+                    Focus: <span className="text-slate-800 font-semibold">{fz.focus}</span>
                   </p>
                 </div>
 
-              </div>
+                <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
+                  <div>
+                    <span className="text-[10px] font-mono text-slate-500 uppercase block">Starting Fee:</span>
+                    <span className="text-sm font-mono font-bold text-slate-950">{fz.minCost}</span>
+                  </div>
 
-              {/* Bottom Price & Action Row */}
-              <div className="relative z-10 pt-4 mt-4 border-t border-white/[0.15] flex items-center justify-between">
-                <div>
-                  <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider block">Starting Investment:</span>
-                  <span className="text-base font-mono font-black text-white drop-shadow-sm">{fz.minCost}</span>
+                  <button
+                    onClick={() => onOpenConsultation(fz.name)}
+                    className="px-3.5 py-1.5 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs rounded-lg transition-all cursor-pointer"
+                  >
+                    Inquire
+                  </button>
                 </div>
-
-                <Button
-                  onClick={() => onOpenConsultation(fz.name)}
-                  variant="primary"
-                  size="sm"
-                  className="text-xs font-bold py-2 px-4 shadow-lg shadow-sky-500/30 rounded-xl"
-                >
-                  <span>Inquire</span>
-                  <ArrowRight className="w-3 h-3 ml-1" />
-                </Button>
               </div>
-
             </div>
           ))}
         </div>
 
-        {/* Bottom Free Zone Selection Advisory Banner with Background Photography */}
-        <div className="mt-8 relative overflow-hidden rounded-3xl p-7 sm:p-9 border border-sky-400/50 shadow-2xl group">
-          
-          {/* Background Photography & Overlay */}
-          <div 
-            className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-            style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=80)' }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-950/85 to-slate-950/70 backdrop-blur-[2px]" />
-
-          <div className="relative z-10 flex flex-col sm:flex-row items-center justify-between gap-6">
-            <div className="flex items-center gap-4">
-              <div className="p-3.5 rounded-2xl bg-sky-500/25 border border-sky-400/40 text-sky-400 shrink-0">
-                <HelpCircle className="w-7 h-7" />
-              </div>
-              <div className="space-y-1">
-                <h4 className="text-lg sm:text-xl font-black text-white font-sans">
-                  {isAr ? 'غير متأكد أي منطقة حرة هي الأنسب لنشاطك التجاري؟' : 'Unsure which Free Zone fits your exact commercial activity?'}
-                </h4>
-                <p className="text-xs sm:text-sm text-slate-300">
-                  {isAr 
-                    ? 'يقوم مستشارونا بمقارنة التكاليف وتأشيرات الإقامة وسهولة فتح الحسابات البنكية عبر كافة المناطق الـ 40+.'
-                    : 'We compare trade license pricing, visa allocations, and banking acceptance across all 40+ accredited zones.'
-                  }
-                </p>
-              </div>
+        {/* Free Zone Advisory Banner */}
+        <div className="mt-8 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-sm">
+          <div className="flex items-center gap-4">
+            <div className="p-3 bg-slate-100 text-slate-900 rounded-xl shrink-0">
+              <HelpCircle className="w-6 h-6" />
             </div>
-
-            <Button
-              onClick={() => onOpenConsultation('Free Zone Comparison')}
-              variant="primary"
-              size="md"
-              className="font-bold text-xs shadow-xl shadow-sky-500/30 shrink-0 py-3 px-6 rounded-2xl"
-            >
-              <span>{isAr ? 'طلب توصية المنطقة الحرة' : 'Request Zone Recommendation'}</span>
-              <ArrowRight className="w-4 h-4 ml-1.5" />
-            </Button>
+            <div className="space-y-1">
+              <h4 className="text-base sm:text-lg font-bold text-slate-900 font-sans">
+                {isAr ? 'غير متأكد أي منطقة حرة هي الأنسب لنشاطك التجاري؟' : 'Unsure which Free Zone fits your business activity?'}
+              </h4>
+              <p className="text-xs sm:text-sm text-slate-600">
+                {isAr 
+                  ? 'يقوم مستشارونا بمقارنة التكاليف وتأشيرات الإقامة وسهولة فتح الحسابات البنكية عبر كافة المناطق الـ 40+.'
+                  : 'Our senior directors compare trade license pricing, visa allocations, and banking acceptance across all 40+ zones.'
+                }
+              </p>
+            </div>
           </div>
+
+          <button
+            onClick={() => onOpenConsultation('Free Zone Recommendation')}
+            className="px-5 py-3 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs uppercase tracking-wider rounded-lg shrink-0 flex items-center gap-2 cursor-pointer transition-all shadow-sm"
+          >
+            <span>{isAr ? 'طلب توصية المنطقة الحرة' : 'Get Zone Recommendation'}</span>
+            <ArrowRight className="w-4 h-4" />
+          </button>
         </div>
 
       </div>
