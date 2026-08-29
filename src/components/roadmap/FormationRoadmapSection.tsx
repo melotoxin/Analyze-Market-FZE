@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { 
   CheckCircle2, 
   Clock, 
@@ -8,7 +8,8 @@ import {
   Building, 
   CreditCard, 
   Award,
-  Zap
+  Zap,
+  Layers
 } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { Language } from '../../data/translations';
@@ -28,11 +29,11 @@ export const FormationRoadmapSection: React.FC<FormationRoadmapSectionProps> = (
   const steps = [
     {
       id: 1,
-      day: isAr ? 'اليوم 1' : 'Day 1',
-      title: isAr ? 'حجز الاسم التجاري والمطابقة القانونية' : 'Trade Name Reservation & KYC Clearance',
+      day: isAr ? 'المرحلة 01' : 'Stage 01',
+      title: isAr ? 'التشخيص الاستراتيجي والمطابقة' : 'Strategic Diagnostic & Activity Mapping',
       desc: isAr 
-        ? 'فحص فوري للاسم التجاري لدى سلطات الترخيص في الشارقة ودبي، والتحقق الأمني المسبق لجوازات السفر.'
-        : 'Automated name availability check across 40+ Free Zones & DED, initial KYC verification and shareholder registry.',
+        ? 'فحص فوري للاسم التجاري لدى سلطات الترخيص في الشارقة ودبي، وتحديد الأنشطة التجارية المصنفة، والتحقق الأمني المسبق لجوازات السفر.'
+        : 'Deep-dive analysis of your commercial activities, shareholder structure, and selection of the optimal Free Zone vs Mainland jurisdiction for 0% tax eligibility.',
       sla: '2 to 4 Hours',
       icon: FileText,
       deliverables: [
@@ -43,11 +44,11 @@ export const FormationRoadmapSection: React.FC<FormationRoadmapSectionProps> = (
     },
     {
       id: 2,
-      day: isAr ? 'اليوم 2' : 'Day 2',
-      title: isAr ? 'الموافقة الأمنية والمبدئية للحكومة' : 'Government Initial Approval (IA)',
+      day: isAr ? 'المرحلة 02' : 'Stage 02',
+      title: isAr ? 'الموافقة الأمنية والمبدئية للحكومة' : 'Government Initial Approval (IA) & Security',
       desc: isAr 
         ? 'إصدار الموافقة الأمنية الإلكترونية والموافقة المبدئية مباشرة من وزارة الاقتصاد ودائرة التنمية.'
-        : 'Direct submission to Ministry of Economy and licensing registrar for statutory initial approval clearance.',
+        : 'Direct electronic submission to Ministry of Economy and licensing registrar for statutory initial approval and foreign shareholder security clearance.',
       sla: '24 Hours',
       icon: ShieldCheck,
       deliverables: [
@@ -58,41 +59,26 @@ export const FormationRoadmapSection: React.FC<FormationRoadmapSectionProps> = (
     },
     {
       id: 3,
-      day: isAr ? 'اليوم 3' : 'Day 3',
-      title: isAr ? 'عقد التأسيس الإلكتروني وتفعيل القناة' : 'Digital MOA & E-Channel Portal Activation',
+      day: isAr ? 'المرحلة 03' : 'Stage 03',
+      title: isAr ? 'عقد التأسيس الإلكتروني وإصدار الرخصة' : 'Bilingual MOA & Commercial License Issuance',
       desc: isAr 
-        ? 'توقيع عقد التأسيس (MOA) رقمياً وتفعيل نظام القناة الذكية للإقامة والجوازات (ICP).'
-        : 'Execution of bilingual Memorandum of Association with digital notarization & federal ICP residency gateway activation.',
-      sla: '24 Hours',
+        ? 'توقيع عقد التأسيس (MOA) رقمياً واستلام الرخصة التجارية الرسمية المعتمدة مع رمز QR.'
+        : 'Execution of bilingual Memorandum of Association with digital notarization, followed by immediate issuance of your Commercial Trade License.',
+      sla: '24 to 48 Hours',
       icon: Building,
       deliverables: [
         isAr ? 'عقد تأسيس مصدق وموثق رسمياً' : 'Notarized & Attested Memorandum of Association',
-        isAr ? 'تفعيل بطاقة المنشأة الذكية (ICP)' : 'Federal Immigration Establishment Card',
-        isAr ? 'فتح ملف الشركة في وزارة الموارد البشرية' : 'Corporate E-Channel System Activation'
+        isAr ? 'الرخصة التجارية الأصلية مع رمز QR' : 'Official Commercial Trade License (PDF + QR Seal)',
+        isAr ? 'شهادة السجل التجاري وعضوية الغرفة' : 'Commercial Registry & Chamber of Commerce Membership'
       ]
     },
     {
       id: 4,
-      day: isAr ? 'اليوم 4' : 'Day 4',
-      title: isAr ? 'إصدار الرخصة التجارية الرسمية' : 'Official Trade License & Chamber Attestation',
+      day: isAr ? 'المرحلة 04' : 'Stage 04',
+      title: isAr ? 'الإقامة الذهبية وتفعيل الحساب البنكي' : 'VIP Residency Visa & Tier-1 Corporate Bank IBAN',
       desc: isAr 
-        ? 'استلام الرخصة التجارية المعتمدة، والسجل التجاري، وشهادة عضوية غرفة التجارة والصناعة.'
-        : 'Final issuance of legal Commercial Trade License, Commercial Register, and Chamber of Commerce registration.',
-      sla: 'Instant PDF + QR',
-      icon: Award,
-      deliverables: [
-        isAr ? 'الرخصة التجارية الأصلية مع رمز QR الرسمي' : 'Commercial Trade License (Instant PDF + QR Seal)',
-        isAr ? 'شهادة السجل التجاري الحكومي' : 'Official Commercial Registry Certificate',
-        isAr ? 'عضوية غرفة التجارة والصناعة' : 'Chamber of Commerce & Industry Membership'
-      ]
-    },
-    {
-      id: 5,
-      day: isAr ? 'الأيام 5-7' : 'Days 5-7',
-      title: isAr ? 'الإقامة الذهبية / المستثمر والحساب البنكي' : 'VIP Residency Visa & Tier-1 Corporate Banking',
-      desc: isAr 
-        ? 'مرافقة VIP للفحص الطبي خلال ساعتين، وإصدار الهوية الإماراتية، وفتح الحساب البنكي التجاري.'
-        : 'Dedicated concierge for 2-hour VIP medical fitness, biometric Emirates ID issuance, and guaranteed corporate bank account opening.',
+        ? 'مرافقة VIP للفحص الطبي وإصدار بطاقة الهوية الإماراتية، مع تفعيل الحساب البنكي التجاري النشط.'
+        : 'Dedicated executive concierge for 2-hour VIP medical fitness, biometric Emirates ID issuance, and guaranteed corporate bank account opening with Emirates NBD / Wio.',
       sla: '3 to 5 Days',
       icon: CreditCard,
       deliverables: [
@@ -104,39 +90,35 @@ export const FormationRoadmapSection: React.FC<FormationRoadmapSectionProps> = (
   ];
 
   return (
-    <section className="py-24 sm:py-32 bg-slate-50 dark:bg-[#090d16] border-t border-slate-200 dark:border-white/[0.08] relative overflow-hidden transition-colors duration-300 font-sans">
+    <section id="how-we-work" className="py-24 sm:py-32 bg-[#141518] border-t border-[#2d3139] relative overflow-hidden transition-colors duration-300 font-sans text-white">
       
-      {/* Visual Accent Ambient Orbs */}
-      <div className="absolute top-1/2 left-10 -translate-y-1/2 w-[500px] h-[500px] bg-amber-500/06 rounded-full blur-[160px] pointer-events-none" />
-      <div className="absolute top-1/2 right-10 -translate-y-1/2 w-[500px] h-[500px] bg-slate-600/06 rounded-full blur-[160px] pointer-events-none" />
-
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Section Header */}
-        <div className="max-w-3xl mb-14 space-y-3">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-50 dark:bg-slate-900 border border-amber-400/30 text-xs font-mono font-bold text-amber-600 dark:text-amber-400 uppercase tracking-widest shadow-sm">
-            <Zap className="w-3.5 h-3.5 text-amber-500 dark:text-amber-400" />
-            <span>{isAr ? 'مسار التأسيس خطوة بخطوة' : 'Turnkey Formation Roadmap'}</span>
+        {/* Section Header with Cyber-Duck Editorial Typography */}
+        <div className="max-w-3xl mb-16 space-y-4">
+          <div className="inline-flex items-center gap-2.5 px-3.5 py-1 bg-[#191a1e] border border-slate-700 text-xs font-mono font-bold text-amber-400 uppercase tracking-widest shadow-sm">
+            <Layers className="w-3.5 h-3.5 text-amber-400" />
+            <span>{isAr ? 'منهجية العمل والاعتمادات' : '03 / HOW WE WORK & REPEATABLE PROCESS'}</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white tracking-tight font-sans">
-            {isAr ? 'مسار التأسيس السريع من اليوم الأول حتى الحساب البنكي' : (
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight font-sans">
+            {isAr ? 'منهجية معتمدة من 4 مراحل دقيقة' : (
               <>
-                <span className="font-light text-slate-600 dark:text-slate-300">From Name Reservation to Bank IBAN in </span>
-                <span className="font-bold text-slate-900 dark:text-white bg-gradient-to-r from-amber-400 via-amber-200 to-amber-500 bg-clip-text text-transparent">7 Business Days</span>
+                <span className="font-light text-slate-300">Our 4-stage </span>
+                <span className="font-bold text-white">ISO-accredited incorporation process</span>
               </>
             )}
           </h2>
-          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl">
+          <p className="text-sm sm:text-base text-slate-300 leading-relaxed max-w-2xl font-normal">
             {isAr 
               ? 'إجراءات مبسطة وشفافة بالكامل ومدعومة بنظام إلكتروني دون الحاجة إلى معاملات ورقية معقدة.'
-              : 'Our zero-friction 5-step incorporation pathway with dedicated executive concierge and 100% legal SLA guarantee.'
+              : 'Combining a proven, repeatable 4-stage process with transparent client collaboration and dedicated executive concierge.'
             }
           </p>
         </div>
 
-        {/* 5-Step Horizontal Interactive Timeline Bar */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5 mb-8">
+        {/* 4-Step Horizontal Interactive Timeline Bar */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           {steps.map((s, idx) => {
             const isCurrent = activeStep === idx;
             const Icon = s.icon;
@@ -145,79 +127,74 @@ export const FormationRoadmapSection: React.FC<FormationRoadmapSectionProps> = (
               <button
                 key={s.id}
                 onClick={() => setActiveStep(idx)}
-                className={'p-4 sm:p-5 rounded-3xl border text-left transition-all cursor-pointer relative group flex flex-col justify-between ' + (
+                className={'p-5 border text-left transition-all cursor-pointer relative group flex flex-col justify-between ' + (
                   isCurrent
-                    ? 'bg-white dark:bg-gradient-to-b dark:from-[#151c2e] dark:to-[#0f1524] border-amber-400/80 shadow-xl shadow-amber-500/10 ring-1 ring-amber-400/40'
-                    : 'bg-white/80 dark:bg-[#0f1422]/80 border-slate-200 dark:border-white/[0.08] hover:border-slate-400 dark:hover:border-slate-600'
+                    ? 'bg-[#191a1e] border-amber-400 shadow-xl'
+                    : 'bg-[#191a1e]/60 border-[#2d3139] hover:border-slate-500'
                 )}
               >
                 <div className="flex items-center justify-between w-full mb-3">
-                  <span className={'text-[11px] font-mono font-black px-2.5 py-0.5 rounded-full border ' + (
+                  <span className={'text-xs font-mono font-bold px-2.5 py-0.5 ' + (
                     isCurrent
-                      ? 'bg-amber-500 text-slate-950 border-amber-400'
-                      : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-white/[0.08]'
+                      ? 'bg-amber-500 text-slate-950 font-black'
+                      : 'bg-[#141518] text-slate-400 border border-[#2d3139]'
                   )}>
                     {s.day}
                   </span>
 
-                  <div className={'p-2 rounded-xl transition-colors ' + (
-                    isCurrent ? 'bg-amber-500/15 text-amber-400' : 'bg-slate-100 dark:bg-slate-800 text-slate-400 group-hover:text-slate-200'
+                  <div className={'p-2 ' + (
+                    isCurrent ? 'bg-amber-500/15 text-amber-400' : 'bg-[#141518] text-slate-400 group-hover:text-slate-200'
                   )}>
                     <Icon className="w-4 h-4" />
                   </div>
                 </div>
 
                 <div>
-                  <h4 className={'text-xs sm:text-sm font-bold leading-tight ' + (
-                    isCurrent ? 'text-slate-900 dark:text-white' : 'text-slate-700 dark:text-slate-300'
+                  <h4 className={'text-sm font-bold leading-tight ' + (
+                    isCurrent ? 'text-white' : 'text-slate-300'
                   )}>
                     {s.title}
                   </h4>
-                  <div className="flex items-center gap-1 mt-2 text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-semibold">
-                    <Clock className="w-3 h-3" />
+                  <div className="flex items-center gap-1.5 mt-2 text-xs font-mono text-emerald-400 font-semibold">
+                    <Clock className="w-3.5 h-3.5" />
                     <span>{s.sla}</span>
                   </div>
                 </div>
-
-                {/* Active Indicator bottom line */}
-                {isCurrent && (
-                  <div className="absolute -bottom-[1px] left-6 right-6 h-[2px] bg-gradient-to-r from-amber-400 to-amber-300 rounded-full" />
-                )}
               </button>
             );
           })}
         </div>
 
         {/* Active Step Deep-Dive Showcase Bento Card */}
-        <div className="bg-white dark:bg-gradient-to-r dark:from-[#131929] dark:via-[#0e1422] dark:to-[#131929] border border-slate-200 dark:border-white/[0.12] rounded-3xl p-6 sm:p-10 shadow-2xl backdrop-blur-2xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div className="bg-[#191a1e] border border-[#2d3139] p-8 sm:p-10 shadow-2xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           
           <div className="lg:col-span-7 space-y-5">
             <div className="flex items-center gap-3">
-              <span className="text-xs font-mono font-bold px-3 py-1 rounded-full bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20">
-                Step {steps[activeStep].id} of 5
+              <span className="text-xs font-mono font-bold px-3 py-1 bg-amber-500 text-slate-950 shadow-md">
+                Stage {steps[activeStep].id} of 4
               </span>
-              <span className="text-xs font-mono text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1.5">
+              <span className="text-xs font-mono text-emerald-400 font-bold flex items-center gap-1.5">
                 <CheckCircle2 className="w-4 h-4" />
                 <span>SLA Guaranteed: {steps[activeStep].sla}</span>
               </span>
             </div>
 
-            <h3 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white font-sans">
+            <h3 className="text-2xl sm:text-3xl font-black text-white font-sans">
               {steps[activeStep].title}
             </h3>
 
-            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+            <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-normal">
               {steps[activeStep].desc}
             </p>
 
-            <div className="space-y-2.5 pt-2 border-t border-slate-200 dark:border-white/[0.08]">
-              <span className="text-xs font-mono uppercase text-slate-500 dark:text-slate-400 font-bold block">
-                Official Step Deliverables:
+            <div className="space-y-2.5 pt-3 border-t border-white/[0.08]">
+              <span className="text-xs font-mono uppercase text-slate-400 font-bold block">
+                Official Stage Deliverables:
               </span>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 {steps[activeStep].deliverables.map((item, i) => (
-                  <div key={i} className="flex items-center gap-2 p-3 rounded-2xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-white/[0.06] text-xs font-medium text-slate-800 dark:text-slate-200">
-                    <CheckCircle2 className="w-4 h-4 text-amber-500 shrink-0" />
+                  <div key={i} className="flex items-center gap-2 p-3 bg-[#141518] border border-[#2d3139] text-xs font-medium text-slate-200">
+                    <CheckCircle2 className="w-4 h-4 text-amber-400 shrink-0" />
                     <span>{item}</span>
                   </div>
                 ))}
@@ -225,30 +202,28 @@ export const FormationRoadmapSection: React.FC<FormationRoadmapSectionProps> = (
             </div>
           </div>
 
-          <div className="lg:col-span-5 bg-slate-50 dark:bg-[#0c101c] border border-slate-200 dark:border-white/[0.08] rounded-3xl p-6 sm:p-7 space-y-5 flex flex-col justify-between">
+          <div className="lg:col-span-5 bg-[#141518] border border-[#2d3139] p-6 sm:p-8 space-y-5 flex flex-col justify-between">
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase">Dedicated Concierge</span>
-                <span className="text-[11px] font-mono px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 font-bold">Live Support</span>
+                <span className="text-xs font-mono text-slate-400 uppercase">Dedicated Concierge</span>
+                <span className="text-[11px] font-mono px-2 py-0.5 bg-[#191a1e] text-emerald-400 font-bold border border-emerald-500/30">Live Support</span>
               </div>
-              <h4 className="text-base font-bold text-slate-900 dark:text-white">
+              <h4 className="text-base font-bold text-white">
                 Zero Physical Presence Required
               </h4>
-              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                Steps 1 through 4 are executed 100% remotely. You only fly to the UAE for Step 5 (VIP Medicals & Bank KYC) with our executive driver accompanying you.
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Stages 1 through 3 are executed 100% remotely. You only fly to the UAE for Stage 4 (VIP Medicals & Bank KYC) with our executive driver accompanying you.
               </p>
             </div>
 
-            <div className="pt-4 border-t border-slate-200 dark:border-white/[0.08] flex items-center gap-3">
-              <Button
-                onClick={() => onOpenConsultation(`Roadmap Step ${steps[activeStep].id}: ${steps[activeStep].title}`)}
-                variant="primary"
-                size="md"
-                className="w-full font-bold text-xs shadow-lg shadow-amber-500/20 py-3 bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 text-slate-950 hover:from-amber-300 hover:to-amber-400 border-none"
+            <div className="pt-4 border-t border-white/[0.08] flex items-center gap-3">
+              <button
+                onClick={() => onOpenConsultation(`Roadmap Stage ${steps[activeStep].id}: ${steps[activeStep].title}`)}
+                className="btn-cyber-primary w-full justify-center"
               >
-                <span>Start This Step With AM DXB</span>
+                <span>Start This Stage With AM DXB</span>
                 <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
-              </Button>
+              </button>
             </div>
           </div>
 

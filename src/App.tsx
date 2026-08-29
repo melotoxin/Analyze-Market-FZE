@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/layout/Navbar';
 import { TrustBar } from './components/trust/TrustBar';
 import { Footer } from './components/layout/Footer';
 import { HeroCompanyConfigurator } from './components/hero/HeroCompanyConfigurator';
+import { OtherServicesSection } from './components/services/OtherServicesSection';
+import { ClientStoriesSection } from './components/stories/ClientStoriesSection';
 import { FormationRoadmapSection } from './components/roadmap/FormationRoadmapSection';
-import { JurisdictionComparison } from './components/comparison/JurisdictionComparison';
-import { UaeCostVisualizerSection } from './components/calculator/UaeCostVisualizerSection';
 import { PackagesSection } from './components/packages/PackagesSection';
 import { FreeZonesDirectory } from './components/freezones/FreeZonesDirectory';
-import { OtherServicesSection } from './components/services/OtherServicesSection';
+import { UaeCostVisualizerSection } from './components/calculator/UaeCostVisualizerSection';
+import { JurisdictionComparison } from './components/comparison/JurisdictionComparison';
 import { WhyUaeSection } from './components/why-uae/WhyUaeSection';
 import { FaqSection } from './components/faq/FaqSection';
 import { AboutSection } from './components/about/AboutSection';
@@ -21,9 +22,8 @@ import { ServiceDetailPage } from './components/services/ServiceDetailPage';
 import { ServiceSlug } from './data/servicesData';
 import { ScrollReveal } from './components/ui/ScrollReveal';
 import { Language, TRANSLATIONS } from './data/translations';
-import { Sparkles, MessageCircle } from 'lucide-react';
+import { Sparkles, MessageCircle, PhoneCall } from 'lucide-react';
 import { CommandPalette } from './components/ui/CommandPalette';
-import { SystemStatusBar } from './components/layout/SystemStatusBar';
 
 export function App() {
   const [isConsultationOpen, setIsConsultationOpen] = useState(false);
@@ -117,18 +117,8 @@ export function App() {
   const t = TRANSLATIONS[lang];
 
   return (
-    <div className={'min-h-screen ' + (isDarkMode ? 'dark bg-[#090d16] text-slate-100' : 'light bg-[#f8fafc] text-slate-900') + ' flex flex-col antialiased selection:bg-amber-500/30 selection:text-white font-sans transition-colors duration-300 relative'}>
+    <div className={'min-h-screen ' + (isDarkMode ? 'dark bg-[#121316] text-slate-100' : 'light bg-[#f9f9f7] text-slate-900') + ' flex flex-col antialiased selection:bg-amber-500/30 selection:text-white font-sans transition-colors duration-300 relative'}>
       
-      {/* Dynamic, Reactive Ambient Canvas: Warm Luxury Atmospheric Lights */}
-      <AmbientBackgroundCanvas />
-
-      {/* Enterprise System Live Status & Quick Search Header Bar */}
-      <SystemStatusBar
-        lang={lang}
-        onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
-        onOpenConsultation={() => handleOpenConsultation()}
-      />
-
       {/* Navigation Header */}
       <Navbar
         onOpenConsultation={(svc) => handleOpenConsultation(svc)}
@@ -173,50 +163,7 @@ export function App() {
             <TrustBar lang={lang} />
           </ScrollReveal>
 
-          {/* 3. Turnkey Formation Roadmap & SLA Timeline */}
-          <ScrollReveal direction="up" delay={0.1}>
-            <FormationRoadmapSection
-              onOpenConsultation={(step) => handleOpenConsultation(step)}
-              lang={lang}
-            />
-          </ScrollReveal>
-
-          {/* 4. Interactive 3-Way Jurisdiction Comparison Matrix */}
-          <ScrollReveal direction="up" delay={0.1}>
-            <JurisdictionComparison
-              onOpenConsultation={(jurisdiction) => handleOpenConsultation(jurisdiction)}
-              lang={lang}
-            />
-          </ScrollReveal>
-
-          {/* 5. Interactive UAE Setup Cost & Tax Simulator */}
-          <ScrollReveal direction="up" delay={0.1}>
-            <UaeCostVisualizerSection
-              onOpenConsultation={(quote) => handleOpenConsultation(quote)}
-              lang={lang}
-              currency={currency}
-            />
-          </ScrollReveal>
-
-          {/* 6. Complete Formation Packages (Free Zone, Mainland, Offshore, Dual License) */}
-          <ScrollReveal direction="up" delay={0.1}>
-            <PackagesSection
-              onSelectPackage={(pkgTitle) => handleOpenConsultation(pkgTitle)}
-              lang={lang}
-              currency={currency}
-            />
-          </ScrollReveal>
-
-          {/* 7. 40+ Free Zones Explorer & Discovery Hub */}
-          <ScrollReveal direction="up" delay={0.1}>
-            <FreeZonesDirectory
-              onOpenConsultation={() => handleOpenConsultation('Free Zone Company')}
-              lang={lang}
-              currency={currency}
-            />
-          </ScrollReveal>
-
-          {/* 8. Complete Corporate Lifecycle Services (from amdxb.com) */}
+          {/* 3. 01 / What We Do: 7 Official Services Bento Grid */}
           <ScrollReveal direction="up" delay={0.1}>
             <OtherServicesSection
               onOpenConsultation={(svc) => handleOpenConsultation(svc)}
@@ -225,7 +172,58 @@ export function App() {
             />
           </ScrollReveal>
 
-          {/* 9. Why UAE? Global Economic Power */}
+          {/* 4. 02 / Client Stories & Measurable Outcomes */}
+          <ScrollReveal direction="up" delay={0.1}>
+            <ClientStoriesSection
+              onOpenConsultation={(topic) => handleOpenConsultation(topic)}
+              lang={lang}
+            />
+          </ScrollReveal>
+
+          {/* 5. 03 / How We Work: 4-Stage ISO-Accredited Roadmap */}
+          <ScrollReveal direction="up" delay={0.1}>
+            <FormationRoadmapSection
+              onOpenConsultation={(step) => handleOpenConsultation(step)}
+              lang={lang}
+            />
+          </ScrollReveal>
+
+          {/* 6. 04 / Turnkey Packages (Free Zone, Mainland, Offshore, Dual) */}
+          <ScrollReveal direction="up" delay={0.1}>
+            <PackagesSection
+              onSelectPackage={(pkgTitle) => handleOpenConsultation(pkgTitle)}
+              lang={lang}
+              currency={currency}
+            />
+          </ScrollReveal>
+
+          {/* 7. 05 / 40+ Free Zones Explorer & Discovery Hub */}
+          <ScrollReveal direction="up" delay={0.1}>
+            <FreeZonesDirectory
+              onOpenConsultation={() => handleOpenConsultation('Free Zone Company')}
+              lang={lang}
+              currency={currency}
+            />
+          </ScrollReveal>
+
+          {/* 8. 06 / Tariff Simulator & Interactive Cost Visualizer */}
+          <ScrollReveal direction="up" delay={0.1}>
+            <UaeCostVisualizerSection
+              onOpenConsultation={(quote) => handleOpenConsultation(quote)}
+              lang={lang}
+              currency={currency}
+            />
+          </ScrollReveal>
+
+          {/* 9. 07 / 3-Way Jurisdiction Comparison Matrix */}
+          <ScrollReveal direction="up" delay={0.1}>
+            <JurisdictionComparison
+              onOpenConsultation={(jurisdiction) => handleOpenConsultation(jurisdiction)}
+              lang={lang}
+            />
+          </ScrollReveal>
+
+          {/* 10. Why UAE? Global Economic Power */}
           <ScrollReveal direction="up" delay={0.1}>
             <WhyUaeSection
               onOpenConsultation={() => handleOpenConsultation()}
@@ -233,7 +231,7 @@ export function App() {
             />
           </ScrollReveal>
 
-          {/* 10. About AnalyzeMarkets FZE (SRTI Sharjah HQ) */}
+          {/* 11. About AnalyzeMarkets FZE (SRTI Sharjah HQ) */}
           <ScrollReveal direction="up" delay={0.1}>
             <AboutSection
               onOpenConsultation={() => handleOpenConsultation()}
@@ -241,7 +239,7 @@ export function App() {
             />
           </ScrollReveal>
 
-          {/* 11. Interactive Frequently Asked Questions */}
+          {/* 12. Frequently Asked Questions */}
           <ScrollReveal direction="up" delay={0.1}>
             <FaqSection
               onOpenConsultation={() => handleOpenConsultation()}
@@ -315,18 +313,18 @@ export function App() {
           href="https://wa.me/971563396961"
           target="_blank"
           rel="noreferrer"
-          className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs tracking-wide shadow-xl active:translate-y-0.5 transition-all cursor-pointer hover:scale-105"
+          className="flex items-center gap-2 px-4 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs tracking-wide shadow-xl active:translate-y-0.5 transition-all cursor-pointer hover:scale-105"
         >
           <MessageCircle className="w-4 h-4" />
-          <span className="hidden sm:inline">{t.whatsappUs}</span>
+          <span className="hidden sm:inline">WhatsApp Us</span>
         </a>
 
         <button
           onClick={() => handleOpenConsultation()}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-sky-500 to-sky-600 hover:from-sky-400 hover:to-sky-500 text-white font-bold text-xs tracking-wide shadow-xl shadow-sky-500/30 hover:scale-105 active:translate-y-0.5 transition-all cursor-pointer border border-white/10"
+          className="flex items-center gap-2 px-5 py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs uppercase tracking-wider shadow-xl active:translate-y-0.5 transition-all cursor-pointer"
         >
-          <Sparkles className="w-3.5 h-3.5" />
-          <span>{t.quickConsultationFloat}</span>
+          <PhoneCall className="w-3.5 h-3.5" />
+          <span>Get In Touch</span>
         </button>
       </div>
     </div>
