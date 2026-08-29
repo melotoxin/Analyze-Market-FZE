@@ -24,7 +24,6 @@ import { MobileBottomDock } from './components/layout/MobileBottomDock';
 import { ServiceSlug } from './data/servicesData';
 import { ScrollReveal } from './components/ui/ScrollReveal';
 import { Language, TRANSLATIONS } from './data/translations';
-import { MessageCircle, PhoneCall } from 'lucide-react';
 
 export function App() {
   const [isConsultationOpen, setIsConsultationOpen] = useState(false);
@@ -341,27 +340,6 @@ export function App() {
         onOpenConsultation={(details) => handleOpenConsultation(details)}
         lang={lang}
       />
-
-      {/* Desktop Floating Action Buttons */}
-      <div className="hidden md:flex fixed bottom-6 right-6 z-30 items-center gap-2.5">
-        <a
-          href="https://wa.me/971563396961"
-          target="_blank"
-          rel="noreferrer"
-          className="flex items-center gap-2 px-4 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs tracking-wide shadow-lg rounded-xl transition-all cursor-pointer hover:scale-105"
-        >
-          <MessageCircle className="w-4 h-4" />
-          <span>WhatsApp</span>
-        </a>
-
-        <button
-          onClick={() => handleOpenConsultation()}
-          className="flex items-center gap-2 px-5 py-3 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs uppercase tracking-wider shadow-lg rounded-xl transition-all cursor-pointer hover:scale-105"
-        >
-          <PhoneCall className="w-3.5 h-3.5" />
-          <span>Get In Touch</span>
-        </button>
-      </div>
     </div>
   );
 }

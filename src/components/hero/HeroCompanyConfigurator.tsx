@@ -3,8 +3,8 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import {
   CheckCircle2,
   ArrowRight,
-  Phone,
-  MessageCircle
+  Sparkles,
+  Compass
 } from 'lucide-react';
 import { HeroVideoBackground } from './HeroVideoBackground';
 import { EnterpriseSetupStudio } from './EnterpriseSetupStudio';
@@ -31,6 +31,13 @@ export const HeroCompanyConfigurator: React.FC<HeroCompanyConfiguratorProps> = (
   });
 
   const backgroundY = useTransform(scrollYProgress, [0, 1], ['0%', '15%']);
+
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <section
@@ -97,33 +104,24 @@ export const HeroCompanyConfigurator: React.FC<HeroCompanyConfiguratorProps> = (
               </div>
             </div>
 
-            {/* Action Buttons */}
+            {/* Clean Guided Actions (No Spammy Repetitive Contact Buttons) */}
             <div className="flex flex-wrap items-center gap-3 pt-2">
               <button
-                onClick={() => onOpenConsultation('Free Zone Setup')}
+                onClick={() => scrollToSection('jurisdiction-wizard')}
                 className="px-6 py-3.5 rounded-xl bg-white hover:bg-slate-100 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all shadow-lg cursor-pointer inline-flex items-center gap-2"
               >
-                <span>{isAr ? 'احجز استشارتك المجانية' : 'Book a Consultation'}</span>
+                <Sparkles className="w-4 h-4 text-slate-800" />
+                <span>{isAr ? 'اختبار اختيار الهيكل القانوني' : '30s Structure Diagnostic'}</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
 
-              <a
-                href="https://wa.me/971563396961"
-                target="_blank"
-                rel="noreferrer"
-                className="px-5 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs transition-all shadow-lg inline-flex items-center gap-2"
+              <button
+                onClick={() => scrollToSection('freezones')}
+                className="px-5 py-3.5 rounded-xl border border-white/20 bg-slate-900/80 hover:bg-slate-800 text-white font-semibold text-xs transition-all shadow-md inline-flex items-center gap-2 cursor-pointer"
               >
-                <MessageCircle className="w-4 h-4 text-white" />
-                <span>{isAr ? 'مستشار واتساب' : 'WhatsApp Advisor'}</span>
-              </a>
-
-              <a
-                href="tel:+971563396961"
-                className="px-4 py-3.5 rounded-xl border border-white/15 bg-slate-900/70 text-xs font-mono text-slate-200 hover:text-white transition-all inline-flex items-center gap-1.5"
-              >
-                <Phone className="w-3.5 h-3.5 text-slate-300" />
-                <span dir="ltr">+971 56 339 6961</span>
-              </a>
+                <Compass className="w-4 h-4 text-slate-300" />
+                <span>{isAr ? 'استكشف المناطق الحرة (40+)' : 'Explore 40+ Free Zones'}</span>
+              </button>
             </div>
 
           </div>
