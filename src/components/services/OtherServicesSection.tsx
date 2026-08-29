@@ -64,7 +64,7 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({
       features: ['100% Sponsor-Free Independence', 'Full Family & Team Sponsorship', 'VIP Medical & Biometrics'],
       actionLabel: isAr ? 'تفاصيل الخدمة' : 'View Service Roadmap',
       icon: Award,
-      image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80'
+      image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=80'
     },
     {
       id: 'tax-vat',
@@ -78,7 +78,7 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({
       features: ['Official FTA TRN Number', 'QFZP 0% Tax Optimization', 'Quarterly VAT 201 Submissions'],
       actionLabel: isAr ? 'تفاصيل الخدمة' : 'View Service Roadmap',
       icon: Receipt,
-      image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80'
+      image: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80'
     },
     {
       id: 'audit',
@@ -92,7 +92,7 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({
       features: ['Bank-Accepted Audit Statements', 'Free Zone Annual Compliance', 'Independent Verification & MOA Audit'],
       actionLabel: isAr ? 'تفاصيل الخدمة' : 'View Service Roadmap',
       icon: FileCheck2,
-      image: 'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=800&q=80'
+      image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80'
     },
     {
       id: 'accounting',
@@ -106,7 +106,7 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({
       features: ['Monthly P&L & Balance Sheet', 'WPS Compliant Payroll Management', 'Tax-Ready Financial Records'],
       actionLabel: isAr ? 'تفاصيل الخدمة' : 'View Service Roadmap',
       icon: Calculator,
-      image: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80'
+      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80'
     },
     {
       id: 'pro-renewal',
@@ -134,7 +134,7 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({
       features: ['Certified Liquidator Report', 'Ministry & Visa Clearance', 'Formal De-Registration Gazette'],
       actionLabel: isAr ? 'تفاصيل الخدمة' : 'View Service Roadmap',
       icon: XCircle,
-      image: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80'
+      image: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80'
     }
   ];
 

@@ -28,7 +28,7 @@ export const ClientStoriesSection: React.FC<ClientStoriesSectionProps> = ({
         { label: 'Bank Activation', value: 'Tier-1 Wio + ENBD' },
         { label: 'Executive Visas', value: '6 x 10-Yr Golden Visas' }
       ],
-      image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80'
+      image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80'
     },
     {
       client: 'Helvetia Commodity Trading SPV',
@@ -43,7 +43,7 @@ export const ClientStoriesSection: React.FC<ClientStoriesSectionProps> = ({
         { label: 'Audit Verification', value: 'Big-4 Standard' },
         { label: 'Asset Protection', value: '100% Statutory Privacy' }
       ],
-      image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80'
+      image: 'https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=800&q=80'
     },
     {
       client: 'OmniRoute Logistics Enterprise',
@@ -58,7 +58,7 @@ export const ClientStoriesSection: React.FC<ClientStoriesSectionProps> = ({
         { label: 'VAT Registration', value: 'FTA TRN in 48h' },
         { label: 'Investor Status', value: '10-Year Golden Visa' }
       ],
-      image: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80'
+      image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80'
     }
   ];
 
