@@ -1,17 +1,16 @@
 ﻿import React, { useState } from 'react';
 import {
-  Building2,
-  Check,
   Plus,
   Minus,
   Send,
   CheckCircle2,
   Clock,
   Calculator,
-  ArrowRight
+  FileDown,
+  MessageCircle
 } from 'lucide-react';
-import { Button } from '../ui/Button';
 import { Language, TRANSLATIONS } from '../../data/translations';
+import { generateQuotePdf } from '../../utils/quotePdfGenerator';
 import confetti from 'canvas-confetti';
 
 interface EnterpriseSetupStudioProps {
@@ -37,12 +36,26 @@ export const EnterpriseSetupStudio: React.FC<EnterpriseSetupStudioProps> = ({
   const [clientName, setClientName] = useState('');
   const [clientPhone, setClientPhone] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isDownloadingPdf, setIsDownloadingPdf] = useState(false);
 
   // Dynamic pricing calculation with real 2026 rates
   const basePrices = {
     freezone: 11500,
     mainland: 17500,
     offshore: 13500
+  };
+
+  const activityLabels: Record<string, string> = {
+    tech: 'AI, Tech & Software',
+    trading: 'General Trading / Import',
+    ecommerce: 'E-Commerce & Digital',
+    consulting: 'Management Consulting'
+  };
+
+  const jurisdictionLabels: Record<string, string> = {
+    freezone: 'Free Zone (0% QFZP)',
+    mainland: 'Mainland LLC (DED / DET)',
+    offshore: 'Offshore SPV & Holding'
   };
 
   const visaUnitCost = 3600;
@@ -54,16 +67,42 @@ export const EnterpriseSetupStudio: React.FC<EnterpriseSetupStudioProps> = ({
       ? '€' + Math.round(rawAedTotal / 3.98).toLocaleString() 
       : 'AED ' + rawAedTotal.toLocaleString();
 
+  const handleDownloadPdf = () => {
+    setIsDownloadingPdf(true);
+    try {
+      generateQuotePdf({
+        clientName: clientName.trim() || 'Client',
+        clientPhone: clientPhone.trim() || '+971 56 339 6961',
+        jurisdiction: jurisdictionLabels[jurisdiction],
+        activity: activityLabels[activity],
+        visaCount,
+        totalFormatted: formattedTotal,
+        currency
+      });
+      confetti({ particleCount: 50, spread: 40, origin: { y: 0.6 } });
+    } catch (e) {
+      console.error('PDF Generation Error', e);
+    } finally {
+      setIsDownloadingPdf(false);
+    }
+  };
+
   const handleStudioSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!clientName || !clientPhone) return;
     setIsSubmitted(true);
     confetti({ particleCount: 70, spread: 50, origin: { y: 0.6 } });
+
+    // Open WhatsApp directly with prefilled mandate
+    const message = `Hello AM DXB Advisory, I have configured a ${jurisdictionLabels[jurisdiction]} (${activityLabels[activity]}) with ${visaCount} Visas at an estimated tariff of ${formattedTotal}. Name: ${clientName}, Phone: ${clientPhone}. Please share the registration roadmap.`;
+    const encodedUrl = `https://wa.me/971563396961?text=${encodeURIComponent(message)}`;
+
     setTimeout(() => {
+      window.open(encodedUrl, '_blank');
       setIsSubmitted(false);
       setClientName('');
       setClientPhone('');
-    }, 5000);
+    }, 1500);
   };
 
   return (
@@ -211,12 +250,12 @@ export const EnterpriseSetupStudio: React.FC<EnterpriseSetupStudioProps> = ({
           </div>
         </div>
 
-        {/* 1-Click Fast Dispatch Form */}
+        {/* 1-Click Fast Dispatch & Instant PDF Proposal */}
         {isSubmitted ? (
-          <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-xl text-center space-y-1 font-mono">
+          <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-xl text-center space-y-2 font-mono">
             <CheckCircle2 className="w-5 h-5 text-emerald-600 mx-auto" />
-            <span className="text-xs font-bold text-emerald-950 block">Quote & Mandate Dispatched</span>
-            <span className="text-[11px] text-emerald-800 block">Senior formation director will call in 30 mins.</span>
+            <span className="text-xs font-bold text-emerald-950 block">Connecting to Senior Advisor via WhatsApp...</span>
+            <span className="text-[11px] text-emerald-800 block">Pre-filled mandate dispatched.</span>
           </div>
         ) : (
           <form onSubmit={handleStudioSubmit} className="space-y-2">
@@ -240,13 +279,25 @@ export const EnterpriseSetupStudio: React.FC<EnterpriseSetupStudioProps> = ({
               />
             </div>
 
-            <button
-              type="submit"
-              className="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs uppercase tracking-wider py-3 rounded-lg flex items-center justify-center gap-2 cursor-pointer shadow-sm transition-all"
-            >
-              <Send className={'w-3.5 h-3.5 ' + (isAr ? 'rotate-180' : '')} />
-              <span>{isAr ? 'تثبيت السعر وبدء الإجراءات' : 'Lock in Quote & Start Setup'}</span>
-            </button>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+              <button
+                type="button"
+                onClick={handleDownloadPdf}
+                disabled={isDownloadingPdf}
+                className="bg-white hover:bg-slate-100 border border-slate-300 text-slate-900 font-bold text-[11px] py-2.5 rounded-lg flex items-center justify-center gap-1.5 cursor-pointer shadow-sm transition-all"
+              >
+                <FileDown className="w-3.5 h-3.5 text-slate-700" />
+                <span>{isDownloadingPdf ? 'Generating...' : 'Download PDF Quote'}</span>
+              </button>
+
+              <button
+                type="submit"
+                className="bg-slate-900 hover:bg-slate-800 text-white font-bold text-[11px] uppercase tracking-wider py-2.5 rounded-lg flex items-center justify-center gap-1.5 cursor-pointer shadow-sm transition-all"
+              >
+                <MessageCircle className="w-3.5 h-3.5" />
+                <span>{isAr ? 'بدء الإجراءات واتساب' : 'Lock Quote on WhatsApp'}</span>
+              </button>
+            </div>
           </form>
         )}
 

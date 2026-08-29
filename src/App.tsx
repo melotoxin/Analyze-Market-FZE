@@ -5,6 +5,7 @@ import { Footer } from './components/layout/Footer';
 import { HeroCompanyConfigurator } from './components/hero/HeroCompanyConfigurator';
 import { OtherServicesSection } from './components/services/OtherServicesSection';
 import { ClientStoriesSection } from './components/stories/ClientStoriesSection';
+import { JurisdictionWizard } from './components/wizard/JurisdictionWizard';
 import { FormationRoadmapSection } from './components/roadmap/FormationRoadmapSection';
 import { PackagesSection } from './components/packages/PackagesSection';
 import { FreeZonesDirectory } from './components/freezones/FreeZonesDirectory';
@@ -18,11 +19,12 @@ import { AuthModal, UserSession } from './components/auth/AuthModal';
 import { SettingsModal } from './components/settings/SettingsModal';
 import { AdminDashboard } from './components/admin/AdminDashboard';
 import { ServiceDetailPage } from './components/services/ServiceDetailPage';
+import { CommandSearchModal } from './components/search/CommandSearchModal';
+import { MobileBottomDock } from './components/layout/MobileBottomDock';
 import { ServiceSlug } from './data/servicesData';
 import { ScrollReveal } from './components/ui/ScrollReveal';
 import { Language, TRANSLATIONS } from './data/translations';
 import { MessageCircle, PhoneCall } from 'lucide-react';
-import { CommandPalette } from './components/ui/CommandPalette';
 
 export function App() {
   const [isConsultationOpen, setIsConsultationOpen] = useState(false);
@@ -40,10 +42,22 @@ export function App() {
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isAdminOpen, setIsAdminOpen] = useState(false);
-  const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
+  const [isCommandSearchOpen, setIsCommandSearchOpen] = useState(false);
 
   // Authentication session
   const [user, setUser] = useState<UserSession | null>(null);
+
+  // Global keydown for ⌘K
+  useEffect(() => {
+    const handleGlobalKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setIsCommandSearchOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleGlobalKeyDown);
+    return () => window.removeEventListener('keydown', handleGlobalKeyDown);
+  }, []);
 
   // Sync dark/light class and RTL/LTR direction with root document
   useEffect(() => {
@@ -105,6 +119,22 @@ export function App() {
     }
   };
 
+  const handleCommandSearchAction = (actionType: string, value?: string) => {
+    if (actionType === 'scroll-calculator') {
+      handleNavigateSection('cost-calculator');
+    } else if (actionType === 'consult-visa') {
+      handleOpenConsultation('Golden Visa 10-Year');
+    } else if (actionType === 'consult-srti') {
+      handleOpenConsultation('SRTI Park Setup');
+    } else if (actionType === 'whatsapp') {
+      window.open('https://wa.me/971563396961', '_blank');
+    } else if (actionType === 'freezone') {
+      handleOpenConsultation(`Free Zone Inquiry: ${value}`);
+    } else if (actionType === 'activity') {
+      handleOpenConsultation(`Activity Setup: ${value}`);
+    }
+  };
+
   const handleLoginSuccess = (session: UserSession) => {
     setUser(session);
   };
@@ -116,7 +146,7 @@ export function App() {
   const t = TRANSLATIONS[lang];
 
   return (
-    <div className="min-h-screen bg-[#FBFBFA] text-slate-900 flex flex-col antialiased selection:bg-slate-900 selection:text-white font-sans transition-colors duration-200 relative">
+    <div className="min-h-screen bg-[#FBFBFA] text-slate-900 flex flex-col antialiased selection:bg-slate-900 selection:text-white font-sans transition-colors duration-200 relative pb-16 md:pb-0">
       
       {/* Navigation Header */}
       <Navbar
@@ -124,6 +154,7 @@ export function App() {
         onOpenAuth={() => setIsAuthOpen(true)}
         onOpenSettings={() => setIsSettingsOpen(true)}
         onOpenAdmin={() => setIsAdminOpen(true)}
+        onOpenSearch={() => setIsCommandSearchOpen(true)}
         user={user}
         onLogout={handleLogout}
         lang={lang}
@@ -177,11 +208,12 @@ export function App() {
             />
           </ScrollReveal>
 
-          {/* 5. 03 / How We Work: 4-Stage ISO-Accredited Roadmap */}
+          {/* 5. 03 / 30-Second Jurisdiction Diagnostic Wizard */}
           <ScrollReveal direction="up" delay={0.1}>
-            <FormationRoadmapSection
-              onOpenConsultation={(step) => handleOpenConsultation(step)}
+            <JurisdictionWizard
+              onOpenConsultation={(details) => handleOpenConsultation(details)}
               lang={lang}
+              currency={currency}
             />
           </ScrollReveal>
 
@@ -194,7 +226,15 @@ export function App() {
             />
           </ScrollReveal>
 
-          {/* 7. 05 / 40+ Free Zones Explorer & Discovery Hub */}
+          {/* 7. 05 / How We Work: 4-Stage ISO-Accredited Roadmap */}
+          <ScrollReveal direction="up" delay={0.1}>
+            <FormationRoadmapSection
+              onOpenConsultation={(step) => handleOpenConsultation(step)}
+              lang={lang}
+            />
+          </ScrollReveal>
+
+          {/* 8. 06 / 40+ Free Zones Explorer & Discovery Hub */}
           <ScrollReveal direction="up" delay={0.1}>
             <FreeZonesDirectory
               onOpenConsultation={() => handleOpenConsultation('Free Zone Company')}
@@ -203,7 +243,7 @@ export function App() {
             />
           </ScrollReveal>
 
-          {/* 8. 06 / Tariff Simulator & Interactive Cost Visualizer */}
+          {/* 9. 07 / Tariff Simulator & Interactive Cost Visualizer */}
           <ScrollReveal direction="up" delay={0.1}>
             <UaeCostVisualizerSection
               onOpenConsultation={(quote) => handleOpenConsultation(quote)}
@@ -212,7 +252,7 @@ export function App() {
             />
           </ScrollReveal>
 
-          {/* 9. 07 / 3-Way Jurisdiction Comparison Matrix */}
+          {/* 10. 08 / 3-Way Jurisdiction Comparison Matrix */}
           <ScrollReveal direction="up" delay={0.1}>
             <JurisdictionComparison
               onOpenConsultation={(jurisdiction) => handleOpenConsultation(jurisdiction)}
@@ -220,7 +260,7 @@ export function App() {
             />
           </ScrollReveal>
 
-          {/* 10. Why UAE? Global Economic Power */}
+          {/* 11. Why UAE? Global Economic Power */}
           <ScrollReveal direction="up" delay={0.1}>
             <WhyUaeSection
               onOpenConsultation={() => handleOpenConsultation()}
@@ -228,7 +268,7 @@ export function App() {
             />
           </ScrollReveal>
 
-          {/* 11. About AnalyzeMarkets FZE (SRTI Sharjah HQ) */}
+          {/* 12. About AnalyzeMarkets FZE (SRTI Sharjah HQ) */}
           <ScrollReveal direction="up" delay={0.1}>
             <AboutSection
               onOpenConsultation={() => handleOpenConsultation()}
@@ -236,7 +276,7 @@ export function App() {
             />
           </ScrollReveal>
 
-          {/* 12. Frequently Asked Questions */}
+          {/* 13. Frequently Asked Questions */}
           <ScrollReveal direction="up" delay={0.1}>
             <FaqSection
               onOpenConsultation={() => handleOpenConsultation()}
@@ -288,24 +328,22 @@ export function App() {
         lang={lang}
       />
 
-      {/* Command Palette (Ctrl+K) */}
-      <CommandPalette
-        isOpen={isCommandPaletteOpen}
-        onClose={() => setIsCommandPaletteOpen(false)}
-        onNavigateService={handleNavigateService}
-        onNavigateSection={handleNavigateSection}
-        onOpenConsultation={(pkg) => handleOpenConsultation(pkg)}
-        onOpenAdmin={() => setIsAdminOpen(true)}
-        isDarkMode={isDarkMode}
-        onToggleTheme={toggleTheme}
+      {/* Global ⌘K Command Search Modal */}
+      <CommandSearchModal
+        isOpen={isCommandSearchOpen}
+        onClose={() => setIsCommandSearchOpen(false)}
+        onSelectAction={handleCommandSearchAction}
         lang={lang}
-        onToggleLang={toggleLanguage}
-        currency={currency}
-        onSetCurrency={setCurrency}
       />
 
-      {/* Floating Action Buttons */}
-      <div className="fixed bottom-6 right-6 z-30 flex items-center gap-2.5">
+      {/* Persistent Mobile Bottom Action Dock (<768px) */}
+      <MobileBottomDock
+        onOpenConsultation={(details) => handleOpenConsultation(details)}
+        lang={lang}
+      />
+
+      {/* Desktop Floating Action Buttons */}
+      <div className="hidden md:flex fixed bottom-6 right-6 z-30 items-center gap-2.5">
         <a
           href="https://wa.me/971563396961"
           target="_blank"
@@ -313,7 +351,7 @@ export function App() {
           className="flex items-center gap-2 px-4 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs tracking-wide shadow-lg rounded-xl transition-all cursor-pointer hover:scale-105"
         >
           <MessageCircle className="w-4 h-4" />
-          <span className="hidden sm:inline">WhatsApp</span>
+          <span>WhatsApp</span>
         </a>
 
         <button

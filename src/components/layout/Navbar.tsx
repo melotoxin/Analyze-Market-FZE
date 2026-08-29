@@ -12,9 +12,9 @@ import {
   XCircle,
   PhoneCall,
   ArrowRight,
-  ChevronDown
+  ChevronDown,
+  Search
 } from 'lucide-react';
-import { Button } from '../ui/Button';
 import { Language, TRANSLATIONS } from '../../data/translations';
 import { UserSession } from '../auth/AuthModal';
 import { AmDxbLogo } from '../ui/AmDxbLogo';
@@ -25,6 +25,7 @@ interface NavbarProps {
   onOpenAuth: () => void;
   onOpenSettings: () => void;
   onOpenAdmin: () => void;
+  onOpenSearch?: () => void;
   user: UserSession | null;
   onLogout: () => void;
   lang: Language;
@@ -43,6 +44,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenAuth,
   onOpenSettings,
   onOpenAdmin,
+  onOpenSearch,
   user,
   onLogout,
   lang,
@@ -183,8 +185,8 @@ export const Navbar: React.FC<NavbarProps> = ({
               )}
             </div>
 
-            <button onClick={() => handleSectionClick('how-we-work')} className="px-3 py-2 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer">
-              {isAr ? 'منهجية العمل' : 'How We Work'}
+            <button onClick={() => handleSectionClick('jurisdiction-wizard')} className="px-3 py-2 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer">
+              {isAr ? 'حاسبة الهيكل' : 'Diagnostic Wizard'}
             </button>
 
             <button onClick={() => handleSectionClick('packages')} className="px-3 py-2 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer">
@@ -210,8 +212,21 @@ export const Navbar: React.FC<NavbarProps> = ({
           </nav>
 
           {/* Right Controls */}
-          <div className="hidden sm:flex items-center space-x-3 shrink-0 whitespace-nowrap">
+          <div className="hidden sm:flex items-center space-x-2.5 shrink-0 whitespace-nowrap">
             
+            {/* Search ⌘K */}
+            {onOpenSearch && (
+              <button
+                onClick={onOpenSearch}
+                className="px-3 py-1.5 border border-slate-200 bg-slate-50 hover:bg-slate-100 text-xs font-mono text-slate-600 rounded-lg flex items-center gap-2 cursor-pointer transition-all shadow-sm"
+                title="Search Free Zones and Activities (⌘K)"
+              >
+                <Search className="w-3.5 h-3.5 text-slate-500" />
+                <span className="hidden xl:inline text-[11px]">Search...</span>
+                <kbd className="px-1.5 py-0.5 bg-white border border-slate-300 rounded text-[10px] text-slate-500 font-bold">⌘K</kbd>
+              </button>
+            )}
+
             {/* Currency */}
             {onSetCurrency && (
               <button
@@ -238,7 +253,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* CTA */}
             <button
               onClick={() => onOpenConsultation()}
-              className="px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs uppercase tracking-wider rounded-lg transition-all shadow-sm inline-flex items-center gap-2 cursor-pointer"
+              className="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs uppercase tracking-wider rounded-lg transition-all shadow-sm inline-flex items-center gap-1.5 cursor-pointer"
             >
               <span>{isAr ? 'تواصل معنا' : 'Book a Call'}</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -246,8 +261,16 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           </div>
 
-          {/* Mobile Menu */}
+          {/* Mobile Menu & Search */}
           <div className="lg:hidden flex items-center gap-2">
+            {onOpenSearch && (
+              <button
+                onClick={onOpenSearch}
+                className="p-2 border border-slate-200 rounded-lg text-slate-700 bg-slate-50"
+              >
+                <Search className="w-4 h-4" />
+              </button>
+            )}
             <button
               onClick={() => onOpenConsultation()}
               className="px-3 py-1.5 bg-slate-900 text-white font-bold text-xs rounded-lg"
@@ -283,7 +306,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           <div className="pt-3 border-t border-slate-100 space-y-1 text-xs font-bold text-slate-800">
-            <button onClick={() => handleSectionClick('how-we-work')} className="w-full text-left py-2 px-2">How We Work</button>
+            <button onClick={() => handleSectionClick('jurisdiction-wizard')} className="w-full text-left py-2 px-2">Diagnostic Wizard</button>
             <button onClick={() => handleSectionClick('packages')} className="w-full text-left py-2 px-2">Packages</button>
             <button onClick={() => handleSectionClick('freezones')} className="w-full text-left py-2 px-2">Free Zones Directory</button>
             <button onClick={() => handleSectionClick('cost-calculator')} className="w-full text-left py-2 px-2">Cost Calculator</button>
