@@ -17,12 +17,11 @@ import { QuickConsultationModal } from './components/consultation/QuickConsultat
 import { AuthModal, UserSession } from './components/auth/AuthModal';
 import { SettingsModal } from './components/settings/SettingsModal';
 import { AdminDashboard } from './components/admin/AdminDashboard';
-import { AmbientBackgroundCanvas } from './components/layout/AmbientBackgroundCanvas';
 import { ServiceDetailPage } from './components/services/ServiceDetailPage';
 import { ServiceSlug } from './data/servicesData';
 import { ScrollReveal } from './components/ui/ScrollReveal';
 import { Language, TRANSLATIONS } from './data/translations';
-import { Sparkles, MessageCircle, PhoneCall } from 'lucide-react';
+import { MessageCircle, PhoneCall } from 'lucide-react';
 import { CommandPalette } from './components/ui/CommandPalette';
 
 export function App() {
@@ -33,7 +32,7 @@ export function App() {
   const [activeServiceSlug, setActiveServiceSlug] = useState<ServiceSlug | null>(null);
 
   // Theme & Language & Currency State
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const [isDarkMode, setIsDarkMode] = useState(false);
   const [lang, setLang] = useState<Language>('en');
   const [currency, setCurrency] = useState<string>('AED');
 
@@ -117,7 +116,7 @@ export function App() {
   const t = TRANSLATIONS[lang];
 
   return (
-    <div className={'min-h-screen ' + (isDarkMode ? 'dark bg-[#121316] text-slate-100' : 'light bg-[#f9f9f7] text-slate-900') + ' flex flex-col antialiased selection:bg-amber-500/30 selection:text-white font-sans transition-colors duration-300 relative'}>
+    <div className="min-h-screen bg-[#FBFBFA] text-slate-900 flex flex-col antialiased selection:bg-slate-900 selection:text-white font-sans transition-colors duration-200 relative">
       
       {/* Navigation Header */}
       <Navbar
@@ -151,19 +150,17 @@ export function App() {
         </main>
       ) : (
         <main className="flex-grow relative z-10">
-          {/* 1. High-Impact 1-Screen Hero & Venture — The Estimator */}
+          {/* 1. High-Impact Hero & Venture — The Estimator */}
           <HeroCompanyConfigurator
             onOpenConsultation={(details) => handleOpenConsultation(details)}
             lang={lang}
             currency={currency}
           />
 
-          {/* 2. Official Government Authorities & Tier-1 Banking Partner Bar */}
-          <ScrollReveal direction="up" delay={0.1}>
-            <TrustBar lang={lang} />
-          </ScrollReveal>
+          {/* 2. Official Government Authorities & Tier-1 Banking Partner Ribbon */}
+          <TrustBar lang={lang} />
 
-          {/* 3. 01 / What We Do: 7 Official Services Bento Grid */}
+          {/* 3. 01 / What We Do: 7 Official Services */}
           <ScrollReveal direction="up" delay={0.1}>
             <OtherServicesSection
               onOpenConsultation={(svc) => handleOpenConsultation(svc)}
@@ -272,7 +269,7 @@ export function App() {
         lang={lang}
       />
 
-      {/* Settings & Theme & Currency Modal */}
+      {/* Settings Modal */}
       <SettingsModal
         isOpen={isSettingsOpen}
         onClose={() => setIsSettingsOpen(false)}
@@ -284,14 +281,14 @@ export function App() {
         onSetCurrency={setCurrency}
       />
 
-      {/* Executive Sales & Client Requests Admin CRM Dashboard */}
+      {/* Executive Admin CRM Dashboard */}
       <AdminDashboard
         isOpen={isAdminOpen}
         onClose={() => setIsAdminOpen(false)}
         lang={lang}
       />
 
-      {/* Global Enterprise Command Palette (Ctrl+K / ⌘+K) */}
+      {/* Command Palette (Ctrl+K) */}
       <CommandPalette
         isOpen={isCommandPaletteOpen}
         onClose={() => setIsCommandPaletteOpen(false)}
@@ -307,21 +304,21 @@ export function App() {
         onSetCurrency={setCurrency}
       />
 
-      {/* Floating Action Buttons: WhatsApp & Quick Consultation */}
+      {/* Floating Action Buttons */}
       <div className="fixed bottom-6 right-6 z-30 flex items-center gap-2.5">
         <a
           href="https://wa.me/971563396961"
           target="_blank"
           rel="noreferrer"
-          className="flex items-center gap-2 px-4 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs tracking-wide shadow-xl active:translate-y-0.5 transition-all cursor-pointer hover:scale-105"
+          className="flex items-center gap-2 px-4 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs tracking-wide shadow-lg rounded-xl transition-all cursor-pointer hover:scale-105"
         >
           <MessageCircle className="w-4 h-4" />
-          <span className="hidden sm:inline">WhatsApp Us</span>
+          <span className="hidden sm:inline">WhatsApp</span>
         </a>
 
         <button
           onClick={() => handleOpenConsultation()}
-          className="flex items-center gap-2 px-5 py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs uppercase tracking-wider shadow-xl active:translate-y-0.5 transition-all cursor-pointer"
+          className="flex items-center gap-2 px-5 py-3 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs uppercase tracking-wider shadow-lg rounded-xl transition-all cursor-pointer hover:scale-105"
         >
           <PhoneCall className="w-3.5 h-3.5" />
           <span>Get In Touch</span>
