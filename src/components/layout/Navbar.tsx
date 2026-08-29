@@ -121,13 +121,11 @@ export const Navbar: React.FC<NavbarProps> = ({
       <div className="hidden md:block bg-slate-900 text-slate-300 text-xs font-mono py-1.5 px-4 sm:px-8">
         <div className="max-w-[1440px] mx-auto flex items-center justify-between">
           <div className="flex items-center gap-4 text-slate-300">
-            <span>SRTI Park HQ: Block B - Office B34-B047, Sharjah, UAE</span>
-            <span className="text-slate-600">|</span>
-            <span>Tel: <a href="tel:+971563396961" className="text-white hover:underline">+971 56 339 6961</a></span>
+            <span>Sharjah Research Technology & Innovation Park (SRTI Park HQ: Block B - Office B34-B047)</span>
           </div>
 
           <div className="flex items-center gap-3">
-            <span>License #B34-B047</span>
+            <span>Official License #B34-B047</span>
             <span className="text-slate-600">|</span>
             <span className="text-emerald-400 font-semibold">● Ministry Compliant</span>
           </div>
@@ -185,12 +183,12 @@ export const Navbar: React.FC<NavbarProps> = ({
               )}
             </div>
 
-            <button onClick={() => handleSectionClick('jurisdiction-wizard')} className="px-3 py-2 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer">
-              {isAr ? 'حاسبة الهيكل' : 'Diagnostic Wizard'}
-            </button>
-
             <button onClick={() => handleSectionClick('packages')} className="px-3 py-2 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer">
               {isAr ? 'الباقات' : 'Packages'}
+            </button>
+
+            <button onClick={() => handleSectionClick('how-we-work')} className="px-3 py-2 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer">
+              {isAr ? 'منهجية العمل' : 'How We Work'}
             </button>
 
             <button onClick={() => handleSectionClick('freezones')} className="px-3 py-2 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer">
@@ -255,7 +253,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={() => onOpenConsultation()}
               className="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs uppercase tracking-wider rounded-lg transition-all shadow-sm inline-flex items-center gap-1.5 cursor-pointer"
             >
-              <span>{isAr ? 'تواصل معنا' : 'Book a Call'}</span>
+              <span>{isAr ? 'احجز استشارة' : 'Schedule Advisory'}</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </button>
 
@@ -306,8 +304,8 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           <div className="pt-3 border-t border-slate-100 space-y-1 text-xs font-bold text-slate-800">
-            <button onClick={() => handleSectionClick('jurisdiction-wizard')} className="w-full text-left py-2 px-2">Diagnostic Wizard</button>
             <button onClick={() => handleSectionClick('packages')} className="w-full text-left py-2 px-2">Packages</button>
+            <button onClick={() => handleSectionClick('how-we-work')} className="w-full text-left py-2 px-2">How We Work</button>
             <button onClick={() => handleSectionClick('freezones')} className="w-full text-left py-2 px-2">Free Zones Directory</button>
             <button onClick={() => handleSectionClick('cost-calculator')} className="w-full text-left py-2 px-2">Cost Calculator</button>
             <button onClick={() => handleSectionClick('client-stories')} className="w-full text-left py-2 px-2">Client Stories</button>
@@ -319,7 +317,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={() => { setMobileMenuOpen(false); onOpenConsultation(); }}
               className="w-full bg-slate-900 text-white font-bold text-xs uppercase py-3 rounded-lg text-center"
             >
-              Book Strategy Call
+              Schedule Advisory Meeting
             </button>
           </div>
         </div>

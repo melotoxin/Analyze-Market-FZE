@@ -4,7 +4,8 @@ import {
   CheckCircle2,
   ArrowRight,
   Sparkles,
-  Compass
+  Compass,
+  Layers
 } from 'lucide-react';
 import { HeroVideoBackground } from './HeroVideoBackground';
 import { EnterpriseSetupStudio } from './EnterpriseSetupStudio';
@@ -104,14 +105,14 @@ export const HeroCompanyConfigurator: React.FC<HeroCompanyConfiguratorProps> = (
               </div>
             </div>
 
-            {/* Clean Guided Actions (No Spammy Repetitive Contact Buttons) */}
+            {/* Clean Guided Actions */}
             <div className="flex flex-wrap items-center gap-3 pt-2">
               <button
-                onClick={() => scrollToSection('jurisdiction-wizard')}
+                onClick={() => scrollToSection('packages')}
                 className="px-6 py-3.5 rounded-xl bg-white hover:bg-slate-100 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all shadow-lg cursor-pointer inline-flex items-center gap-2"
               >
-                <Sparkles className="w-4 h-4 text-slate-800" />
-                <span>{isAr ? 'اختبار اختيار الهيكل القانوني' : '30s Structure Diagnostic'}</span>
+                <Layers className="w-4 h-4 text-slate-800" />
+                <span>{isAr ? 'عرض باقات التأسيس' : 'View Turnkey Packages'}</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
 

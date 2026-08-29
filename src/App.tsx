@@ -5,7 +5,6 @@ import { Footer } from './components/layout/Footer';
 import { HeroCompanyConfigurator } from './components/hero/HeroCompanyConfigurator';
 import { OtherServicesSection } from './components/services/OtherServicesSection';
 import { ClientStoriesSection } from './components/stories/ClientStoriesSection';
-import { JurisdictionWizard } from './components/wizard/JurisdictionWizard';
 import { FormationRoadmapSection } from './components/roadmap/FormationRoadmapSection';
 import { PackagesSection } from './components/packages/PackagesSection';
 import { FreeZonesDirectory } from './components/freezones/FreeZonesDirectory';
@@ -180,7 +179,7 @@ export function App() {
         </main>
       ) : (
         <main className="flex-grow relative z-10">
-          {/* 1. High-Impact Hero & Venture — The Estimator */}
+          {/* 1. High-Impact Hero & Venture — The Estimator (With Integrated Workspace Diagnostic) */}
           <HeroCompanyConfigurator
             onOpenConsultation={(details) => handleOpenConsultation(details)}
             lang={lang}
@@ -207,16 +206,7 @@ export function App() {
             />
           </ScrollReveal>
 
-          {/* 5. 03 / 30-Second Jurisdiction Diagnostic Wizard */}
-          <ScrollReveal direction="up" delay={0.1}>
-            <JurisdictionWizard
-              onOpenConsultation={(details) => handleOpenConsultation(details)}
-              lang={lang}
-              currency={currency}
-            />
-          </ScrollReveal>
-
-          {/* 6. 04 / Turnkey Packages (Free Zone, Mainland, Offshore, Dual) */}
+          {/* 5. 03 / Turnkey Packages (Free Zone, Mainland, Offshore, Dual) */}
           <ScrollReveal direction="up" delay={0.1}>
             <PackagesSection
               onSelectPackage={(pkgTitle) => handleOpenConsultation(pkgTitle)}
@@ -225,7 +215,7 @@ export function App() {
             />
           </ScrollReveal>
 
-          {/* 7. 05 / How We Work: 4-Stage ISO-Accredited Roadmap */}
+          {/* 6. 04 / How We Work: 4-Stage ISO-Accredited Roadmap */}
           <ScrollReveal direction="up" delay={0.1}>
             <FormationRoadmapSection
               onOpenConsultation={(step) => handleOpenConsultation(step)}
@@ -233,7 +223,7 @@ export function App() {
             />
           </ScrollReveal>
 
-          {/* 8. 06 / 40+ Free Zones Explorer & Discovery Hub */}
+          {/* 7. 05 / 40+ Free Zones Explorer & Discovery Hub */}
           <ScrollReveal direction="up" delay={0.1}>
             <FreeZonesDirectory
               onOpenConsultation={() => handleOpenConsultation('Free Zone Company')}
@@ -242,7 +232,7 @@ export function App() {
             />
           </ScrollReveal>
 
-          {/* 9. 07 / Tariff Simulator & Interactive Cost Visualizer */}
+          {/* 8. 06 / Tariff Simulator & Interactive Cost Visualizer */}
           <ScrollReveal direction="up" delay={0.1}>
             <UaeCostVisualizerSection
               onOpenConsultation={(quote) => handleOpenConsultation(quote)}
@@ -251,7 +241,7 @@ export function App() {
             />
           </ScrollReveal>
 
-          {/* 10. 08 / 3-Way Jurisdiction Comparison Matrix */}
+          {/* 9. 07 / 3-Way Jurisdiction Comparison Matrix */}
           <ScrollReveal direction="up" delay={0.1}>
             <JurisdictionComparison
               onOpenConsultation={(jurisdiction) => handleOpenConsultation(jurisdiction)}
@@ -259,7 +249,7 @@ export function App() {
             />
           </ScrollReveal>
 
-          {/* 11. Why UAE? Global Economic Power */}
+          {/* 10. Why UAE? Global Economic Power */}
           <ScrollReveal direction="up" delay={0.1}>
             <WhyUaeSection
               onOpenConsultation={() => handleOpenConsultation()}
@@ -267,7 +257,7 @@ export function App() {
             />
           </ScrollReveal>
 
-          {/* 12. About AnalyzeMarkets FZE (SRTI Sharjah HQ) */}
+          {/* 11. About AnalyzeMarkets FZE (SRTI Sharjah HQ) */}
           <ScrollReveal direction="up" delay={0.1}>
             <AboutSection
               onOpenConsultation={() => handleOpenConsultation()}
@@ -275,7 +265,7 @@ export function App() {
             />
           </ScrollReveal>
 
-          {/* 13. Frequently Asked Questions */}
+          {/* 12. Frequently Asked Questions */}
           <ScrollReveal direction="up" delay={0.1}>
             <FaqSection
               onOpenConsultation={() => handleOpenConsultation()}
