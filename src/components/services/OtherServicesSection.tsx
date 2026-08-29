@@ -48,7 +48,7 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({
         ? 'تأسيس الشركات في البر الرئيسي والمناطق الحرة والأوفشور مع الموافقة الأولية وحجز الاسم التجاري وتوثيق عقد التأسيس.'
         : 'Turnkey formation across Mainland DED, 40+ Free Zones, and Offshore SPVs with instant trade name reservation and notarized MOA.',
       features: ['100% Expat Equity Ownership', '2-4 Days License SLA', 'Tier-1 Banking Fast-Track'],
-      actionLabel: isAr ? 'تفاصيل الخدمة' : 'View Service Details',
+      actionLabel: isAr ? 'تفاصيل الخدمة' : 'View Service Roadmap',
       icon: Building2,
       image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80'
     },
@@ -62,7 +62,7 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({
         ? 'إقامة طويلة الأمد لمدة 10 سنوات للمستثمرين العقاريين (2 مليون درهم+) ورواد الأعمال والمدراء التنفيذيين والنوابغ، مع كفالة كاملة للأسرة دون الحاجة لكفيل محلي.'
         : 'Turnkey 10-year Golden Visa processing for property investors (AED 2M+), enterprise founders, senior executives, and specialized talent with 100% family sponsorship.',
       features: ['100% Sponsor-Free Independence', 'Full Family & Team Sponsorship', 'VIP Medical & Biometrics'],
-      actionLabel: isAr ? 'تفاصيل الخدمة' : 'View Service Details',
+      actionLabel: isAr ? 'تفاصيل الخدمة' : 'View Service Roadmap',
       icon: Award,
       image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80'
     },
@@ -76,7 +76,7 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({
         ? 'تسجيل رقم ضريبي (TRN)، إقرارات ضريبة الشركات بنسبة 9%، استيفاء شروط الوجود الاقتصادي، وإقرارات ضريبة القيمة المضافة الربع سنوية.'
         : 'Federal Tax Authority (FTA) TRN registration, 9% Corporate Tax filing, Qualifying Free Zone Person (QFZP) 0% optimization, and quarterly VAT returns.',
       features: ['Official FTA TRN Number', 'QFZP 0% Tax Optimization', 'Quarterly VAT 201 Submissions'],
-      actionLabel: isAr ? 'تفاصيل الخدمة' : 'View Service Details',
+      actionLabel: isAr ? 'تفاصيل الخدمة' : 'View Service Roadmap',
       icon: Receipt,
       image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80'
     },
@@ -90,7 +90,7 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({
         ? 'تقارير تدقيق حسابات معتمدة ومقبولة لدى جميع البنوك التجارية وهيئات المناطق الحرة والوزارات الاتحادية بالإمارات.'
         : 'Statutory annual audit reports, balance sheet assurance, and independent financial verification accepted by UAE commercial banks and Free Zone authorities.',
       features: ['Bank-Accepted Audit Statements', 'Free Zone Annual Compliance', 'Independent Verification & MOA Audit'],
-      actionLabel: isAr ? 'تفاصيل الخدمة' : 'View Service Details',
+      actionLabel: isAr ? 'تفاصيل الخدمة' : 'View Service Roadmap',
       icon: FileCheck2,
       image: 'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=800&q=80'
     },
@@ -104,7 +104,7 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({
         ? 'إعداد القوائم المالية الشهرية (الأرباح والخسائر، الميزانية العمومية)، نظام حماية الأجور (WPS)، وربط البرامج المحاسبية السحابية.'
         : 'Monthly bookkeeping, P&L statements, balance sheet reconciliations, Wages Protection System (WPS) payroll, and cloud accounting software.',
       features: ['Monthly P&L & Balance Sheet', 'WPS Compliant Payroll Management', 'Tax-Ready Financial Records'],
-      actionLabel: isAr ? 'تفاصيل الخدمة' : 'View Service Details',
+      actionLabel: isAr ? 'تفاصيل الخدمة' : 'View Service Roadmap',
       icon: Calculator,
       image: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80'
     },
@@ -118,7 +118,7 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({
         ? 'تجديد الرخص التجارية السنوية، توثيق عقود الإيجار (إيجاري)، بطاقة المنشأة، وتعديل الشركاء وعقود التأسيس.'
         : 'Fast-track trade license renewal, Ejari registration, Establishment Card renewals, and corporate MOA amendments.',
       features: ['Zero Penalty Fast-Track', 'Ejari & Commercial Lease Attestation', 'Shareholder & Activity Amendments'],
-      actionLabel: isAr ? 'تفاصيل الخدمة' : 'View Service Details',
+      actionLabel: isAr ? 'تفاصيل الخدمة' : 'View Service Roadmap',
       icon: RefreshCw,
       image: 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800&q=80'
     },
@@ -132,7 +132,7 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({
         ? 'تعيين مصفٍ قانوني معتمد، إعداد تقرير المصفي (Statement of Affairs)، خطابات براءة الذمة، وإلغاء السجل التجاري رسمياً.'
         : 'Official liquidator appointment, Liquidator Report & No-Liability clearance letters, asset disposal, and formal trade registry cancellation.',
       features: ['Certified Liquidator Report', 'Ministry & Visa Clearance', 'Formal De-Registration Gazette'],
-      actionLabel: isAr ? 'تفاصيل الخدمة' : 'View Service Details',
+      actionLabel: isAr ? 'تفاصيل الخدمة' : 'View Service Roadmap',
       icon: XCircle,
       image: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80'
     }
@@ -159,7 +159,7 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({
           </p>
         </div>
 
-        {/* Clean Editorial Cards Grid */}
+        {/* Photographic Service Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
           {services.map((svc) => {
             const Icon = svc.icon;
@@ -168,19 +168,30 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({
               <div
                 key={svc.id}
                 onClick={() => onNavigateService ? onNavigateService(svc.slug) : onOpenConsultation(svc.title)}
-                className={svc.colSpan + ' bg-white border border-slate-200 hover:border-slate-400 rounded-2xl p-6 flex flex-col justify-between transition-all cursor-pointer group shadow-sm hover:shadow-md'}
+                className={svc.colSpan + ' bg-white border border-slate-200 hover:border-slate-400 rounded-2xl overflow-hidden flex flex-col justify-between transition-all cursor-pointer group shadow-sm hover:shadow-md'}
               >
-                <div className="space-y-4">
+                {/* Visual Photographic Header */}
+                <div className="relative h-48 sm:h-52 w-full overflow-hidden bg-slate-100">
+                  <img
+                    src={svc.image}
+                    alt={svc.title}
+                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent" />
                   
-                  <div className="flex items-center justify-between">
-                    <div className="p-2.5 bg-slate-100 text-slate-900 rounded-xl group-hover:bg-slate-900 group-hover:text-white transition-colors">
-                      <Icon className="w-5 h-5" />
-                    </div>
-                    <span className="text-[11px] font-mono font-semibold px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200">
+                  <div className="absolute top-4 left-4 right-4 flex items-center justify-between">
+                    <span className="text-[11px] font-mono font-semibold px-2.5 py-1 rounded-full bg-white/95 text-slate-900 shadow-sm">
                       {svc.tag}
                     </span>
+                    <div className="p-2 bg-white/90 text-slate-900 rounded-lg shadow-sm">
+                      <Icon className="w-4 h-4" />
+                    </div>
                   </div>
+                </div>
 
+                {/* Content */}
+                <div className="p-6 space-y-4 flex-1 flex flex-col justify-between">
                   <div className="space-y-2">
                     <h3 className="text-xl font-bold text-slate-900 font-sans group-hover:text-slate-700 transition-colors flex items-center justify-between">
                       <span>{svc.title}</span>
@@ -199,11 +210,11 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({
                       </div>
                     ))}
                   </div>
-                </div>
 
-                <div className="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-slate-900">
-                  <span>{svc.actionLabel}</span>
-                  <span className="group-hover:translate-x-1 transition-transform">➔</span>
+                  <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-slate-900">
+                    <span>{svc.actionLabel}</span>
+                    <span className="group-hover:translate-x-1 transition-transform">➔</span>
+                  </div>
                 </div>
               </div>
             );

@@ -25,6 +25,7 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
       popular: true,
       price: currency === 'USD' ? '$3,150' : currency === 'EUR' ? '€2,900' : 'AED 11,500',
       turnaround: '2 - 4 Business Days',
+      image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600&q=80',
       features: isAr
         ? ['تحويل كامل للأرباح ورأس المال بنسبة 100%', '0% ضريبة دخل شخصي ومزايا ضريبية تفضيلية', 'أكثر من 40 منطقة حرة معتمدة في الإمارات السبع', 'مساعدة مباشرة وسريعة لفتح الحساب البنكي']
         : ['100% Repatriation of Capital & Profits', '0% Personal Tax & 0% QFZP Corporate Tax', 'Access to 40+ Established Free Zones', 'Guaranteed Corporate Bank Account Support'],
@@ -38,6 +39,7 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
       popular: false,
       price: currency === 'USD' ? '$4,750' : currency === 'EUR' ? '€4,400' : 'AED 17,500',
       turnaround: '4 - 7 Business Days',
+      image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80',
       features: isAr
         ? ['ممارسة التجارة بحرية في أي مكان داخل الإمارات', 'المشاركة في المناقصات والعقود الحكومية', 'تأشيرات عمل بلا سقف (مرتبطة بمساحة المكتب)', 'توثيق رسمي لدى دوائر التنمية الاقتصادية (DED)']
         : ['Trade anywhere inside UAE Mainland & GCC', 'Direct participation in Government Tenders', 'Uncapped visa quota (linked to lease size)', 'Official DED / DET Commercial Licensing Clearance'],
@@ -51,6 +53,7 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
       popular: false,
       price: currency === 'USD' ? '$3,680' : currency === 'EUR' ? '€3,400' : 'AED 13,500',
       turnaround: '3 - 5 Business Days',
+      image: 'https://images.unsplash.com/photo-1580674684081-7617fbf3d745?auto=format&fit=crop&w=600&q=80',
       features: isAr
         ? ['هيكل ملكية مثالي للعقارات والأصول العالمية', 'سرية مصرفية وقانونية كاملة', 'حسابات بنكية دولية متعددة العملات', 'لا تشترط وجود مكتب فعلي داخل الدولة']
         : ['Global Real Estate & Asset Holding Structure', 'Statutory Privacy & Shareholder Protection', 'Multi-currency International Bank Accounts', 'No Physical Office Requirement in UAE'],
@@ -64,6 +67,7 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
       popular: false,
       price: currency === 'USD' ? '$6,200' : currency === 'EUR' ? '€5,750' : 'AED 22,800',
       turnaround: '5 - 8 Business Days',
+      image: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=600&q=80',
       features: isAr
         ? ['الاستفادة من الحوافز الضريبية والوصول للمستهلك المحلي', 'مكتب رئيسي موحد دون تكرار التكاليف', 'تأشيرات وإقامات مرنة لكبار التنفيذيين', 'تمثيل تجاري رسمي بكافة الدوائر الحكومية']
         : ['Combine Free Zone tax perks with Mainland local sales', 'Single operations hub without duplicate overhead', 'Flexible executive residence visa quotas', 'Direct representation across federal ministries'],
@@ -101,33 +105,38 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
             return (
               <div
                 key={pkg.id}
-                className={'bg-[#FBFBFA] border rounded-2xl p-6 flex flex-col justify-between transition-all group relative shadow-sm hover:shadow-md ' + (
+                className={'bg-[#FBFBFA] border rounded-2xl overflow-hidden flex flex-col justify-between transition-all group relative shadow-sm hover:shadow-md ' + (
                   pkg.popular
                     ? 'border-slate-900 ring-1 ring-slate-900 bg-white'
                     : 'border-slate-200 hover:border-slate-400'
                 )}
               >
-                {/* Popular Badge */}
-                {pkg.popular && (
-                  <div className="absolute top-4 right-4 px-2.5 py-0.5 rounded-full bg-slate-900 text-white font-mono text-[10px] uppercase font-bold tracking-wider">
-                    {pkg.badge}
-                  </div>
-                )}
-
-                <div className="space-y-4">
+                {/* Visual Photographic Header */}
+                <div className="h-36 relative overflow-hidden bg-slate-100">
+                  <img
+                    src={pkg.image}
+                    alt={pkg.title}
+                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
                   
-                  {/* Icon */}
-                  <div className="flex items-start justify-between">
-                    <div className="p-2.5 rounded-xl bg-slate-100 text-slate-900 border border-slate-200 group-hover:bg-slate-900 group-hover:text-white transition-colors">
-                      <Icon className="w-5 h-5" />
+                  <div className="absolute top-3 left-3 right-3 flex items-center justify-between">
+                    <div className="p-2 rounded-lg bg-white/90 text-slate-900 shadow-sm">
+                      <Icon className="w-4 h-4" />
                     </div>
-                    {!pkg.popular && (
-                      <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200">
+                    {pkg.popular ? (
+                      <span className="px-2.5 py-0.5 rounded-full bg-slate-900 text-white font-mono text-[10px] uppercase font-bold tracking-wider shadow-sm">
+                        {pkg.badge}
+                      </span>
+                    ) : (
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-white/90 text-slate-700 font-medium shadow-sm">
                         {pkg.badge}
                       </span>
                     )}
                   </div>
+                </div>
 
+                <div className="p-6 space-y-4 flex-1 flex flex-col justify-between">
                   <div>
                     <h3 className="text-lg font-bold text-slate-900 font-sans">
                       {pkg.title}
@@ -162,21 +171,20 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
                     </ul>
                   </div>
 
-                </div>
-
-                {/* Bottom CTA */}
-                <div className="pt-5 mt-5 border-t border-slate-200">
-                  <button
-                    onClick={() => onSelectPackage(pkg.title)}
-                    className={'w-full py-3 rounded-lg text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-sm ' + (
-                      pkg.popular
-                        ? 'bg-slate-900 hover:bg-slate-800 text-white'
-                        : 'bg-white hover:bg-slate-100 border border-slate-300 text-slate-900'
-                    )}
-                  >
-                    <span>{isAr ? 'طلب التأسيس الآن' : 'Incorporate Now'}</span>
-                    <ArrowRight className={'w-3.5 h-3.5 ' + (isAr ? 'rotate-180' : '')} />
-                  </button>
+                  {/* Bottom CTA */}
+                  <div className="pt-4 mt-4 border-t border-slate-200">
+                    <button
+                      onClick={() => onSelectPackage(pkg.title)}
+                      className={'w-full py-3 rounded-lg text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-sm ' + (
+                        pkg.popular
+                          ? 'bg-slate-900 hover:bg-slate-800 text-white'
+                          : 'bg-white hover:bg-slate-100 border border-slate-300 text-slate-900'
+                      )}
+                    >
+                      <span>{isAr ? 'طلب التأسيس الآن' : 'Incorporate Now'}</span>
+                      <ArrowRight className={'w-3.5 h-3.5 ' + (isAr ? 'rotate-180' : '')} />
+                    </button>
+                  </div>
                 </div>
 
               </div>
