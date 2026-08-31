@@ -104,14 +104,21 @@ export const Navbar: React.FC<NavbarProps> = ({
       {/* Top Strip */}
       <div className="hidden md:block bg-slate-900 text-slate-300 text-xs font-mono py-1.5 px-4 sm:px-8">
         <div className="max-w-[1440px] mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-4 text-slate-300">
-            <span>Sharjah Research Technology & Innovation Park (SRTI Park HQ: Block B - Office B34-B047)</span>
+          <div className="flex items-center gap-4 text-slate-300 min-w-0">
+            <span className="truncate">
+              <span className="lg:hidden">SRTI Park, Sharjah · Office B34-B047</span>
+              <span className="hidden lg:inline xl:hidden">SRTI Park HQ · Block B, Office B34-B047</span>
+              <span className="hidden xl:inline">Sharjah Research Technology & Innovation Park (SRTI Park HQ: Block B - Office B34-B047)</span>
+            </span>
           </div>
 
-          <div className="flex items-center gap-3">
-            <span>Licensed by SRTI Park, Sharjah</span>
-            <span className="text-slate-600">|</span>
-            <span className="text-emerald-400 font-semibold">● Ministry Compliant</span>
+          <div className="flex items-center gap-2 xl:gap-3 shrink-0">
+            <span className="hidden lg:inline">Licensed by SRTI Park, Sharjah</span>
+            <span className="hidden lg:inline text-slate-600">|</span>
+            <span className="text-emerald-400 font-semibold whitespace-nowrap">
+              <span className="xl:hidden">● Compliant</span>
+              <span className="hidden xl:inline">● Ministry Compliant</span>
+            </span>
           </div>
         </div>
       </div>
@@ -130,19 +137,20 @@ export const Navbar: React.FC<NavbarProps> = ({
             <AmDxbLogo size="sm" />
           </a>
 
-          {/* Desktop Nav Links */}
-          <nav className="hidden lg:flex items-center space-x-1 xl:space-x-2 whitespace-nowrap text-slate-800 text-xs font-semibold">
+          {/* Desktop Nav Links — full labels at xl+, short labels at lg to avoid crowding */}
+          <nav className="hidden lg:flex flex-1 min-w-0 items-center justify-center gap-0.5 xl:gap-1 2xl:gap-1.5 whitespace-nowrap text-slate-800 text-[11px] xl:text-xs font-semibold">
             
             {/* Services Dropdown */}
-            <div className="relative">
+            <div className="relative shrink-0">
               <button
                 type="button"
                 onClick={() => setServicesOpen(!servicesOpen)}
                 aria-expanded={servicesOpen}
-                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer text-slate-900 font-bold"
+                className="inline-flex items-center gap-1 px-2 xl:px-3 py-2 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer text-slate-900 font-bold"
               >
-                <span>{isAr ? 'خدماتنا' : 'Our Services'}</span>
-                <ChevronDown className={'w-3.5 h-3.5 transition-transform ' + (servicesOpen ? 'rotate-180' : '')} />
+                <span className="xl:hidden">{isAr ? 'خدماتنا' : 'Services'}</span>
+                <span className="hidden xl:inline">{isAr ? 'خدماتنا' : 'Our Services'}</span>
+                <ChevronDown className={'w-3.5 h-3.5 shrink-0 transition-transform ' + (servicesOpen ? 'rotate-180' : '')} />
               </button>
 
               {servicesOpen && (
@@ -178,44 +186,48 @@ export const Navbar: React.FC<NavbarProps> = ({
               )}
             </div>
 
-            <button onClick={() => handleSectionClick('packages')} className="px-3 py-2 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer">
+            <button onClick={() => handleSectionClick('packages')} className="shrink-0 px-2 xl:px-3 py-2 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer">
               {isAr ? 'الباقات' : 'Packages'}
             </button>
 
-            <button onClick={() => handleSectionClick('how-we-work')} className="px-3 py-2 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer">
-              {isAr ? 'منهجية العمل' : 'How We Work'}
+            <button onClick={() => handleSectionClick('how-we-work')} className="shrink-0 px-2 xl:px-3 py-2 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer">
+              <span className="xl:hidden">{isAr ? 'المنهجية' : 'Process'}</span>
+              <span className="hidden xl:inline">{isAr ? 'منهجية العمل' : 'How We Work'}</span>
             </button>
 
-            <button onClick={() => handleSectionClick('freezones')} className="px-3 py-2 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer">
-              {isAr ? 'المناطق الحرة' : 'Free Zones'}
+            <button onClick={() => handleSectionClick('freezones')} className="shrink-0 px-2 xl:px-3 py-2 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer">
+              <span className="xl:hidden">{isAr ? 'الحرة' : 'Zones'}</span>
+              <span className="hidden xl:inline">{isAr ? 'المناطق الحرة' : 'Free Zones'}</span>
             </button>
 
-            <button onClick={() => handleSectionClick('cost-calculator')} className="px-3 py-2 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer">
-              {isAr ? 'حاسبة التكاليف' : 'Cost Calculator'}
+            <button onClick={() => handleSectionClick('cost-calculator')} className="shrink-0 px-2 xl:px-3 py-2 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer">
+              <span className="xl:hidden">{isAr ? 'الحاسبة' : 'Calculator'}</span>
+              <span className="hidden xl:inline">{isAr ? 'حاسبة التكاليف' : 'Cost Calculator'}</span>
             </button>
 
-            <button onClick={() => handleSectionClick('client-stories')} className="px-3 py-2 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer">
-              {isAr ? 'قصص النجاح' : 'Client Stories'}
+            <button onClick={() => handleSectionClick('client-stories')} className="shrink-0 px-2 xl:px-3 py-2 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer">
+              <span className="xl:hidden">{isAr ? 'قصص' : 'Stories'}</span>
+              <span className="hidden xl:inline">{isAr ? 'قصص النجاح' : 'Client Stories'}</span>
             </button>
 
-            <button onClick={() => handleSectionClick('about')} className="px-3 py-2 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer">
+            <button onClick={() => handleSectionClick('about')} className="shrink-0 px-2 xl:px-3 py-2 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer">
               {isAr ? 'عن الشركة' : 'About'}
             </button>
 
           </nav>
 
           {/* Right Controls */}
-          <div className="hidden sm:flex items-center space-x-2.5 shrink-0 whitespace-nowrap">
+          <div className="hidden sm:flex items-center gap-1.5 xl:gap-2 shrink-0 whitespace-nowrap">
             
             {/* Search ⌘K */}
             <button
               onClick={onOpenSearch}
               aria-label="Search free zones and activities"
-              className="px-3 py-1.5 border border-slate-200 bg-slate-50 hover:bg-slate-100 text-xs font-mono text-slate-600 rounded-lg flex items-center gap-2 cursor-pointer transition-all shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500"
+              className="p-2 xl:px-3 xl:py-1.5 border border-slate-200 bg-slate-50 hover:bg-slate-100 text-xs font-mono text-slate-600 rounded-lg flex items-center gap-2 cursor-pointer transition-all shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500"
             >
                 <Search className="w-3.5 h-3.5 text-slate-500" />
-                <span className="hidden xl:inline text-[11px]">Search...</span>
-              <kbd className="px-1.5 py-0.5 bg-white border border-slate-300 rounded text-[10px] text-slate-500 font-bold">⌘K</kbd>
+                <span className="hidden 2xl:inline text-[11px]">Search...</span>
+              <kbd className="hidden 2xl:inline px-1.5 py-0.5 bg-white border border-slate-300 rounded text-[10px] text-slate-500 font-bold">⌘K</kbd>
             </button>
 
             {/* Currency */}
@@ -239,10 +251,11 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* CTA */}
             <button
               onClick={() => onOpenConsultation()}
-              className="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs uppercase tracking-wider rounded-lg transition-all shadow-sm inline-flex items-center gap-1.5 cursor-pointer"
+              className="px-2.5 xl:px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white font-bold text-[11px] xl:text-xs uppercase tracking-wide xl:tracking-wider rounded-lg transition-all shadow-sm inline-flex items-center gap-1 cursor-pointer"
             >
-              <span>{isAr ? 'احجز استشارة' : 'Schedule Advisory'}</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              <span className="xl:hidden">{isAr ? 'استشارة' : 'Advisory'}</span>
+              <span className="hidden xl:inline">{isAr ? 'احجز استشارة' : 'Schedule Advisory'}</span>
+              <ArrowRight className="w-3.5 h-3.5 shrink-0" />
             </button>
 
           </div>
