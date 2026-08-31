@@ -54,6 +54,8 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
                 src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80"
                 alt="SRTI Park Innovation Center"
                 className="w-full h-full object-cover object-center"
+                loading="lazy"
+                decoding="async"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/30 to-transparent" />
               <div className="absolute bottom-4 left-6 right-6 flex items-center justify-between text-white">
@@ -90,7 +92,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
                 <a
                   href="https://amdxb.com/"
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-900 text-xs font-bold transition-all cursor-pointer"
                 >
                   <span>Visit amdxb.com</span>
@@ -117,6 +119,8 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
                 src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=80"
                 alt="Dubai Commercial Hub"
                 className="w-full h-full object-cover object-center"
+                loading="lazy"
+                decoding="async"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/30 to-transparent" />
               <div className="absolute bottom-4 left-6 right-6 text-white">

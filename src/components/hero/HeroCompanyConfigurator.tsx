@@ -1,5 +1,4 @@
-﻿import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import React from 'react';
 import {
   CheckCircle2,
   ArrowRight,
@@ -10,6 +9,7 @@ import {
 import { HeroVideoBackground } from './HeroVideoBackground';
 import { EnterpriseSetupStudio } from './EnterpriseSetupStudio';
 import { Language, TRANSLATIONS } from '../../data/translations';
+import { useHeroParallax } from '../../utils/useHeroParallax';
 
 interface HeroCompanyConfiguratorProps {
   onOpenConsultation: (details?: string) => void;
@@ -24,14 +24,7 @@ export const HeroCompanyConfigurator: React.FC<HeroCompanyConfiguratorProps> = (
 }) => {
   const isAr = lang === 'ar';
   const t = TRANSLATIONS[lang];
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start start', 'end start']
-  });
-
-  const backgroundY = useTransform(scrollYProgress, [0, 1], ['0%', '15%']);
+  const { ref: containerRef, progress } = useHeroParallax<HTMLElement>();
 
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
@@ -46,17 +39,14 @@ export const HeroCompanyConfigurator: React.FC<HeroCompanyConfiguratorProps> = (
       className="relative min-h-[90vh] lg:min-h-[860px] w-full flex flex-col justify-center pt-36 pb-20 lg:pt-44 lg:pb-24 font-sans bg-slate-900 text-white border-b border-slate-800 overflow-hidden"
     >
       {/* 1. Dubai Skyline Ambient Video / Photographic Background */}
-      <HeroVideoBackground
-        parallaxY={backgroundY as any}
-        parallaxScale={useTransform(scrollYProgress, [0, 1], [1, 1.05])}
-      />
+      <HeroVideoBackground translateYPercent={progress * 15} scale={1 + progress * 0.05} />
 
       {/* 2. Main Content */}
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center w-full">
           
           {/* Left 6 Cols: Clean Narrative */}
-          <div className="lg:col-span-6 space-y-6 text-left">
+          <div className="lg:col-span-6 space-y-6 text-start">
             
             {/* Accreditation Badge */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-slate-900/85 backdrop-blur-md border border-white/15 rounded-full text-xs font-mono text-slate-200 shadow-lg">

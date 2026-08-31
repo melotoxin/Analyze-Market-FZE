@@ -1,9 +1,11 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { Building2, Phone, MapPin, Globe, ExternalLink, ArrowRight, ShieldCheck, Mail, MessageCircle } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { Language, TRANSLATIONS } from '../../data/translations';
 import { AmDxbLogo } from '../ui/AmDxbLogo';
 import { ServiceSlug } from '../../data/servicesData';
+import { servicePath } from '../../utils/router';
+import { submitLead } from '../../utils/submitLead';
 
 interface FooterProps {
   onOpenConsultation: () => void;
@@ -16,13 +18,29 @@ export const Footer: React.FC<FooterProps> = ({ onOpenConsultation, onNavigateSe
   const isAr = lang === 'ar';
   const [quickPhone, setQuickPhone] = useState('');
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleQuickCallback = (e: React.FormEvent) => {
+  // This used to clear the field and show a tick without sending anything.
+  const handleQuickCallback = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (quickPhone) {
+    if (!quickPhone.trim() || sending) return;
+    setSending(true);
+    setError('');
+    try {
+      await submitLead({
+        name: 'Callback request',
+        phone: quickPhone,
+        service: 'Callback request from footer',
+        source: 'footer-callback',
+      });
       setSent(true);
-      setTimeout(() => setSent(false), 4000);
       setQuickPhone('');
+      setTimeout(() => setSent(false), 4000);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Could not send. Please call us directly.');
+    } finally {
+      setSending(false);
     }
   };
 
@@ -42,7 +60,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenConsultation, onNavigateSe
       {/* Mandate Callback Banner */}
       <div className="border-b border-slate-800 bg-slate-950">
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col lg:flex-row items-center justify-between gap-8">
-          <div className="space-y-2 max-w-2xl text-center lg:text-left">
+          <div className="space-y-2 max-w-2xl text-center lg:text-start">
             <span className="text-[11px] font-mono text-slate-400 font-bold uppercase tracking-widest block">
               Direct Advisory Channel
             </span>
@@ -61,11 +79,15 @@ export const Footer: React.FC<FooterProps> = ({ onOpenConsultation, onNavigateSe
               value={quickPhone}
               onChange={(e) => setQuickPhone(e.target.value)}
               placeholder="Enter your phone or WhatsApp..."
+              aria-label="Your phone or WhatsApp number"
+              autoComplete="tel"
+              dir="ltr"
               className="flex-1 bg-slate-900 border border-slate-700 px-4 py-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-white font-mono rounded-lg transition-colors"
             />
             <button
               type="submit"
-              className="bg-white hover:bg-slate-100 text-slate-950 font-bold text-xs uppercase px-5 py-3 rounded-lg shrink-0 flex items-center justify-center gap-1.5 cursor-pointer shadow-sm transition-colors"
+              disabled={sending}
+              className="bg-white hover:bg-slate-100 text-slate-950 font-bold text-xs uppercase px-5 py-3 rounded-lg shrink-0 flex items-center justify-center gap-1.5 cursor-pointer shadow-sm transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
             >
               <span>{sent ? 'Dispatched' : 'Request Callback'}</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -113,13 +135,19 @@ export const Footer: React.FC<FooterProps> = ({ onOpenConsultation, onNavigateSe
           <ul className="space-y-2.5 text-xs">
             {services.map((s, idx) => (
               <li key={idx}>
-                <button
-                  onClick={() => onNavigateService && onNavigateService(s.slug)}
-                  className="text-slate-400 hover:text-white transition-colors text-left cursor-pointer flex items-center justify-between w-full group"
+                {/* Real hrefs: the footer is where crawlers discover every service page. */}
+                <a
+                  href={servicePath(s.slug)}
+                  onClick={(e) => {
+                    if (e.metaKey || e.ctrlKey || e.shiftKey || !onNavigateService) return;
+                    e.preventDefault();
+                    onNavigateService(s.slug);
+                  }}
+                  className="text-slate-400 hover:text-white transition-colors text-start cursor-pointer flex items-center justify-between w-full group focus:outline-none focus:ring-2 focus:ring-sky-500 rounded"
                 >
                   <span>{s.name}</span>
-                  <span className="text-[10px] font-mono text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity">➔</span>
-                </button>
+                  <span aria-hidden="true" className="text-[10px] font-mono text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity">➔</span>
+                </a>
               </li>
             ))}
           </ul>
@@ -131,11 +159,11 @@ export const Footer: React.FC<FooterProps> = ({ onOpenConsultation, onNavigateSe
             Direct Portals
           </h4>
           <ul className="space-y-2.5 text-xs text-slate-400">
-            <li><a href="https://amdxb.com/" target="_blank" rel="noreferrer" className="hover:text-white flex items-center justify-between"><span>amdxb.com</span><ExternalLink className="w-3 h-3" /></a></li>
-            <li><a href="https://srtip.ae/" target="_blank" rel="noreferrer" className="hover:text-white flex items-center justify-between"><span>SRTI Park Authority</span><ExternalLink className="w-3 h-3" /></a></li>
-            <li><a href="https://tax.gov.ae/" target="_blank" rel="noreferrer" className="hover:text-white flex items-center justify-between"><span>Federal Tax Authority</span><ExternalLink className="w-3 h-3" /></a></li>
-            <li><a href="https://sedd.ae/" target="_blank" rel="noreferrer" className="hover:text-white flex items-center justify-between"><span>Sharjah SEDD</span><ExternalLink className="w-3 h-3" /></a></li>
-            <li><a href="https://wa.me/971563396961" target="_blank" rel="noreferrer" className="hover:text-emerald-400 flex items-center justify-between text-emerald-400 font-bold"><span>WhatsApp Desk</span><MessageCircle className="w-3 h-3" /></a></li>
+            <li><a href="https://amdxb.com/" target="_blank" rel="noopener noreferrer" className="hover:text-white flex items-center justify-between"><span>amdxb.com</span><ExternalLink className="w-3 h-3" /></a></li>
+            <li><a href="https://srtip.ae/" target="_blank" rel="noopener noreferrer" className="hover:text-white flex items-center justify-between"><span>SRTI Park Authority</span><ExternalLink className="w-3 h-3" /></a></li>
+            <li><a href="https://tax.gov.ae/" target="_blank" rel="noopener noreferrer" className="hover:text-white flex items-center justify-between"><span>Federal Tax Authority</span><ExternalLink className="w-3 h-3" /></a></li>
+            <li><a href="https://sedd.ae/" target="_blank" rel="noopener noreferrer" className="hover:text-white flex items-center justify-between"><span>Sharjah SEDD</span><ExternalLink className="w-3 h-3" /></a></li>
+            <li><a href="https://wa.me/971563396961" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400 flex items-center justify-between text-emerald-400 font-bold"><span>WhatsApp Desk</span><MessageCircle className="w-3 h-3" /></a></li>
           </ul>
         </div>
 
@@ -153,7 +181,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenConsultation, onNavigateSe
             <a 
               href="https://www.adrevnview.com/" 
               target="_blank" 
-              rel="noreferrer" 
+              rel="noopener noreferrer" 
               className="text-slate-400 hover:text-white font-semibold"
             >
               AdRevnView

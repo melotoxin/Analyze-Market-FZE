@@ -20,7 +20,7 @@ export const MobileBottomDock: React.FC<MobileBottomDockProps> = ({
       <a
         href="https://wa.me/971563396961"
         target="_blank"
-        rel="noreferrer"
+        rel="noopener noreferrer"
         className="flex-1 py-2.5 px-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm transition-all"
       >
         <MessageCircle className="w-4 h-4" />

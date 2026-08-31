@@ -1,56 +1,110 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useId } from 'react';
 import confetti from 'canvas-confetti';
 import { Modal } from '../ui/Modal';
 import { Button } from '../ui/Button';
-import { Badge } from '../ui/Badge';
 import { COMPANY_DETAILS } from '../../data/mockData';
-import { Phone, CheckCircle2, Send, MapPin, Sparkles, Building2 } from 'lucide-react';
+import { Phone, CheckCircle2, Send, MessageCircle, AlertCircle } from 'lucide-react';
+import { Language } from '../../data/translations';
+import { submitLead, WHATSAPP_URL, openExternal } from '../../utils/submitLead';
 
 interface QuickConsultationModalProps {
   isOpen: boolean;
   onClose: () => void;
   defaultPackage?: string;
+  lang: Language;
 }
+
+const SERVICES = [
+  'Company Incorporation',
+  'Company Liquidation Services',
+  'Golden Visa Services',
+  'License Renewal (PRO) Services',
+  'VAT & Corporate Tax Filing Services',
+  'Audit & Assurance Services',
+  'Accounting Services',
+];
 
 export const QuickConsultationModal: React.FC<QuickConsultationModalProps> = ({
   isOpen,
   onClose,
-  defaultPackage
+  defaultPackage,
+  lang,
 }) => {
+  const isAr = lang === 'ar';
+  const uid = useId();
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
-  const [packageChoice, setPackageChoice] = useState(defaultPackage || 'Company Incorporation');
+  const [packageChoice, setPackageChoice] = useState(defaultPackage || SERVICES[0]);
   const [notes, setNotes] = useState('');
+  const [honeypot, setHoneypot] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => {
-    if (defaultPackage) {
-      setPackageChoice(defaultPackage);
-    }
+    if (defaultPackage) setPackageChoice(defaultPackage);
   }, [defaultPackage]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError('');
     setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      await submitLead({
+        name,
+        phone,
+        service: packageChoice,
+        notes,
+        source: 'consultation-modal',
+        company: honeypot,
+      });
       setIsSubmitted(true);
       confetti({ particleCount: 90, spread: 60, origin: { y: 0.6 } });
-    }, 1000);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Something went wrong.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  const handleReset = () => {
-    setIsSubmitted(false);
+  const handleClose = () => {
     onClose();
+    // Reset after the closing frame so the user never sees the form flash back.
+    setTimeout(() => {
+      setIsSubmitted(false);
+      setError('');
+      setName('');
+      setPhone('');
+      setNotes('');
+    }, 200);
   };
+
+  const inputClass =
+    'w-full bg-slate-50 dark:bg-[#182032] border border-slate-200 dark:border-[#1e293b] rounded-xl px-3 py-2.5 text-xs text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition-colors';
+  const labelClass = 'text-[11px] font-semibold uppercase text-slate-600 dark:text-[#94a3b8] block';
 
   return (
     <Modal
       isOpen={isOpen}
-      onClose={handleReset}
-      title={isSubmitted ? 'Consultation Request Sent' : 'Book a Consultation / Call'}
-      subtitle={isSubmitted ? 'An AnalyzeMarkets advisor will reach out to you.' : 'Direct Corporate Advisory — AnalyzeMarkets FZE'}
+      onClose={handleClose}
+      title={
+        isSubmitted
+          ? isAr
+            ? 'تم إرسال طلب الاستشارة'
+            : 'Consultation Request Sent'
+          : isAr
+            ? 'احجز استشارة / مكالمة'
+            : 'Book a Consultation / Call'
+      }
+      subtitle={
+        isSubmitted
+          ? isAr
+            ? 'سيتواصل معك أحد مستشارينا قريباً.'
+            : 'An AnalyzeMarkets advisor will reach out to you.'
+          : isAr
+            ? 'استشارات الشركات المباشرة — أنالايز ماركتس ش.م.ح'
+            : 'Direct Corporate Advisory — AnalyzeMarkets FZE'
+      }
       maxWidth="md"
     >
       {isSubmitted ? (
@@ -60,92 +114,174 @@ export const QuickConsultationModal: React.FC<QuickConsultationModalProps> = ({
           </div>
 
           <div className="space-y-1">
-            <h4 className="text-base font-bold text-slate-900 dark:text-white">Consultation Request Received</h4>
+            <h4 className="text-base font-bold text-slate-900 dark:text-white">
+              {isAr ? 'تم استلام طلبك' : 'Consultation Request Received'}
+            </h4>
             <p className="text-xs text-slate-500 dark:text-[#94a3b8]">
-              Our advisory team at <span className="text-sky-500 font-bold">SRTI Park Sharjah</span> has received your mandate.
+              {isAr ? 'استلم فريقنا في' : 'Our advisory team at'}{' '}
+              <span className="text-sky-500 font-bold">SRTI Park Sharjah</span>{' '}
+              {isAr ? 'طلبك بنجاح.' : 'has received your request.'}
             </p>
           </div>
 
-          <div className="bg-slate-50 dark:bg-[#182032] p-3.5 rounded-xl border border-slate-200 dark:border-[#1e293b] text-left text-xs space-y-1.5 shadow-sm">
-            <div className="flex justify-between text-slate-500 dark:text-[#94a3b8]"><span>Contact Name:</span><span className="text-slate-900 dark:text-white font-bold">{name || 'Client'}</span></div>
-            <div className="flex justify-between text-slate-500 dark:text-[#94a3b8]"><span>Phone Number:</span><span className="text-sky-600 dark:text-sky-400 font-bold">{phone}</span></div>
-            <div className="flex justify-between text-slate-500 dark:text-[#94a3b8]"><span>Selected Service:</span><span className="text-slate-800 dark:text-slate-200 font-bold">{packageChoice}</span></div>
-            <div className="flex justify-between text-slate-500 dark:text-[#94a3b8]"><span>Direct Hotline:</span><span className="text-emerald-600 dark:text-emerald-400 font-bold">+971 56 339 6961</span></div>
+          <div className="bg-slate-50 dark:bg-[#182032] p-3.5 rounded-xl border border-slate-200 dark:border-[#1e293b] text-start text-xs space-y-1.5 shadow-sm">
+            <div className="flex justify-between gap-3 text-slate-500 dark:text-[#94a3b8]">
+              <span>{isAr ? 'الاسم:' : 'Contact Name:'}</span>
+              <span className="text-slate-900 dark:text-white font-bold">{name}</span>
+            </div>
+            <div className="flex justify-between gap-3 text-slate-500 dark:text-[#94a3b8]">
+              <span>{isAr ? 'الهاتف:' : 'Phone Number:'}</span>
+              <span className="text-sky-600 dark:text-sky-400 font-bold" dir="ltr">
+                {phone}
+              </span>
+            </div>
+            <div className="flex justify-between gap-3 text-slate-500 dark:text-[#94a3b8]">
+              <span>{isAr ? 'الخدمة:' : 'Selected Service:'}</span>
+              <span className="text-slate-800 dark:text-slate-200 font-bold">{packageChoice}</span>
+            </div>
           </div>
 
-          <Button onClick={handleReset} variant="primary" size="sm" className="mx-auto text-xs font-mono shadow-sm">
-            Back to Website
-          </Button>
+          <div className="flex flex-col sm:flex-row gap-2 justify-center">
+            <Button onClick={handleClose} variant="primary" size="sm" className="text-xs font-mono">
+              {isAr ? 'العودة للموقع' : 'Back to Website'}
+            </Button>
+            <button
+              type="button"
+              onClick={() => openExternal(WHATSAPP_URL)}
+              className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg border border-emerald-500/40 text-emerald-600 dark:text-emerald-400 text-xs font-bold hover:bg-emerald-50 dark:hover:bg-emerald-950/40 transition-colors"
+            >
+              <MessageCircle className="w-3.5 h-3.5" />
+              <span>{isAr ? 'محادثة واتساب' : 'Chat on WhatsApp'}</span>
+            </button>
+          </div>
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-3.5 font-mono text-xs">
+          {error && (
+            <div
+              role="alert"
+              className="p-2.5 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-400 rounded-lg text-xs flex items-start gap-2"
+            >
+              <AlertCircle className="w-4 h-4 shrink-0 mt-px" />
+              <span>
+                {error}{' '}
+                <a
+                  href={'tel:' + COMPANY_DETAILS.phone.replace(/\s/g, '')}
+                  className="underline font-bold"
+                >
+                  {COMPANY_DETAILS.phone}
+                </a>
+              </span>
+            </div>
+          )}
+
+          {/*
+            Honeypot: clipped to nothing and hidden from assistive tech, but still a
+            real focusable field that bots fill in. Clipping rather than an off-screen
+            negative offset — the latter pushed the RTL layout into horizontal overflow.
+          */}
+          <div
+            aria-hidden="true"
+            className="absolute w-px h-px overflow-hidden whitespace-nowrap border-0 p-0 m-[-1px] [clip:rect(0,0,0,0)]"
+          >
+            <label htmlFor={uid + '-company'}>Company</label>
+            <input
+              id={uid + '-company'}
+              type="text"
+              tabIndex={-1}
+              autoComplete="off"
+              value={honeypot}
+              onChange={(e) => setHoneypot(e.target.value)}
+            />
+          </div>
+
           <div className="space-y-1">
-            <label className="text-[11px] font-semibold uppercase text-slate-600 dark:text-[#94a3b8] block">
-              Full Name *
+            <label htmlFor={uid + '-name'} className={labelClass}>
+              {isAr ? 'الاسم الكامل *' : 'Full Name *'}
             </label>
             <input
+              id={uid + '-name'}
+              name="name"
               type="text"
               required
+              minLength={2}
+              autoComplete="name"
               value={name}
-              onChange={e => setName(e.target.value)}
-              placeholder="e.g. Alexander Vance"
-              className="w-full bg-slate-50 dark:bg-[#182032] border border-slate-200 dark:border-[#1e293b] rounded-xl px-3 py-2 text-xs text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-sky-500 transition-colors"
+              onChange={(e) => setName(e.target.value)}
+              placeholder={isAr ? 'مثال: طارق المنصور' : 'e.g. Alexander Vance'}
+              className={inputClass}
             />
           </div>
 
           <div className="space-y-1">
-            <label className="text-[11px] font-semibold uppercase text-slate-600 dark:text-[#94a3b8] block">
-              Phone / WhatsApp *
+            <label htmlFor={uid + '-phone'} className={labelClass}>
+              {isAr ? 'الهاتف / واتساب *' : 'Phone / WhatsApp *'}
             </label>
             <input
+              id={uid + '-phone'}
+              name="phone"
               type="tel"
               required
+              dir="ltr"
+              autoComplete="tel"
               value={phone}
-              onChange={e => setPhone(e.target.value)}
+              onChange={(e) => setPhone(e.target.value)}
               placeholder="+971 56 339 6961"
-              className="w-full bg-slate-50 dark:bg-[#182032] border border-slate-200 dark:border-[#1e293b] rounded-xl px-3 py-2 text-xs text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-sky-500 transition-colors"
+              className={inputClass}
             />
           </div>
 
           <div className="space-y-1">
-            <label className="text-[11px] font-semibold uppercase text-slate-600 dark:text-[#94a3b8] block">
-              Required Service (from amdxb.com)
+            <label htmlFor={uid + '-service'} className={labelClass}>
+              {isAr ? 'الخدمة المطلوبة' : 'Required Service'}
             </label>
             <select
+              id={uid + '-service'}
+              name="service"
               value={packageChoice}
-              onChange={e => setPackageChoice(e.target.value)}
-              className="w-full bg-slate-50 dark:bg-[#182032] border border-slate-200 dark:border-[#1e293b] rounded-xl px-3 py-2 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-sky-500 cursor-pointer"
+              onChange={(e) => setPackageChoice(e.target.value)}
+              className={inputClass + ' cursor-pointer'}
             >
-              <option value="Company Incorporation">1. Company Incorporation (Mainland / Free Zone / Offshore)</option>
-              <option value="Company Liquidation Services">2. Company Liquidation Services</option>
-              <option value="Golden Visa Services">3. Golden Visa Services (10-Year Long-Term)</option>
-              <option value="License Renewal (PRO) Services">4. License Renewal (PRO) Services</option>
-              <option value="VAT & Corporate Tax Filing Services">5. VAT & Corporate Tax Filing Services (FTA 9%)</option>
-              <option value="Audit & Assurance Services">6. Audit & Assurance Services</option>
-              <option value="Accounting Services">7. Accounting & Cloud Bookkeeping Services</option>
+              {/* A quote or package name arrives via defaultPackage and is not in the list. */}
+              {!SERVICES.includes(packageChoice) && (
+                <option value={packageChoice}>{packageChoice}</option>
+              )}
+              {SERVICES.map((s, i) => (
+                <option key={s} value={s}>
+                  {i + 1}. {s}
+                </option>
+              ))}
             </select>
           </div>
 
           <div className="space-y-1">
-            <label className="text-[11px] font-semibold uppercase text-slate-600 dark:text-[#94a3b8] block">
-              Message or Specific Activity (Optional)
+            <label htmlFor={uid + '-notes'} className={labelClass}>
+              {isAr ? 'رسالة أو نشاط محدد (اختياري)' : 'Message or Specific Activity (Optional)'}
             </label>
             <textarea
+              id={uid + '-notes'}
+              name="notes"
               rows={2}
+              maxLength={2000}
               value={notes}
-              onChange={e => setNotes(e.target.value)}
-              placeholder="e.g. AI & Tech startup with 2 investor visas and corporate bank opening..."
-              className="w-full bg-slate-50 dark:bg-[#182032] border border-slate-200 dark:border-[#1e293b] rounded-xl px-3 py-2 text-xs text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-sky-500 transition-colors"
+              onChange={(e) => setNotes(e.target.value)}
+              placeholder={
+                isAr
+                  ? 'مثال: شركة تقنية مع تأشيرتي مستثمر وفتح حساب بنكي...'
+                  : 'e.g. AI & Tech startup with 2 investor visas and corporate bank opening...'
+              }
+              className={inputClass}
             />
           </div>
 
-          <div className="pt-2 border-t border-slate-100 dark:border-[#1e293b] flex items-center justify-between">
+          <div className="pt-2 border-t border-slate-100 dark:border-[#1e293b] flex items-center justify-between gap-3">
             <a
-              href="tel:+971563396961"
+              href={'tel:' + COMPANY_DETAILS.phone.replace(/\s/g, '')}
               className="text-sky-600 dark:text-sky-400 hover:underline text-[11px] flex items-center gap-1 font-bold"
+              dir="ltr"
             >
               <Phone className="w-3 h-3" />
-              <span>+971 56 339 6961</span>
+              <span>{COMPANY_DETAILS.phone}</span>
             </a>
 
             <Button
@@ -156,7 +292,7 @@ export const QuickConsultationModal: React.FC<QuickConsultationModalProps> = ({
               className="font-mono text-xs shadow-md"
             >
               <Send className="w-3.5 h-3.5 mr-1" />
-              <span>Send Request</span>
+              <span>{isAr ? 'إرسال الطلب' : 'Send Request'}</span>
             </Button>
           </div>
         </form>

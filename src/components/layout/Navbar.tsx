@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Globe,
   Menu,
@@ -15,45 +15,33 @@ import {
   ChevronDown,
   Search
 } from 'lucide-react';
-import { Language, TRANSLATIONS } from '../../data/translations';
-import { UserSession } from '../auth/AuthModal';
+import { Language } from '../../data/translations';
 import { AmDxbLogo } from '../ui/AmDxbLogo';
 import { ServiceSlug } from '../../data/servicesData';
+import { servicePath } from '../../utils/router';
 
 interface NavbarProps {
   onOpenConsultation: (serviceName?: string) => void;
-  onOpenAuth: () => void;
-  onOpenSettings: () => void;
-  onOpenAdmin: () => void;
-  onOpenSearch?: () => void;
-  user: UserSession | null;
-  onLogout: () => void;
+  onOpenSearch: () => void;
   lang: Language;
   onToggleLang: () => void;
-  isDarkMode?: boolean;
-  onToggleTheme?: () => void;
-  currency?: string;
-  onSetCurrency?: (c: string) => void;
-  onNavigateService?: (slug: ServiceSlug) => void;
-  onNavigateSection?: (sectionId: string) => void;
-  onNavigateHome?: () => void;
+  currency: string;
+  onCycleCurrency: () => void;
+  onNavigateService: (slug: ServiceSlug) => void;
+  onNavigateSection: (sectionId: string) => void;
+  onNavigateHome: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
   onOpenConsultation,
-  onOpenAuth,
-  onOpenSettings,
-  onOpenAdmin,
   onOpenSearch,
-  user,
-  onLogout,
   lang,
   onToggleLang,
-  currency = 'AED',
-  onSetCurrency,
+  currency,
+  onCycleCurrency,
   onNavigateService,
   onNavigateSection,
-  onNavigateHome
+  onNavigateHome,
 }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
@@ -92,26 +80,23 @@ export const Navbar: React.FC<NavbarProps> = ({
   const handleServiceClick = (slug: ServiceSlug) => {
     setServicesOpen(false);
     setMobileMenuOpen(false);
-    if (onNavigateService) {
-      onNavigateService(slug);
-    }
+    onNavigateService(slug);
   };
 
   const handleHomeClick = (e?: React.MouseEvent) => {
-    if (e) e.preventDefault();
+    if (e) {
+      if (e.metaKey || e.ctrlKey || e.shiftKey) return;
+      e.preventDefault();
+    }
     setServicesOpen(false);
     setMobileMenuOpen(false);
-    if (onNavigateHome) {
-      onNavigateHome();
-    }
+    onNavigateHome();
   };
 
   const handleSectionClick = (sectionId: string) => {
     setServicesOpen(false);
     setMobileMenuOpen(false);
-    if (onNavigateSection) {
-      onNavigateSection(sectionId);
-    }
+    onNavigateSection(sectionId);
   };
 
   return (
@@ -137,9 +122,14 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
           
           {/* Logo */}
-          <button onClick={handleHomeClick} className="flex items-center gap-3 shrink-0 whitespace-nowrap text-left cursor-pointer">
+          <a
+            href="/"
+            onClick={handleHomeClick}
+            aria-label="AM DXB home"
+            className="flex items-center gap-3 shrink-0 whitespace-nowrap text-start cursor-pointer focus:outline-none focus:ring-2 focus:ring-sky-500 rounded-lg"
+          >
             <AmDxbLogo size="sm" />
-          </button>
+          </a>
 
           {/* Desktop Nav Links */}
           <nav className="hidden lg:flex items-center space-x-1 xl:space-x-2 whitespace-nowrap text-slate-800 text-xs font-semibold">
@@ -149,6 +139,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 type="button"
                 onClick={() => setServicesOpen(!servicesOpen)}
+                aria-expanded={servicesOpen}
                 className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer text-slate-900 font-bold"
               >
                 <span>{isAr ? 'خدماتنا' : 'Our Services'}</span>
@@ -156,16 +147,21 @@ export const Navbar: React.FC<NavbarProps> = ({
               </button>
 
               {servicesOpen && (
-                <div className="absolute left-0 top-full pt-2 w-80 z-50 animate-scaleUp">
+                <div className="absolute start-0 top-full pt-2 w-80 z-50 animate-scaleUp">
                   <div className="bg-white border border-slate-200 rounded-2xl shadow-xl p-2 text-xs divide-y divide-slate-100">
                     <div className="p-2 space-y-1">
                       {servicesList.map((svc, idx) => {
                         const Icon = svc.icon;
                         return (
-                          <button
+                          <a
                             key={idx}
-                            onClick={() => handleServiceClick(svc.slug)}
-                            className="w-full text-left p-2.5 rounded-xl hover:bg-slate-50 transition-colors flex items-center gap-3 group text-slate-800"
+                            href={servicePath(svc.slug)}
+                            onClick={(e) => {
+                              if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+                              e.preventDefault();
+                              handleServiceClick(svc.slug);
+                            }}
+                            className="w-full text-start p-2.5 rounded-xl hover:bg-slate-50 transition-colors flex items-center gap-3 group text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500"
                           >
                             <div className="p-2 rounded-lg bg-slate-100 text-slate-900 group-hover:bg-slate-900 group-hover:text-white transition-colors shrink-0">
                               <Icon className="w-4 h-4" />
@@ -174,7 +170,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                               <span className="font-bold text-xs block truncate text-slate-900">{svc.name}</span>
                               <span className="text-[10px] font-mono text-slate-500 block truncate">{svc.tag}</span>
                             </div>
-                          </button>
+                          </a>
                         );
                       })}
                     </div>
@@ -213,31 +209,24 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div className="hidden sm:flex items-center space-x-2.5 shrink-0 whitespace-nowrap">
             
             {/* Search ⌘K */}
-            {onOpenSearch && (
-              <button
-                onClick={onOpenSearch}
-                className="px-3 py-1.5 border border-slate-200 bg-slate-50 hover:bg-slate-100 text-xs font-mono text-slate-600 rounded-lg flex items-center gap-2 cursor-pointer transition-all shadow-sm"
-                title="Search Free Zones and Activities (⌘K)"
-              >
+            <button
+              onClick={onOpenSearch}
+              aria-label="Search free zones and activities"
+              className="px-3 py-1.5 border border-slate-200 bg-slate-50 hover:bg-slate-100 text-xs font-mono text-slate-600 rounded-lg flex items-center gap-2 cursor-pointer transition-all shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500"
+            >
                 <Search className="w-3.5 h-3.5 text-slate-500" />
                 <span className="hidden xl:inline text-[11px]">Search...</span>
-                <kbd className="px-1.5 py-0.5 bg-white border border-slate-300 rounded text-[10px] text-slate-500 font-bold">⌘K</kbd>
-              </button>
-            )}
+              <kbd className="px-1.5 py-0.5 bg-white border border-slate-300 rounded text-[10px] text-slate-500 font-bold">⌘K</kbd>
+            </button>
 
             {/* Currency */}
-            {onSetCurrency && (
-              <button
-                onClick={() => {
-                  const order = ['AED', 'USD', 'EUR', 'GBP'];
-                  const nextIdx = (order.indexOf(currency) + 1) % order.length;
-                  onSetCurrency(order[nextIdx]);
-                }}
-                className="px-2.5 py-1.5 border border-slate-200 bg-slate-50 text-xs font-mono font-bold text-slate-800 hover:border-slate-400 transition-all rounded-lg cursor-pointer"
-              >
-                {currency}
-              </button>
-            )}
+            <button
+              onClick={onCycleCurrency}
+              aria-label={'Change currency, currently ' + currency}
+              className="px-2.5 py-1.5 border border-slate-200 bg-slate-50 text-xs font-mono font-bold text-slate-800 hover:border-slate-400 transition-all rounded-lg cursor-pointer focus:outline-none focus:ring-2 focus:ring-sky-500"
+            >
+              {currency}
+            </button>
 
             {/* Language */}
             <button
@@ -261,14 +250,13 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Mobile Menu & Search */}
           <div className="lg:hidden flex items-center gap-2">
-            {onOpenSearch && (
-              <button
-                onClick={onOpenSearch}
-                className="p-2 border border-slate-200 rounded-lg text-slate-700 bg-slate-50"
-              >
-                <Search className="w-4 h-4" />
-              </button>
-            )}
+            <button
+              onClick={onOpenSearch}
+              aria-label="Search"
+              className="p-2 border border-slate-200 rounded-lg text-slate-700 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-sky-500"
+            >
+              <Search className="w-4 h-4" />
+            </button>
             <button
               onClick={() => onOpenConsultation()}
               className="px-3 py-1.5 bg-slate-900 text-white font-bold text-xs rounded-lg"
@@ -277,7 +265,9 @@ export const Navbar: React.FC<NavbarProps> = ({
             </button>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 border border-slate-200 rounded-lg text-slate-700"
+              aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={mobileMenuOpen}
+              className="p-2 border border-slate-200 rounded-lg text-slate-700 focus:outline-none focus:ring-2 focus:ring-sky-500"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -292,24 +282,29 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div className="space-y-1">
             <div className="font-bold text-xs uppercase text-slate-500 px-2 mb-2">Our Services:</div>
             {servicesList.map((svc, idx) => (
-              <button
+              <a
                 key={idx}
-                onClick={() => handleServiceClick(svc.slug)}
-                className="w-full text-left p-2.5 rounded-lg bg-slate-50 text-xs font-semibold text-slate-800 flex items-center justify-between"
+                href={servicePath(svc.slug)}
+                onClick={(e) => {
+                  if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+                  e.preventDefault();
+                  handleServiceClick(svc.slug);
+                }}
+                className="w-full text-start p-2.5 rounded-lg bg-slate-50 text-xs font-semibold text-slate-800 flex items-center justify-between rtl:flex-row-reverse"
               >
                 <span>{svc.name}</span>
-                <ArrowRight className="w-3.5 h-3.5 text-slate-400" />
-              </button>
+                <ArrowRight className="w-3.5 h-3.5 text-slate-400 rtl:rotate-180" />
+              </a>
             ))}
           </div>
 
           <div className="pt-3 border-t border-slate-100 space-y-1 text-xs font-bold text-slate-800">
-            <button onClick={() => handleSectionClick('packages')} className="w-full text-left py-2 px-2">Packages</button>
-            <button onClick={() => handleSectionClick('how-we-work')} className="w-full text-left py-2 px-2">How We Work</button>
-            <button onClick={() => handleSectionClick('freezones')} className="w-full text-left py-2 px-2">Free Zones Directory</button>
-            <button onClick={() => handleSectionClick('cost-calculator')} className="w-full text-left py-2 px-2">Cost Calculator</button>
-            <button onClick={() => handleSectionClick('client-stories')} className="w-full text-left py-2 px-2">Client Stories</button>
-            <button onClick={() => handleSectionClick('about')} className="w-full text-left py-2 px-2">About Us</button>
+            <button onClick={() => handleSectionClick('packages')} className="w-full text-start py-2 px-2">Packages</button>
+            <button onClick={() => handleSectionClick('how-we-work')} className="w-full text-start py-2 px-2">How We Work</button>
+            <button onClick={() => handleSectionClick('freezones')} className="w-full text-start py-2 px-2">Free Zones Directory</button>
+            <button onClick={() => handleSectionClick('cost-calculator')} className="w-full text-start py-2 px-2">Cost Calculator</button>
+            <button onClick={() => handleSectionClick('client-stories')} className="w-full text-start py-2 px-2">Client Stories</button>
+            <button onClick={() => handleSectionClick('about')} className="w-full text-start py-2 px-2">About Us</button>
           </div>
 
           <div className="pt-3 border-t border-slate-100">

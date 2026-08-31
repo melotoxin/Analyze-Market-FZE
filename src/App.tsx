@@ -1,51 +1,79 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, Suspense, lazy } from 'react';
 import { Navbar } from './components/layout/Navbar';
 import { TrustBar } from './components/trust/TrustBar';
 import { Footer } from './components/layout/Footer';
 import { HeroCompanyConfigurator } from './components/hero/HeroCompanyConfigurator';
 import { OtherServicesSection } from './components/services/OtherServicesSection';
-import { ClientStoriesSection } from './components/stories/ClientStoriesSection';
-import { FormationRoadmapSection } from './components/roadmap/FormationRoadmapSection';
-import { PackagesSection } from './components/packages/PackagesSection';
-import { FreeZonesDirectory } from './components/freezones/FreeZonesDirectory';
-import { UaeCostVisualizerSection } from './components/calculator/UaeCostVisualizerSection';
-import { JurisdictionComparison } from './components/comparison/JurisdictionComparison';
-import { WhyUaeSection } from './components/why-uae/WhyUaeSection';
-import { FaqSection } from './components/faq/FaqSection';
-import { AboutSection } from './components/about/AboutSection';
 import { QuickConsultationModal } from './components/consultation/QuickConsultationModal';
-import { AuthModal, UserSession } from './components/auth/AuthModal';
-import { SettingsModal } from './components/settings/SettingsModal';
-import { AdminDashboard } from './components/admin/AdminDashboard';
-import { ServiceDetailPage } from './components/services/ServiceDetailPage';
 import { CommandSearchModal } from './components/search/CommandSearchModal';
 import { MobileBottomDock } from './components/layout/MobileBottomDock';
-import { ServiceSlug } from './data/servicesData';
 import { ScrollReveal } from './components/ui/ScrollReveal';
-import { Language, TRANSLATIONS } from './data/translations';
+import { ServiceSlug } from './data/servicesData';
+import { Language } from './data/translations';
+import { CURRENCIES, Currency, isCurrency } from './data/pricing';
+import { usePersistentState } from './utils/usePersistentState';
+import { useRoute, useDocumentMeta } from './utils/router';
+import { WHATSAPP_URL, openExternal } from './utils/submitLead';
+
+// Everything below the fold is split out of the initial bundle: the landing view
+// only needs the hero, the trust ribbon and the services grid to be interactive.
+const ClientStoriesSection = lazy(() =>
+  import('./components/stories/ClientStoriesSection').then((m) => ({
+    default: m.ClientStoriesSection,
+  })),
+);
+const PackagesSection = lazy(() =>
+  import('./components/packages/PackagesSection').then((m) => ({ default: m.PackagesSection })),
+);
+const FormationRoadmapSection = lazy(() =>
+  import('./components/roadmap/FormationRoadmapSection').then((m) => ({
+    default: m.FormationRoadmapSection,
+  })),
+);
+const FreeZonesDirectory = lazy(() =>
+  import('./components/freezones/FreeZonesDirectory').then((m) => ({
+    default: m.FreeZonesDirectory,
+  })),
+);
+const UaeCostVisualizerSection = lazy(() =>
+  import('./components/calculator/UaeCostVisualizerSection').then((m) => ({
+    default: m.UaeCostVisualizerSection,
+  })),
+);
+const JurisdictionComparison = lazy(() =>
+  import('./components/comparison/JurisdictionComparison').then((m) => ({
+    default: m.JurisdictionComparison,
+  })),
+);
+const WhyUaeSection = lazy(() =>
+  import('./components/why-uae/WhyUaeSection').then((m) => ({ default: m.WhyUaeSection })),
+);
+const AboutSection = lazy(() =>
+  import('./components/about/AboutSection').then((m) => ({ default: m.AboutSection })),
+);
+const FaqSection = lazy(() =>
+  import('./components/faq/FaqSection').then((m) => ({ default: m.FaqSection })),
+);
+const ServiceDetailPage = lazy(() =>
+  import('./components/services/ServiceDetailPage').then((m) => ({ default: m.ServiceDetailPage })),
+);
+
+const isLanguage = (v: string): v is Language => v === 'en' || v === 'ar';
+
+/** Reserves vertical space while a split section loads, so nothing jumps. */
+const SectionFallback = () => <div className="min-h-[40vh]" aria-hidden="true" />;
 
 export function App() {
   const [isConsultationOpen, setIsConsultationOpen] = useState(false);
   const [selectedPackage, setSelectedPackage] = useState<string | undefined>(undefined);
-  
-  // Dedicated Service Page routing state
-  const [activeServiceSlug, setActiveServiceSlug] = useState<ServiceSlug | null>(null);
-
-  // Theme & Language & Currency State
-  const [isDarkMode, setIsDarkMode] = useState(false);
-  const [lang, setLang] = useState<Language>('en');
-  const [currency, setCurrency] = useState<string>('AED');
-
-  // Modals state
-  const [isAuthOpen, setIsAuthOpen] = useState(false);
-  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-  const [isAdminOpen, setIsAdminOpen] = useState(false);
   const [isCommandSearchOpen, setIsCommandSearchOpen] = useState(false);
 
-  // Authentication session
-  const [user, setUser] = useState<UserSession | null>(null);
+  const [activeServiceSlug, navigate] = useRoute();
+  const [lang, setLang] = usePersistentState<Language>('amdxb:lang', 'en', isLanguage);
+  const [currency, setCurrency] = usePersistentState<Currency>('amdxb:currency', 'AED', isCurrency);
 
-  // Global keydown for ⌘K
+  useDocumentMeta(activeServiceSlug, lang);
+
   useEffect(() => {
     const handleGlobalKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
@@ -57,267 +85,203 @@ export function App() {
     return () => window.removeEventListener('keydown', handleGlobalKeyDown);
   }, []);
 
-  // Sync dark/light class and RTL/LTR direction with root document
+  // Keep the document's language and reading direction in step with the toggle.
   useEffect(() => {
     const root = document.documentElement;
-    if (isDarkMode) {
-      root.classList.add('dark');
-      root.classList.remove('light');
-    } else {
-      root.classList.add('light');
-      root.classList.remove('dark');
-    }
+    root.setAttribute('lang', lang);
+    root.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+  }, [lang]);
 
-    if (lang === 'ar') {
-      root.setAttribute('dir', 'rtl');
-      root.setAttribute('lang', 'ar');
-    } else {
-      root.setAttribute('dir', 'ltr');
-      root.setAttribute('lang', 'en');
-    }
-  }, [isDarkMode, lang]);
-
-  const toggleTheme = () => {
-    setIsDarkMode((prev) => !prev);
-  };
-
-  const toggleLanguage = () => {
-    setLang((prev) => (prev === 'en' ? 'ar' : 'en'));
-  };
-
-  const handleOpenConsultation = (pkgName?: string) => {
+  const handleOpenConsultation = useCallback((pkgName?: string) => {
     setSelectedPackage(pkgName);
     setIsConsultationOpen(true);
-  };
+  }, []);
 
-  const handleNavigateService = (slug: ServiceSlug) => {
-    setActiveServiceSlug(slug);
+  const handleNavigateService = useCallback(
+    (slug: ServiceSlug) => {
+      navigate(slug);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    },
+    [navigate],
+  );
+
+  const handleNavigateHome = useCallback(() => {
+    navigate(null);
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  }, [navigate]);
 
-  const handleNavigateHome = () => {
-    setActiveServiceSlug(null);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  const handleNavigateSection = useCallback(
+    (sectionId: string) => {
+      const scrollToSection = () =>
+        document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
 
-  const handleNavigateSection = (sectionId: string) => {
-    if (activeServiceSlug) {
-      setActiveServiceSlug(null);
-      setTimeout(() => {
-        const el = document.getElementById(sectionId);
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth' });
-        }
-      }, 60);
-    } else {
-      const el = document.getElementById(sectionId);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
+      if (activeServiceSlug) {
+        navigate(null);
+        // The home sections are lazy; poll briefly for the target rather than
+        // guessing a fixed delay that breaks on a slow connection.
+        let attempts = 0;
+        const tick = () => {
+          if (document.getElementById(sectionId) || attempts++ > 60) scrollToSection();
+          else requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      } else {
+        scrollToSection();
       }
-    }
-  };
+    },
+    [activeServiceSlug, navigate],
+  );
 
-  const handleCommandSearchAction = (actionType: string, value?: string) => {
-    if (actionType === 'scroll-calculator') {
-      handleNavigateSection('cost-calculator');
-    } else if (actionType === 'consult-visa') {
-      handleOpenConsultation('Golden Visa 10-Year');
-    } else if (actionType === 'consult-srti') {
-      handleOpenConsultation('SRTI Park Setup');
-    } else if (actionType === 'whatsapp') {
-      window.open('https://wa.me/971563396961', '_blank');
-    } else if (actionType === 'freezone') {
-      handleOpenConsultation(`Free Zone Inquiry: ${value}`);
-    } else if (actionType === 'activity') {
-      handleOpenConsultation(`Activity Setup: ${value}`);
-    }
-  };
+  const handleCommandSearchAction = useCallback(
+    (actionType: string, value?: string) => {
+      switch (actionType) {
+        case 'scroll-calculator':
+          handleNavigateSection('cost-calculator');
+          break;
+        case 'consult-visa':
+          handleOpenConsultation('Golden Visa Services');
+          break;
+        case 'consult-srti':
+          handleOpenConsultation('SRTI Park Setup');
+          break;
+        case 'whatsapp':
+          openExternal(WHATSAPP_URL);
+          break;
+        case 'freezone':
+          handleOpenConsultation('Free Zone Inquiry: ' + value);
+          break;
+        case 'activity':
+          handleOpenConsultation('Activity Setup: ' + value);
+          break;
+      }
+    },
+    [handleNavigateSection, handleOpenConsultation],
+  );
 
-  const handleLoginSuccess = (session: UserSession) => {
-    setUser(session);
-  };
+  const cycleCurrency = useCallback(() => {
+    setCurrency(CURRENCIES[(CURRENCIES.indexOf(currency) + 1) % CURRENCIES.length]);
+  }, [currency, setCurrency]);
 
-  const handleLogout = () => {
-    setUser(null);
-  };
-
-  const t = TRANSLATIONS[lang];
+  const toggleLanguage = useCallback(() => {
+    setLang(lang === 'en' ? 'ar' : 'en');
+  }, [lang, setLang]);
 
   return (
-    <div className="min-h-screen bg-[#FBFBFA] text-slate-900 flex flex-col antialiased selection:bg-slate-900 selection:text-white font-sans transition-colors duration-200 relative pb-16 md:pb-0">
-      
-      {/* Navigation Header */}
+    <div className="min-h-screen bg-[#FBFBFA] text-slate-900 flex flex-col antialiased selection:bg-slate-900 selection:text-white font-sans relative pb-16 md:pb-0">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:px-4 focus:py-2 focus:bg-slate-900 focus:text-white focus:rounded-lg focus:text-sm focus:font-bold"
+      >
+        Skip to main content
+      </a>
+
       <Navbar
-        onOpenConsultation={(svc) => handleOpenConsultation(svc)}
-        onOpenAuth={() => setIsAuthOpen(true)}
-        onOpenSettings={() => setIsSettingsOpen(true)}
-        onOpenAdmin={() => setIsAdminOpen(true)}
+        onOpenConsultation={handleOpenConsultation}
         onOpenSearch={() => setIsCommandSearchOpen(true)}
-        user={user}
-        onLogout={handleLogout}
         lang={lang}
         onToggleLang={toggleLanguage}
-        isDarkMode={isDarkMode}
-        onToggleTheme={toggleTheme}
         currency={currency}
-        onSetCurrency={setCurrency}
+        onCycleCurrency={cycleCurrency}
         onNavigateService={handleNavigateService}
         onNavigateSection={handleNavigateSection}
         onNavigateHome={handleNavigateHome}
       />
 
-      {/* Main Content: Render Dedicated Service Page OR Full Platform Home */}
       {activeServiceSlug ? (
-        <main className="flex-grow relative z-10">
-          <ServiceDetailPage
-            slug={activeServiceSlug}
-            onBack={handleNavigateHome}
-            onSelectService={handleNavigateService}
-            onOpenConsultation={(svc) => handleOpenConsultation(svc)}
-            lang={lang}
-          />
+        <main id="main-content" className="flex-grow relative z-10">
+          <Suspense fallback={<SectionFallback />}>
+            <ServiceDetailPage
+              slug={activeServiceSlug}
+              onBack={handleNavigateHome}
+              onSelectService={handleNavigateService}
+              onOpenConsultation={handleOpenConsultation}
+              lang={lang}
+            />
+          </Suspense>
         </main>
       ) : (
-        <main className="flex-grow relative z-10">
-          {/* 1. High-Impact Hero & Venture — The Estimator (With Integrated Workspace Diagnostic) */}
+        <main id="main-content" className="flex-grow relative z-10">
           <HeroCompanyConfigurator
-            onOpenConsultation={(details) => handleOpenConsultation(details)}
+            onOpenConsultation={handleOpenConsultation}
             lang={lang}
             currency={currency}
           />
 
-          {/* 2. Official Government Authorities & Tier-1 Banking Partner Ribbon */}
           <TrustBar lang={lang} />
 
-          {/* 3. 01 / What We Do: 7 Official Services */}
           <ScrollReveal direction="up" delay={0.1}>
             <OtherServicesSection
-              onOpenConsultation={(svc) => handleOpenConsultation(svc)}
+              onOpenConsultation={handleOpenConsultation}
               onNavigateService={handleNavigateService}
               lang={lang}
             />
           </ScrollReveal>
 
-          {/* 4. 02 / Client Stories & Measurable Outcomes */}
-          <ScrollReveal direction="up" delay={0.1}>
-            <ClientStoriesSection
-              onOpenConsultation={(topic) => handleOpenConsultation(topic)}
-              lang={lang}
-            />
-          </ScrollReveal>
+          <Suspense fallback={<SectionFallback />}>
+            <ScrollReveal direction="up" delay={0.1}>
+              <ClientStoriesSection onOpenConsultation={handleOpenConsultation} lang={lang} />
+            </ScrollReveal>
 
-          {/* 5. 03 / Turnkey Packages (Free Zone, Mainland, Offshore, Dual) */}
-          <ScrollReveal direction="up" delay={0.1}>
-            <PackagesSection
-              onSelectPackage={(pkgTitle) => handleOpenConsultation(pkgTitle)}
-              lang={lang}
-              currency={currency}
-            />
-          </ScrollReveal>
+            <ScrollReveal direction="up" delay={0.1}>
+              <PackagesSection
+                onSelectPackage={handleOpenConsultation}
+                lang={lang}
+                currency={currency}
+              />
+            </ScrollReveal>
 
-          {/* 6. 04 / How We Work: 4-Stage ISO-Accredited Roadmap */}
-          <ScrollReveal direction="up" delay={0.1}>
-            <FormationRoadmapSection
-              onOpenConsultation={(step) => handleOpenConsultation(step)}
-              lang={lang}
-            />
-          </ScrollReveal>
+            <ScrollReveal direction="up" delay={0.1}>
+              <FormationRoadmapSection onOpenConsultation={handleOpenConsultation} lang={lang} />
+            </ScrollReveal>
 
-          {/* 7. 05 / 40+ Free Zones Explorer & Discovery Hub */}
-          <ScrollReveal direction="up" delay={0.1}>
-            <FreeZonesDirectory
-              onOpenConsultation={() => handleOpenConsultation('Free Zone Company')}
-              lang={lang}
-              currency={currency}
-            />
-          </ScrollReveal>
+            <ScrollReveal direction="up" delay={0.1}>
+              <FreeZonesDirectory
+                onOpenConsultation={handleOpenConsultation}
+                lang={lang}
+                currency={currency}
+              />
+            </ScrollReveal>
 
-          {/* 8. 06 / Tariff Simulator & Interactive Cost Visualizer */}
-          <ScrollReveal direction="up" delay={0.1}>
-            <UaeCostVisualizerSection
-              onOpenConsultation={(quote) => handleOpenConsultation(quote)}
-              lang={lang}
-              currency={currency}
-            />
-          </ScrollReveal>
+            <ScrollReveal direction="up" delay={0.1}>
+              <UaeCostVisualizerSection
+                onOpenConsultation={handleOpenConsultation}
+                lang={lang}
+                currency={currency}
+              />
+            </ScrollReveal>
 
-          {/* 9. 07 / 3-Way Jurisdiction Comparison Matrix */}
-          <ScrollReveal direction="up" delay={0.1}>
-            <JurisdictionComparison
-              onOpenConsultation={(jurisdiction) => handleOpenConsultation(jurisdiction)}
-              lang={lang}
-            />
-          </ScrollReveal>
+            <ScrollReveal direction="up" delay={0.1}>
+              <JurisdictionComparison onOpenConsultation={handleOpenConsultation} lang={lang} />
+            </ScrollReveal>
 
-          {/* 10. Why UAE? Global Economic Power */}
-          <ScrollReveal direction="up" delay={0.1}>
-            <WhyUaeSection
-              onOpenConsultation={() => handleOpenConsultation()}
-              lang={lang}
-            />
-          </ScrollReveal>
+            <ScrollReveal direction="up" delay={0.1}>
+              <WhyUaeSection onOpenConsultation={() => handleOpenConsultation()} lang={lang} />
+            </ScrollReveal>
 
-          {/* 11. About AnalyzeMarkets FZE (SRTI Sharjah HQ) */}
-          <ScrollReveal direction="up" delay={0.1}>
-            <AboutSection
-              onOpenConsultation={() => handleOpenConsultation()}
-              lang={lang}
-            />
-          </ScrollReveal>
+            <ScrollReveal direction="up" delay={0.1}>
+              <AboutSection onOpenConsultation={() => handleOpenConsultation()} lang={lang} />
+            </ScrollReveal>
 
-          {/* 12. Frequently Asked Questions */}
-          <ScrollReveal direction="up" delay={0.1}>
-            <FaqSection
-              onOpenConsultation={() => handleOpenConsultation()}
-              lang={lang}
-            />
-          </ScrollReveal>
+            <ScrollReveal direction="up" delay={0.1}>
+              <FaqSection onOpenConsultation={() => handleOpenConsultation()} lang={lang} />
+            </ScrollReveal>
+          </Suspense>
         </main>
       )}
 
-      {/* Global Footer with AM DXB live links */}
       <Footer
         onOpenConsultation={() => handleOpenConsultation()}
         onNavigateService={handleNavigateService}
         lang={lang}
       />
 
-      {/* Quick Consultation Modal */}
       <QuickConsultationModal
         isOpen={isConsultationOpen}
         onClose={() => setIsConsultationOpen(false)}
         defaultPackage={selectedPackage}
-      />
-
-      {/* Authentication Login / Register Modal */}
-      <AuthModal
-        isOpen={isAuthOpen}
-        onClose={() => setIsAuthOpen(false)}
-        onLoginSuccess={handleLoginSuccess}
-        onOpenAdmin={() => setIsAdminOpen(true)}
         lang={lang}
       />
 
-      {/* Settings Modal */}
-      <SettingsModal
-        isOpen={isSettingsOpen}
-        onClose={() => setIsSettingsOpen(false)}
-        isDarkMode={isDarkMode}
-        onToggleTheme={toggleTheme}
-        lang={lang}
-        onSetLanguage={setLang}
-        currency={currency}
-        onSetCurrency={setCurrency}
-      />
-
-      {/* Executive Admin CRM Dashboard */}
-      <AdminDashboard
-        isOpen={isAdminOpen}
-        onClose={() => setIsAdminOpen(false)}
-        lang={lang}
-      />
-
-      {/* Global ⌘K Command Search Modal */}
       <CommandSearchModal
         isOpen={isCommandSearchOpen}
         onClose={() => setIsCommandSearchOpen(false)}
@@ -325,11 +289,7 @@ export function App() {
         lang={lang}
       />
 
-      {/* Persistent Mobile Bottom Action Dock (<768px) */}
-      <MobileBottomDock
-        onOpenConsultation={(details) => handleOpenConsultation(details)}
-        lang={lang}
-      />
+      <MobileBottomDock onOpenConsultation={handleOpenConsultation} lang={lang} />
     </div>
   );
 }

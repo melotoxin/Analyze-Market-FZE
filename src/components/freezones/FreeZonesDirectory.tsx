@@ -1,5 +1,6 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { Search, Globe, ArrowRight, HelpCircle, Building2 } from 'lucide-react';
+import { formatMoney } from '../../data/pricing';
 import { Language, TRANSLATIONS } from '../../data/translations';
 
 interface FreeZonesDirectoryProps {
@@ -26,7 +27,7 @@ export const FreeZonesDirectory: React.FC<FreeZonesDirectoryProps> = ({
     { 
       name: 'SRTI Park (Sharjah Innovation)', 
       emirate: 'Sharjah', 
-      minCost: 'AED 11,500', 
+      minCostAed: 11500, 
       visas: 'Up to 5 Visas', 
       focus: 'AI, Tech, Software & R&D', 
       featured: true,
@@ -36,7 +37,7 @@ export const FreeZonesDirectory: React.FC<FreeZonesDirectoryProps> = ({
     { 
       name: 'SHAMS (Sharjah Media City)', 
       emirate: 'Sharjah', 
-      minCost: 'AED 8,050', 
+      minCostAed: 8050, 
       visas: 'Up to 6 Visas', 
       focus: 'Media, Creative, E-Commerce', 
       featured: false,
@@ -46,7 +47,7 @@ export const FreeZonesDirectory: React.FC<FreeZonesDirectoryProps> = ({
     { 
       name: 'IFZA (International Free Zone)', 
       emirate: 'Dubai', 
-      minCost: 'AED 12,900', 
+      minCostAed: 12900, 
       visas: 'Up to 10 Visas', 
       focus: 'General Trading, Consulting', 
       featured: true,
@@ -56,7 +57,7 @@ export const FreeZonesDirectory: React.FC<FreeZonesDirectoryProps> = ({
     { 
       name: 'DMCC (Dubai Multi Commodities)', 
       emirate: 'Dubai', 
-      minCost: 'AED 24,000', 
+      minCostAed: 24000, 
       visas: 'Unlimited', 
       focus: 'Commodities, Tech & Finance', 
       featured: false,
@@ -66,7 +67,7 @@ export const FreeZonesDirectory: React.FC<FreeZonesDirectoryProps> = ({
     { 
       name: 'Meydan Free Zone', 
       emirate: 'Dubai', 
-      minCost: 'AED 12,500', 
+      minCostAed: 12500, 
       visas: 'Up to 4 Visas', 
       focus: 'E-commerce, Digital & Media', 
       featured: false,
@@ -76,7 +77,7 @@ export const FreeZonesDirectory: React.FC<FreeZonesDirectoryProps> = ({
     { 
       name: 'DAFZA (Dubai Airport Freezone)', 
       emirate: 'Dubai', 
-      minCost: 'AED 21,000', 
+      minCostAed: 21000, 
       visas: 'Up to 8 Visas', 
       focus: 'Aviation, Logistics & Trade', 
       featured: false,
@@ -86,7 +87,7 @@ export const FreeZonesDirectory: React.FC<FreeZonesDirectoryProps> = ({
     { 
       name: 'RAKEZ (Ras Al Khaimah Economic)', 
       emirate: 'RAK', 
-      minCost: 'AED 6,500', 
+      minCostAed: 6500, 
       visas: 'Up to 4 Visas', 
       focus: 'Industrial, Trading & Services', 
       featured: false,
@@ -96,7 +97,7 @@ export const FreeZonesDirectory: React.FC<FreeZonesDirectoryProps> = ({
     { 
       name: 'Ajman Free Zone (AFZ)', 
       emirate: 'Ajman', 
-      minCost: 'AED 9,500', 
+      minCostAed: 9500, 
       visas: 'Up to 5 Visas', 
       focus: 'E-Commerce, Manufacturing', 
       featured: false,
@@ -159,6 +160,7 @@ export const FreeZonesDirectory: React.FC<FreeZonesDirectoryProps> = ({
               value={search}
               onChange={e => setSearch(e.target.value)}
               placeholder="Search zone or activity..."
+              aria-label="Search free zones by name or business activity"
               className="w-full bg-slate-50 border border-slate-200 rounded-lg py-2 pl-10 pr-4 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-slate-800"
             />
           </div>
@@ -176,7 +178,9 @@ export const FreeZonesDirectory: React.FC<FreeZonesDirectoryProps> = ({
                   src={fz.image}
                   alt={fz.name}
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
-                />
+                loading="lazy"
+                decoding="async"
+              />
                 <div className="absolute top-3 left-3 right-3 flex items-center justify-between">
                   <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/95 text-slate-800 font-bold border border-slate-200 backdrop-blur-sm">
                     {fz.emirate}
@@ -200,7 +204,9 @@ export const FreeZonesDirectory: React.FC<FreeZonesDirectoryProps> = ({
                 <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
                   <div>
                     <span className="text-[10px] font-mono text-slate-500 uppercase block">Starting Fee:</span>
-                    <span className="text-sm font-mono font-bold text-slate-950">{fz.minCost}</span>
+                    <span className="text-sm font-mono font-bold text-slate-950">
+                      {formatMoney(fz.minCostAed, currency)}
+                    </span>
                   </div>
 
                   <button

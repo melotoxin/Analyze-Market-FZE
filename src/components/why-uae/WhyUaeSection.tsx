@@ -59,9 +59,9 @@ export const WhyUaeSection: React.FC<WhyUaeSectionProps> = ({
                 {st.value}
               </div>
               <div className="space-y-1">
-                <h4 className="text-sm font-bold text-slate-900">
+                <h3 className="text-sm font-bold text-slate-900">
                   {st.label}
-                </h4>
+                </h3>
                 <p className="text-xs text-slate-500 font-mono">
                   {st.sub}
                 </p>

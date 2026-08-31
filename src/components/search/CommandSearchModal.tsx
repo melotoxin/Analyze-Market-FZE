@@ -126,7 +126,7 @@ export const CommandSearchModal: React.FC<CommandSearchModalProps> = ({
                       onSelectAction(qa.action);
                       onClose();
                     }}
-                    className="p-2.5 rounded-xl border border-slate-100 hover:border-slate-300 hover:bg-slate-50 flex items-center gap-2.5 text-left transition-all cursor-pointer group"
+                    className="p-2.5 rounded-xl border border-slate-100 hover:border-slate-300 hover:bg-slate-50 flex items-center gap-2.5 text-start transition-all cursor-pointer group"
                   >
                     <div className="p-1.5 rounded-lg bg-slate-100 text-slate-900 group-hover:bg-slate-900 group-hover:text-white transition-colors">
                       <Icon className="w-3.5 h-3.5" />
@@ -153,7 +153,7 @@ export const CommandSearchModal: React.FC<CommandSearchModalProps> = ({
                       onSelectAction('freezone', fz.name);
                       onClose();
                     }}
-                    className="w-full p-2.5 rounded-xl hover:bg-slate-50 flex items-center justify-between transition-colors text-left cursor-pointer group border border-transparent hover:border-slate-200"
+                    className="w-full p-2.5 rounded-xl hover:bg-slate-50 flex items-center justify-between transition-colors text-start cursor-pointer group border border-transparent hover:border-slate-200"
                   >
                     <div className="flex items-center gap-2.5">
                       <Globe className="w-4 h-4 text-slate-500" />
@@ -185,7 +185,7 @@ export const CommandSearchModal: React.FC<CommandSearchModalProps> = ({
                       onSelectAction('activity', act.title);
                       onClose();
                     }}
-                    className="w-full p-2.5 rounded-xl hover:bg-slate-50 flex items-center justify-between transition-colors text-left cursor-pointer group border border-transparent hover:border-slate-200"
+                    className="w-full p-2.5 rounded-xl hover:bg-slate-50 flex items-center justify-between transition-colors text-start cursor-pointer group border border-transparent hover:border-slate-200"
                   >
                     <div className="flex items-center gap-2.5">
                       <Building className="w-4 h-4 text-slate-500" />

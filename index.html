@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="scroll-smooth dark">
+<html lang="en" dir="ltr" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -14,14 +14,22 @@
     <meta name="author" content="AnalyzeMarkets FZE" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://amdxb.com/" />
-    <meta name="theme-color" content="#030712" />
+    <link rel="alternate" hreflang="en" href="https://amdxb.com/" />
+    <link rel="alternate" hreflang="ar" href="https://amdxb.com/" />
+    <link rel="alternate" hreflang="x-default" href="https://amdxb.com/" />
+    <meta name="theme-color" content="#FBFBFA" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://amdxb.com/" />
     <meta property="og:title" content="AM DXB | AnalyzeMarkets FZE — UAE Business Setup & Corporate Intelligence" />
     <meta property="og:description" content="Fast-track 48h company formation across 40+ UAE Free Zones and Mainland with 10-year Golden Visas and guaranteed tier-1 corporate banking." />
-    <meta property="og:image" content="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&h=630&q=85" />
+    <meta property="og:image" content="https://amdxb.com/og-image.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="AnalyzeMarkets FZE — UAE business incorporation and corporate advisory" />
+    <meta property="og:site_name" content="AM DXB — AnalyzeMarkets FZE" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:locale:alternate" content="ar_AE" />
 
@@ -30,7 +38,8 @@
     <meta name="twitter:url" content="https://amdxb.com/" />
     <meta name="twitter:title" content="AM DXB | AnalyzeMarkets FZE — UAE Business Setup & Corporate Advisory" />
     <meta name="twitter:description" content="Turnkey Dubai & UAE corporate structuring, 100% expat ownership, Golden Visas, and corporate tax compliance." />
-    <meta name="twitter:image" content="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&h=630&q=85" />
+    <meta name="twitter:image" content="https://amdxb.com/og-image.png" />
+    <meta name="twitter:image:alt" content="AnalyzeMarkets FZE — UAE business incorporation and corporate advisory" />
 
     <!-- JSON-LD Structured Data Schema -->
     <script type="application/ld+json">
@@ -58,40 +67,58 @@
     </script>
 
     <!-- Google Fonts: Plus Jakarta Sans, Outfit, Inter, Cairo -->
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+    <!-- LCP: the hero backdrop, fetched in parallel with the JS bundle. -->
+    <link rel="preload" as="image" fetchpriority="high"
+          href="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&amp;fit=crop&amp;w=1920&amp;q=80">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Loaded as a normal stylesheet: an inline onload handler would be blocked by
+         our Content-Security-Policy, and preconnect above already removes the DNS/TLS cost. -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   </head>
-  <body class="bg-[#030712] text-slate-100 antialiased selection:bg-sky-500 selection:text-white font-sans transition-colors duration-300">
+  <body class="bg-[#FBFBFA] text-slate-900 antialiased selection:bg-slate-900 selection:text-white font-sans">
     
     <!-- Semantic Pre-Render DOM (Ensures Search Crawlers & No-JS Clients See Full Corporate Data) -->
     <div id="root">
-      <header style="padding: 24px; text-align: center; font-family: sans-serif; background: #030712; color: #f8fafc;">
-        <h1 style="font-size: 24px; font-weight: 800; color: #38bdf8; margin: 0 0 8px 0;">AnalyzeMarkets FZE (AM DXB)</h1>
-        <p style="font-size: 14px; color: #94a3b8; max-width: 600px; margin: 0 auto 16px auto;">
-          Licensed Management Consultancy & Corporate Structuring at Sharjah Research Technology and Innovation Park (SRTI Park), Block B, Office #B34-B047.
+      <header style="padding: 24px; text-align: center; font-family: sans-serif; color: #0f172a;">
+        <h1 style="font-size: 24px; font-weight: 800; color: #0284c7; margin: 0 0 8px 0;">AnalyzeMarkets FZE (AM DXB)</h1>
+        <p style="font-size: 14px; color: #475569; max-width: 600px; margin: 0 auto 16px auto;">
+          Licensed Management Consultancy &amp; Corporate Structuring at Sharjah Research Technology and Innovation Park (SRTI Park), Block B, Office #B34-B047.
         </p>
         <div style="display: flex; justify-content: center; gap: 16px; font-size: 13px;">
-          <a href="tel:+971563396961" style="color: #34d399; text-decoration: none; font-weight: 600;">📞 +971 56 339 6961</a>
-          <a href="mailto:info@amdxb.com" style="color: #38bdf8; text-decoration: none;">✉️ info@amdxb.com</a>
+          <a href="tel:+971563396961" style="color: #047857; text-decoration: none; font-weight: 600;">+971 56 339 6961</a>
+          <a href="mailto:info@amdxb.com" style="color: #0284c7; text-decoration: none;">info@amdxb.com</a>
         </div>
       </header>
-      <main style="padding: 24px; max-width: 800px; margin: 0 auto; font-family: sans-serif; color: #cbd5e1;">
-        <h2>Turnkey UAE Business Incorporation, Free Zones & Golden Visas</h2>
+      <main style="padding: 24px; max-width: 800px; margin: 0 auto; font-family: sans-serif; color: #334155;">
+        <h2>Turnkey UAE Business Incorporation, Free Zones &amp; Golden Visas</h2>
         <ul>
           <li>40+ UAE Free Zones (SRTI Park, IFZA, DMCC, SHAMS, Meydan, DAFZA, RAKEZ, AFZ)</li>
           <li>Mainland Commercial LLC Licensing with 100% Foreign Ownership</li>
-          <li>10-Year UAE Golden Visa Investor & Executive Handholding</li>
-          <li>Tier-1 Corporate Banking & Multi-Currency IBAN Clearance</li>
-          <li>9% Corporate Tax & VAT Registration (Federal Tax Authority Agent)</li>
+          <li>10-Year UAE Golden Visa Investor &amp; Executive Handholding</li>
+          <li>Tier-1 Corporate Banking &amp; Multi-Currency IBAN Clearance</li>
+          <li>9% Corporate Tax &amp; VAT Registration (Federal Tax Authority Agent)</li>
         </ul>
+        <nav>
+          <h2>Our Services</h2>
+          <ul>
+            <li><a href="/services/company-incorporation">Company Incorporation</a></li>
+            <li><a href="/services/company-liquidation-services">Company Liquidation Services</a></li>
+            <li><a href="/services/golden-visa-services">Golden Visa Services</a></li>
+            <li><a href="/services/license-renewal-pro-services">License Renewal (PRO) Services</a></li>
+            <li><a href="/services/vat-corporate-tax-filing-services">VAT &amp; Corporate Tax Filing Services</a></li>
+            <li><a href="/services/audit-and-assurance-services">Audit &amp; Assurance Services</a></li>
+            <li><a href="/services/accounting-services">Accounting Services</a></li>
+          </ul>
+        </nav>
       </main>
     </div>
 
     <!-- Fallback for JavaScript Disabled Browsers -->
     <noscript>
-      <div style="padding: 16px; background: #1e293b; color: #f8fafc; text-align: center; font-family: sans-serif; font-size: 13px;">
-        For the full interactive cost simulator and 3D experience, please enable JavaScript in your browser, or contact our executive team directly at <a href="tel:+971563396961" style="color: #38bdf8;">+971 56 339 6961</a> / <a href="https://wa.me/971563396961" style="color: #34d399;">WhatsApp</a>.
+      <div style="padding: 16px; background: #f1f5f9; color: #0f172a; text-align: center; font-family: sans-serif; font-size: 13px;">
+        For the full interactive cost simulator and 3D experience, please enable JavaScript in your browser, or contact our executive team directly at <a href="tel:+971563396961" style="color: #0284c7;">+971 56 339 6961</a> / <a href="https://wa.me/971563396961" style="color: #047857;" rel="noopener noreferrer">WhatsApp</a>.
       </div>
     </noscript>
 

@@ -118,7 +118,7 @@ export const FormationRoadmapSection: React.FC<FormationRoadmapSectionProps> = (
               <button
                 key={s.id}
                 onClick={() => setActiveStep(idx)}
-                className={'p-5 rounded-xl border text-left transition-all cursor-pointer relative group flex flex-col justify-between ' + (
+                className={'p-5 rounded-xl border text-start transition-all cursor-pointer relative group flex flex-col justify-between ' + (
                   isCurrent
                     ? 'bg-white border-slate-900 shadow-md ring-1 ring-slate-900'
                     : 'bg-white/80 border-slate-200 hover:border-slate-400'
@@ -141,11 +141,11 @@ export const FormationRoadmapSection: React.FC<FormationRoadmapSectionProps> = (
                 </div>
 
                 <div>
-                  <h4 className={'text-sm font-bold leading-tight ' + (
+                  <h3 className={'text-sm font-bold leading-tight ' + (
                     isCurrent ? 'text-slate-900' : 'text-slate-700'
                   )}>
                     {s.title}
-                  </h4>
+                  </h3>
                   <div className="flex items-center gap-1.5 mt-2 text-xs font-mono text-emerald-700 font-semibold">
                     <Clock className="w-3.5 h-3.5" />
                     <span>{s.sla}</span>
@@ -199,9 +199,9 @@ export const FormationRoadmapSection: React.FC<FormationRoadmapSectionProps> = (
                 <span className="text-xs font-mono text-slate-500 uppercase">Concierge Support</span>
                 <span className="text-[11px] font-mono px-2 py-0.5 bg-emerald-50 text-emerald-700 rounded-full font-bold border border-emerald-200">Active</span>
               </div>
-              <h4 className="text-base font-bold text-slate-900">
+              <h3 className="text-base font-bold text-slate-900">
                 100% Remote Preparation
-              </h4>
+              </h3>
               <p className="text-xs text-slate-600 leading-relaxed">
                 Stages 1 through 3 are executed remotely. You only visit the UAE for Stage 4 (VIP Medical & Bank KYC) accompanied by our executive concierge.
               </p>

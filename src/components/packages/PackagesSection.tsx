@@ -1,5 +1,6 @@
-﻿import React from 'react';
+import React from 'react';
 import { CheckCircle2, ArrowRight, Building, Globe, Shield, Clock, GitFork, Layers } from 'lucide-react';
+import { formatMoney } from '../../data/pricing';
 import { Language, TRANSLATIONS } from '../../data/translations';
 
 interface PackagesSectionProps {
@@ -23,7 +24,7 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
       subtitle: isAr ? 'ملكية أجنبية 100% وإعفاءات ضريبية شاملة' : '100% Expat Ownership & 0% QFZP Tax',
       badge: isAr ? 'الأكثر طلباً' : 'Most Popular',
       popular: true,
-      price: currency === 'USD' ? '$3,150' : currency === 'EUR' ? '€2,900' : 'AED 11,500',
+      price: formatMoney(11500, currency),
       turnaround: '2 - 4 Business Days',
       image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600&q=80',
       features: isAr
@@ -37,7 +38,7 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
       subtitle: isAr ? 'تجارة حرة ومباشرة داخل السوق الإماراتي والخليجي' : 'Unrestricted Direct UAE & GCC Trade',
       badge: isAr ? 'عقود حكومية' : 'Gov & Local Contracts',
       popular: false,
-      price: currency === 'USD' ? '$4,750' : currency === 'EUR' ? '€4,400' : 'AED 17,500',
+      price: formatMoney(17500, currency),
       turnaround: '4 - 7 Business Days',
       image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80',
       features: isAr
@@ -51,7 +52,7 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
       subtitle: isAr ? 'حماية الأصول وهيكلة الملكية الدولية' : 'Asset Protection & International Holdings',
       badge: isAr ? 'حماية الأصول' : 'Asset Protection',
       popular: false,
-      price: currency === 'USD' ? '$3,680' : currency === 'EUR' ? '€3,400' : 'AED 13,500',
+      price: formatMoney(13500, currency),
       turnaround: '3 - 5 Business Days',
       image: 'https://images.unsplash.com/photo-1580674684081-7617fbf3d745?auto=format&fit=crop&w=600&q=80',
       features: isAr
@@ -65,7 +66,7 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
       subtitle: isAr ? 'الجمع بين مزايا المنطقة الحرة والتجارة البرية' : 'Free Zone Base + Mainland Reach',
       badge: isAr ? 'توسع مرن' : 'Enterprise Growth',
       popular: false,
-      price: currency === 'USD' ? '$6,200' : currency === 'EUR' ? '€5,750' : 'AED 22,800',
+      price: formatMoney(22800, currency),
       turnaround: '5 - 8 Business Days',
       image: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=600&q=80',
       features: isAr
@@ -117,7 +118,9 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
                     src={pkg.image}
                     alt={pkg.title}
                     className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
-                  />
+                loading="lazy"
+                decoding="async"
+              />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
                   
                   <div className="absolute top-3 left-3 right-3 flex items-center justify-between">

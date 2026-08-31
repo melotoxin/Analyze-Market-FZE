@@ -110,7 +110,9 @@ export const ClientStoriesSection: React.FC<ClientStoriesSectionProps> = ({
               src={stories[activeStory].image}
               alt={stories[activeStory].client}
               className="w-full h-full object-cover object-center"
-            />
+                loading="lazy"
+                decoding="async"
+              />
             <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
             
             <div className="absolute bottom-4 left-4 right-4 p-3 bg-white/95 backdrop-blur-md rounded-xl border border-slate-200 space-y-1">

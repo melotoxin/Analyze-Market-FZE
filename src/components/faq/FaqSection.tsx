@@ -55,7 +55,7 @@ export const FaqSection: React.FC<FaqSectionProps> = ({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           
           {/* Left Column: Heading & Support Card */}
-          <div className="lg:col-span-5 space-y-6 text-left">
+          <div className="lg:col-span-5 space-y-6 text-start">
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-slate-100 border border-slate-200 rounded-full text-xs font-mono font-bold text-slate-700">
               <HelpCircle className="w-3.5 h-3.5 text-slate-700" />
               <span>10 / Frequently Asked Questions</span>
@@ -85,7 +85,7 @@ export const FaqSection: React.FC<FaqSectionProps> = ({
                 <a
                   href="https://wa.me/971563396961"
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs transition-all shadow-sm"
                 >
                   <MessageCircle className="w-4 h-4" />
@@ -112,7 +112,7 @@ export const FaqSection: React.FC<FaqSectionProps> = ({
                   <button
                     type="button"
                     onClick={() => setOpenIndex(isOpen ? null : idx)}
-                    className="w-full p-5 text-left flex items-center justify-between gap-4 cursor-pointer"
+                    className="w-full p-5 text-start flex items-center justify-between gap-4 cursor-pointer"
                   >
                     <span className="font-bold text-sm sm:text-base text-slate-900 font-sans leading-snug">
                       {faq.q}

@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { 
   Calculator, 
   Building2, 
@@ -10,6 +10,7 @@ import {
   Coins,
   Clock
 } from 'lucide-react';
+import { formatMoney } from '../../data/pricing';
 import { Language } from '../../data/translations';
 
 interface UaeCostVisualizerSectionProps {
@@ -46,17 +47,9 @@ export const UaeCostVisualizerSection: React.FC<UaeCostVisualizerSectionProps> =
 
   const totalAed = baseCost + visaCost + officeCost;
 
-  // Currency converter
-  const rates: Record<string, { symbol: string; rate: number }> = {
-    AED: { symbol: 'AED', rate: 1 },
-    USD: { symbol: '$', rate: 0.272 },
-    EUR: { symbol: '€', rate: 0.25 },
-    GBP: { symbol: '£', rate: 0.215 }
-  };
-
-  const curr = rates[currency] || rates.AED;
-  const convertedTotal = Math.round(totalAed * curr.rate).toLocaleString();
-  const convertedMonthly = Math.round((totalAed / 12) * curr.rate).toLocaleString();
+  // Rates live in data/pricing.ts; this component used to carry its own copy.
+  const convertedTotal = formatMoney(totalAed, currency);
+  const convertedMonthly = formatMoney(totalAed / 12, currency);
 
   return (
     <section id="cost-calculator" className="py-20 sm:py-28 bg-white border-b border-slate-200 font-sans text-slate-900">
@@ -101,7 +94,7 @@ export const UaeCostVisualizerSection: React.FC<UaeCostVisualizerSectionProps> =
                     key={j.id}
                     type="button"
                     onClick={() => setJurisdiction(j.id as any)}
-                    className={'p-4 rounded-xl border text-left transition-all cursor-pointer ' + (
+                    className={'p-4 rounded-xl border text-start transition-all cursor-pointer ' + (
                       jurisdiction === j.id
                         ? 'bg-slate-900 text-white border-slate-900 shadow-sm'
                         : 'bg-white border-slate-200 text-slate-800 hover:border-slate-400'
@@ -128,6 +121,7 @@ export const UaeCostVisualizerSection: React.FC<UaeCostVisualizerSectionProps> =
               </div>
               <input
                 type="range"
+                aria-label="Number of residence visas"
                 min={0}
                 max={6}
                 value={visas}
@@ -157,7 +151,7 @@ export const UaeCostVisualizerSection: React.FC<UaeCostVisualizerSectionProps> =
                     key={o.id}
                     type="button"
                     onClick={() => setOfficeType(o.id as any)}
-                    className={'p-4 rounded-xl border text-left transition-all cursor-pointer ' + (
+                    className={'p-4 rounded-xl border text-start transition-all cursor-pointer ' + (
                       officeType === o.id
                         ? 'bg-slate-900 text-white border-slate-900 shadow-sm'
                         : 'bg-white border-slate-200 text-slate-800 hover:border-slate-400'
@@ -182,13 +176,13 @@ export const UaeCostVisualizerSection: React.FC<UaeCostVisualizerSectionProps> =
               </span>
               <div className="flex items-baseline gap-2">
                 <span className="text-3xl sm:text-4xl font-black font-mono tracking-tight text-slate-950">
-                  {curr.symbol}{convertedTotal}
+                  {convertedTotal}
                 </span>
                 <span className="text-xs font-mono text-slate-500">/ 1st Year Turnkey</span>
               </div>
               <span className="text-xs font-mono text-emerald-700 flex items-center gap-1 mt-1 font-medium">
                 <Coins className="w-3.5 h-3.5" />
-                <span>Equivalent to ~{curr.symbol}{convertedMonthly} / month</span>
+                <span>Equivalent to ~{convertedMonthly} / month</span>
               </span>
             </div>
 
@@ -196,15 +190,15 @@ export const UaeCostVisualizerSection: React.FC<UaeCostVisualizerSectionProps> =
             <div className="space-y-2.5 pt-4 border-t border-slate-100 text-xs font-mono">
               <div className="flex items-center justify-between text-slate-600">
                 <span>Government Trade License:</span>
-                <span className="font-bold text-slate-900">{curr.symbol}{Math.round(baseCost * curr.rate).toLocaleString()}</span>
+                <span className="font-bold text-slate-900">{formatMoney(baseCost, currency)}</span>
               </div>
               <div className="flex items-center justify-between text-slate-600">
                 <span>Residency Visas ({visas}):</span>
-                <span className="font-bold text-slate-900">{curr.symbol}{Math.round(visaCost * curr.rate).toLocaleString()}</span>
+                <span className="font-bold text-slate-900">{formatMoney(visaCost, currency)}</span>
               </div>
               <div className="flex items-center justify-between text-slate-600">
                 <span>Workspace Facility:</span>
-                <span className="font-bold text-slate-900">{officeCost === 0 ? 'Included (Free)' : `${curr.symbol}${Math.round(officeCost * curr.rate).toLocaleString()}`}</span>
+                <span className="font-bold text-slate-900">{officeCost === 0 ? 'Included (Free)' : formatMoney(officeCost, currency)}</span>
               </div>
               <div className="flex items-center justify-between text-emerald-700 font-bold pt-2 border-t border-slate-100">
                 <span>Corporate Tax (QFZP Exemption):</span>
@@ -223,7 +217,7 @@ export const UaeCostVisualizerSection: React.FC<UaeCostVisualizerSectionProps> =
             </div>
 
             <button
-              onClick={() => onOpenConsultation(`Custom Setup: ${jurisdiction.toUpperCase()} with ${visas} Visas (${curr.symbol}${convertedTotal})`)}
+              onClick={() => onOpenConsultation(`Custom Setup: ${jurisdiction.toUpperCase()} with ${visas} Visas (${convertedTotal})`)}
               className="w-full py-3.5 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs uppercase tracking-wider rounded-lg flex items-center justify-center gap-2 transition-all cursor-pointer shadow-sm"
             >
               <span>Lock In This Quotation</span>

@@ -196,7 +196,7 @@ export const JurisdictionComparison: React.FC<JurisdictionComparisonProps> = ({
         {/* Detailed Comparison Table */}
         <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
           <div className="overflow-x-auto">
-            <table className="w-full text-left font-sans text-xs border-collapse">
+            <table className="w-full text-start font-sans text-xs border-collapse">
               <thead>
                 <tr className="bg-slate-50 border-b border-slate-200 text-slate-700 text-xs font-mono uppercase">
                   <th className="p-4 sm:p-5 w-1/3">Parameters</th>

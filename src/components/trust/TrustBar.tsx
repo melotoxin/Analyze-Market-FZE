@@ -78,13 +78,13 @@ export const TrustBar: React.FC<TrustBarProps> = ({ lang }) => {
               href={p.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-4 rounded-xl bg-slate-50 hover:bg-slate-100/80 border border-slate-200 hover:border-slate-400 transition-all group flex flex-col justify-between text-left no-underline"
+              className="p-4 rounded-xl bg-slate-50 hover:bg-slate-100/80 border border-slate-200 hover:border-slate-400 transition-all group flex flex-col justify-between text-start no-underline"
             >
               <div>
                 <div className="flex items-center justify-between gap-1 mb-1">
-                  <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-slate-800 transition-colors">
+                  <h3 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-slate-800 transition-colors">
                     {p.name}
-                  </h4>
+                  </h3>
                   <ExternalLink className="w-3 h-3 text-slate-400 group-hover:text-slate-700 transition-colors shrink-0" />
                 </div>
                 <p className="text-[11px] text-slate-500 font-mono">

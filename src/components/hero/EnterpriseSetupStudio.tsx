@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState, useId } from 'react';
 import {
   Plus,
   Minus,
@@ -11,9 +11,20 @@ import {
   Laptop,
   Warehouse
 } from 'lucide-react';
-import { Language, TRANSLATIONS } from '../../data/translations';
-import { generateQuotePdf } from '../../utils/quotePdfGenerator';
+import { Language } from '../../data/translations';
 import confetti from 'canvas-confetti';
+import {
+  BASE_PRICES,
+  WORKSPACE_ADDONS,
+  ACTIVITY_ADDONS,
+  MAX_VISAS,
+  calculateSetupAed,
+  formatMoney,
+  Jurisdiction,
+  Workspace,
+  Activity,
+} from '../../data/pricing';
+import { submitLead, WHATSAPP_URL, openExternal } from '../../utils/submitLead';
 
 interface EnterpriseSetupStudioProps {
   onOpenConsultation: (details?: string) => void;
@@ -27,12 +38,12 @@ export const EnterpriseSetupStudio: React.FC<EnterpriseSetupStudioProps> = ({
   currency
 }) => {
   const isAr = lang === 'ar';
-  const t = TRANSLATIONS[lang];
+  const uid = useId();
 
   // Configurator state
-  const [jurisdiction, setJurisdiction] = useState<'freezone' | 'mainland' | 'offshore'>('freezone');
-  const [activity, setActivity] = useState<'tech' | 'trading' | 'ecommerce' | 'consulting'>('tech');
-  const [workspace, setWorkspace] = useState<'flexi' | 'office' | 'warehouse'>('flexi');
+  const [jurisdiction, setJurisdiction] = useState<Jurisdiction>('freezone');
+  const [activity, setActivity] = useState<Activity>('tech');
+  const [workspace, setWorkspace] = useState<Workspace>('flexi');
   const [visaCount, setVisaCount] = useState<number>(2);
   
   // Lead dispatch inputs
@@ -40,51 +51,49 @@ export const EnterpriseSetupStudio: React.FC<EnterpriseSetupStudioProps> = ({
   const [clientPhone, setClientPhone] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isDownloadingPdf, setIsDownloadingPdf] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState('');
 
-  // Dynamic pricing calculation with real 2026 rates
-  const basePrices = {
-    freezone: 11500,
-    mainland: 17500,
-    offshore: 13500
-  };
-
-  const workspaceAddons = {
-    flexi: 0,
-    office: 8500,
-    warehouse: 18000
-  };
-
-  const activityLabels: Record<string, string> = {
+  const activityLabels: Record<Activity, string> = {
     tech: 'AI, Tech & Software',
     trading: 'General Trading / Import',
     ecommerce: 'E-Commerce & Digital',
-    consulting: 'Management Consulting'
+    consulting: 'Management Consulting',
   };
 
-  const jurisdictionLabels: Record<string, string> = {
+  const jurisdictionLabels: Record<Jurisdiction, string> = {
     freezone: 'Free Zone (0% QFZP)',
     mainland: 'Mainland LLC (DED / DET)',
-    offshore: 'Offshore SPV & Holding'
+    offshore: 'Offshore SPV & Holding',
   };
 
-  const workspaceLabels: Record<string, string> = {
+  const workspaceLabels: Record<Workspace, string> = {
     flexi: 'Smart Flexi-Desk (Included)',
     office: 'Dedicated Office (+Ejari)',
-    warehouse: 'Logistics Warehouse'
+    warehouse: 'Logistics Warehouse',
   };
 
-  const visaUnitCost = 3600;
-  const rawAedTotal = basePrices[jurisdiction] + workspaceAddons[workspace] + (visaCount * visaUnitCost);
+  // All amounts come from data/pricing.ts so the hero, the packages grid and the
+  // cost calculator can never disagree, and every currency renders its own symbol.
+  const rawAedTotal = calculateSetupAed({ jurisdiction, workspace, activity, visaCount });
+  const formattedTotal = formatMoney(rawAedTotal, currency);
+  const quoteSummary =
+    jurisdictionLabels[jurisdiction] +
+    ' • ' +
+    activityLabels[activity] +
+    ' • ' +
+    workspaceLabels[workspace] +
+    ' • ' +
+    visaCount +
+    ' visa(s)';
 
-  const formattedTotal = currency === 'USD' 
-    ? '$' + Math.round(rawAedTotal / 3.67).toLocaleString() 
-    : currency === 'EUR' 
-      ? '€' + Math.round(rawAedTotal / 3.98).toLocaleString() 
-      : 'AED ' + rawAedTotal.toLocaleString();
-
-  const handleDownloadPdf = () => {
+  const handleDownloadPdf = async () => {
     setIsDownloadingPdf(true);
+    setError('');
     try {
+      // Loaded on demand: jspdf + html2canvas are ~390KB and most visitors never
+      // click this button.
+      const { generateQuotePdf } = await import('../../utils/quotePdfGenerator');
       generateQuotePdf({
         clientName: clientName.trim() || 'Client',
         clientPhone: clientPhone.trim() || '+971 56 339 6961',
@@ -96,24 +105,52 @@ export const EnterpriseSetupStudio: React.FC<EnterpriseSetupStudioProps> = ({
       });
       confetti({ particleCount: 50, spread: 40, origin: { y: 0.6 } });
     } catch (e) {
-      console.error('PDF Generation Error', e);
+      console.error('PDF generation failed', e);
+      setError('Could not generate the PDF. Please try again or contact us directly.');
     } finally {
       setIsDownloadingPdf(false);
     }
   };
 
-  const handleStudioSubmit = (e: React.FormEvent) => {
+  const handleStudioSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!clientName || !clientPhone) return;
+    if (!clientName.trim() || !clientPhone.trim()) return;
+    setError('');
+    setIsSubmitting(true);
+
+    // Record the lead first: the WhatsApp handoff used to be the only trace of it,
+    // so anyone who never sent the prefilled message was lost entirely.
+    try {
+      await submitLead({
+        name: clientName,
+        phone: clientPhone,
+        service: 'Venture Estimator quote',
+        notes: quoteSummary,
+        quote: formattedTotal,
+        source: 'venture-estimator',
+      });
+    } catch (err) {
+      console.error('Lead capture failed, continuing to WhatsApp', err);
+    } finally {
+      setIsSubmitting(false);
+    }
+
     setIsSubmitted(true);
     confetti({ particleCount: 70, spread: 50, origin: { y: 0.6 } });
 
-    // Open WhatsApp directly with prefilled mandate
-    const message = `Hello AM DXB Advisory, I configured a ${jurisdictionLabels[jurisdiction]} (${activityLabels[activity]} • ${workspaceLabels[workspace]}) with ${visaCount} Visas at an estimated tariff of ${formattedTotal}. Name: ${clientName}, Phone: ${clientPhone}. Please share the registration roadmap.`;
-    const encodedUrl = `https://wa.me/971563396961?text=${encodeURIComponent(message)}`;
+    const message =
+      'Hello AM DXB Advisory, I configured a ' +
+      quoteSummary +
+      ' at an estimated tariff of ' +
+      formattedTotal +
+      '. Name: ' +
+      clientName +
+      ', Phone: ' +
+      clientPhone +
+      '. Please share the registration roadmap.';
 
     setTimeout(() => {
-      window.open(encodedUrl, '_blank');
+      openExternal(WHATSAPP_URL + '?text=' + encodeURIComponent(message));
       setIsSubmitted(false);
       setClientName('');
       setClientPhone('');
@@ -130,9 +167,9 @@ export const EnterpriseSetupStudio: React.FC<EnterpriseSetupStudioProps> = ({
             <Calculator className="w-4 h-4" />
           </div>
           <div>
-            <h3 className="text-sm font-bold text-slate-900 font-sans">
+            <h2 className="text-sm font-bold text-slate-900 font-sans">
               {isAr ? 'حاسبة التأسيس — فانتشر' : 'Venture — The Estimator'}
-            </h3>
+            </h2>
             <span className="text-[11px] font-mono text-slate-500 block">
               {isAr ? 'حاسبة الرسوم الحكومية المعتمدة' : 'Official 2026 Tariff Simulator'}
             </span>
@@ -159,15 +196,16 @@ export const EnterpriseSetupStudio: React.FC<EnterpriseSetupStudioProps> = ({
           </div>
 
           <div className="grid grid-cols-3 gap-1.5 text-center">
-            {[
-              { key: 'freezone', title: isAr ? 'منطقة حرة' : 'Free Zone', fee: 'AED 11.5k' },
-              { key: 'mainland', title: isAr ? 'بر رئيسي' : 'Mainland LLC', fee: 'AED 17.5k' },
-              { key: 'offshore', title: isAr ? 'أوفشور' : 'Offshore SPV', fee: 'AED 13.5k' }
-            ].map((j) => (
+            {([
+              { key: 'freezone', title: isAr ? 'منطقة حرة' : 'Free Zone' },
+              { key: 'mainland', title: isAr ? 'بر رئيسي' : 'Mainland LLC' },
+              { key: 'offshore', title: isAr ? 'أوفشور' : 'Offshore SPV' },
+            ] as { key: Jurisdiction; title: string }[]).map((j) => (
               <button
                 key={j.key}
                 type="button"
-                onClick={() => setJurisdiction(j.key as any)}
+                aria-pressed={jurisdiction === j.key}
+                onClick={() => setJurisdiction(j.key)}
                 className={'p-2 rounded-lg border text-center transition-all cursor-pointer ' + (
                   jurisdiction === j.key
                     ? 'bg-slate-900 text-white border-slate-900 font-bold shadow-sm'
@@ -175,7 +213,9 @@ export const EnterpriseSetupStudio: React.FC<EnterpriseSetupStudioProps> = ({
                 )}
               >
                 <span className="font-bold text-xs block">{j.title}</span>
-                <span className="text-[10px] font-mono block opacity-80">{j.fee}</span>
+                <span className="text-[10px] font-mono block opacity-80">
+                  {formatMoney(BASE_PRICES[j.key], currency)}
+                </span>
               </button>
             ))}
           </div>
@@ -188,23 +228,26 @@ export const EnterpriseSetupStudio: React.FC<EnterpriseSetupStudioProps> = ({
           </span>
 
           <div className="grid grid-cols-2 gap-1.5 text-xs">
-            {[
-              { key: 'tech', label: 'AI, Tech & Software' },
-              { key: 'trading', label: 'General Trading / Import' },
-              { key: 'ecommerce', label: 'E-Commerce & Digital' },
-              { key: 'consulting', label: 'Management Consulting' }
-            ].map((act) => (
+            {(Object.keys(activityLabels) as Activity[]).map((key) => (
               <button
-                key={act.key}
+                key={key}
                 type="button"
-                onClick={() => setActivity(act.key as any)}
-                className={'p-1.5 rounded-lg border text-center transition-all cursor-pointer truncate font-medium text-[11px] ' + (
-                  activity === act.key
+                aria-pressed={activity === key}
+                onClick={() => setActivity(key)}
+                className={'p-1.5 rounded-lg border text-center transition-all cursor-pointer font-medium text-[11px] ' + (
+                  activity === key
                     ? 'bg-slate-900 text-white border-slate-900 font-bold'
                     : 'bg-slate-50 border-slate-200 text-slate-700 hover:border-slate-400'
                 )}
               >
-                {act.label}
+                <span className="block truncate">{activityLabels[key]}</span>
+                <span className="block text-[9px] font-mono opacity-75">
+                  {ACTIVITY_ADDONS[key] === 0
+                    ? isAr
+                      ? 'مشمول'
+                      : 'Included'
+                    : '+' + formatMoney(ACTIVITY_ADDONS[key], currency)}
+                </span>
               </button>
             ))}
           </div>
@@ -217,17 +260,18 @@ export const EnterpriseSetupStudio: React.FC<EnterpriseSetupStudioProps> = ({
           </span>
 
           <div className="grid grid-cols-3 gap-1.5 text-center">
-            {[
-              { key: 'flexi', title: isAr ? 'مكتب مرن' : 'Smart Flexi', sub: 'Zero Overhead', icon: Laptop },
-              { key: 'office', title: isAr ? 'مكتب خاص' : 'Private Office', sub: '+Ejari Lease', icon: Building },
-              { key: 'warehouse', title: isAr ? 'مستودع' : 'Warehouse', sub: 'Bonded Cargo', icon: Warehouse }
-            ].map((ws) => {
+            {([
+              { key: 'flexi', title: isAr ? 'مكتب مرن' : 'Smart Flexi', icon: Laptop },
+              { key: 'office', title: isAr ? 'مكتب خاص' : 'Private Office', icon: Building },
+              { key: 'warehouse', title: isAr ? 'مستودع' : 'Warehouse', icon: Warehouse },
+            ] as { key: Workspace; title: string; icon: any }[]).map((ws) => {
               const Icon = ws.icon;
               return (
                 <button
                   key={ws.key}
                   type="button"
-                  onClick={() => setWorkspace(ws.key as any)}
+                  aria-pressed={workspace === ws.key}
+                  onClick={() => setWorkspace(ws.key)}
                   className={'p-2 rounded-lg border text-center transition-all cursor-pointer ' + (
                     workspace === ws.key
                       ? 'bg-slate-900 text-white border-slate-900 font-bold shadow-sm'
@@ -236,7 +280,13 @@ export const EnterpriseSetupStudio: React.FC<EnterpriseSetupStudioProps> = ({
                 >
                   <Icon className="w-3.5 h-3.5 mx-auto mb-0.5 opacity-80" />
                   <span className="font-bold text-[11px] block">{ws.title}</span>
-                  <span className="text-[9px] font-mono block opacity-75">{ws.sub}</span>
+                  <span className="text-[9px] font-mono block opacity-75">
+                    {WORKSPACE_ADDONS[ws.key] === 0
+                      ? isAr
+                        ? 'مشمول'
+                        : 'Included'
+                      : '+' + formatMoney(WORKSPACE_ADDONS[ws.key], currency)}
+                  </span>
                 </button>
               );
             })}
@@ -258,17 +308,24 @@ export const EnterpriseSetupStudio: React.FC<EnterpriseSetupStudioProps> = ({
             <button
               type="button"
               onClick={() => setVisaCount(Math.max(0, visaCount - 1))}
-              className="w-6 h-6 rounded bg-slate-100 hover:bg-slate-200 text-slate-800 flex items-center justify-center transition-colors cursor-pointer border border-slate-200"
+              disabled={visaCount === 0}
+              aria-label={isAr ? 'إنقاص عدد التأشيرات' : 'Decrease visa count'}
+              className="w-6 h-6 rounded bg-slate-100 hover:bg-slate-200 text-slate-800 flex items-center justify-center transition-colors cursor-pointer border border-slate-200 disabled:opacity-40 disabled:cursor-not-allowed"
             >
               <Minus className="w-3 h-3" />
             </button>
-            <span className="text-xs font-black font-mono text-slate-900 w-12 text-center">
+            <span
+              className="text-xs font-black font-mono text-slate-900 w-12 text-center"
+              aria-live="polite"
+            >
               {visaCount} {visaCount === 1 ? 'Visa' : 'Visas'}
             </span>
             <button
               type="button"
-              onClick={() => setVisaCount(Math.min(8, visaCount + 1))}
-              className="w-6 h-6 rounded bg-slate-100 hover:bg-slate-200 text-slate-800 flex items-center justify-center transition-colors cursor-pointer border border-slate-200"
+              onClick={() => setVisaCount(Math.min(MAX_VISAS, visaCount + 1))}
+              disabled={visaCount === MAX_VISAS}
+              aria-label={isAr ? 'زيادة عدد التأشيرات' : 'Increase visa count'}
+              className="w-6 h-6 rounded bg-slate-100 hover:bg-slate-200 text-slate-800 flex items-center justify-center transition-colors cursor-pointer border border-slate-200 disabled:opacity-40 disabled:cursor-not-allowed"
             >
               <Plus className="w-3 h-3" />
             </button>
@@ -281,12 +338,15 @@ export const EnterpriseSetupStudio: React.FC<EnterpriseSetupStudioProps> = ({
             <span className="text-[10px] font-mono uppercase text-slate-500 font-bold block tracking-wider">
               ALL-INCLUSIVE ESTIMATE:
             </span>
-            <span className="text-2xl font-black text-slate-950 font-mono block mt-0.5 tracking-tight">
+            <span
+              className="text-2xl font-black text-slate-950 font-mono block mt-0.5 tracking-tight"
+              aria-live="polite"
+            >
               {formattedTotal}
             </span>
           </div>
 
-          <div className="text-right space-y-0.5 font-mono text-[10px]">
+          <div className="text-end space-y-0.5 font-mono text-[10px]">
             <div className="flex items-center gap-1 text-slate-700 justify-end">
               <Clock className="w-3 h-3 text-slate-500" />
               <span className="font-bold">2-4 Days SLA</span>
@@ -307,24 +367,45 @@ export const EnterpriseSetupStudio: React.FC<EnterpriseSetupStudioProps> = ({
           </div>
         ) : (
           <form onSubmit={handleStudioSubmit} className="space-y-2">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
-              <input
-                type="text"
-                required
-                value={clientName}
-                onChange={(e) => setClientName(e.target.value)}
-                placeholder={isAr ? 'الاسم بالكامل *' : 'Full Name *'}
-                className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-slate-800"
-              />
+            {error && (
+              <p role="alert" className="text-[11px] text-rose-600 font-medium">
+                {error}
+              </p>
+            )}
 
-              <input
-                type="tel"
-                required
-                value={clientPhone}
-                onChange={(e) => setClientPhone(e.target.value)}
-                placeholder={isAr ? 'الهاتف / واتساب *' : 'Phone / WhatsApp *'}
-                className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-slate-800"
-              />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+              <div>
+                <label htmlFor={uid + '-studio-name'} className="sr-only">
+                  {isAr ? 'الاسم بالكامل' : 'Full name'}
+                </label>
+                <input
+                  id={uid + '-studio-name'}
+                  type="text"
+                  required
+                  autoComplete="name"
+                  value={clientName}
+                  onChange={(e) => setClientName(e.target.value)}
+                  placeholder={isAr ? 'الاسم بالكامل *' : 'Full Name *'}
+                  className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-800 focus:border-slate-800"
+                />
+              </div>
+
+              <div>
+                <label htmlFor={uid + '-studio-phone'} className="sr-only">
+                  {isAr ? 'الهاتف / واتساب' : 'Phone or WhatsApp'}
+                </label>
+                <input
+                  id={uid + '-studio-phone'}
+                  type="tel"
+                  required
+                  dir="ltr"
+                  autoComplete="tel"
+                  value={clientPhone}
+                  onChange={(e) => setClientPhone(e.target.value)}
+                  placeholder={isAr ? 'الهاتف / واتساب *' : 'Phone / WhatsApp *'}
+                  className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-800 focus:border-slate-800"
+                />
+              </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
@@ -334,16 +415,25 @@ export const EnterpriseSetupStudio: React.FC<EnterpriseSetupStudioProps> = ({
                 disabled={isDownloadingPdf}
                 className="bg-white hover:bg-slate-100 border border-slate-300 text-slate-900 font-bold text-[11px] py-2.5 rounded-lg flex items-center justify-center gap-1.5 cursor-pointer shadow-sm transition-all"
               >
-                <FileDown className="w-3.5 h-3.5 text-slate-700" />
+                <FileDown className="w-3.5 h-3.5 text-slate-700" aria-hidden="true" />
                 <span>{isDownloadingPdf ? 'Generating...' : 'Download PDF Quote'}</span>
               </button>
 
               <button
                 type="submit"
-                className="bg-slate-900 hover:bg-slate-800 text-white font-bold text-[11px] uppercase tracking-wider py-2.5 rounded-lg flex items-center justify-center gap-1.5 cursor-pointer shadow-sm transition-all"
+                disabled={isSubmitting}
+                className="bg-slate-900 hover:bg-slate-800 text-white font-bold text-[11px] uppercase tracking-wider py-2.5 rounded-lg flex items-center justify-center gap-1.5 cursor-pointer shadow-sm transition-all disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 <MessageCircle className="w-3.5 h-3.5" />
-                <span>{isAr ? 'بدء الإجراءات واتساب' : 'Lock Quote on WhatsApp'}</span>
+                <span>
+                  {isSubmitting
+                    ? isAr
+                      ? 'جارٍ الإرسال...'
+                      : 'Sending...'
+                    : isAr
+                      ? 'بدء الإجراءات واتساب'
+                      : 'Lock Quote on WhatsApp'}
+                </span>
               </button>
             </div>
           </form>

@@ -98,7 +98,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
             <a
               href="https://wa.me/971563396961"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-emerald-50 border border-emerald-200 text-xs font-bold text-emerald-800 hover:bg-emerald-100 transition-all shadow-sm"
             >
               <MessageCircle className="w-3.5 h-3.5 text-emerald-600" />
