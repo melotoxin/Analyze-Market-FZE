@@ -52,7 +52,7 @@ export const HeroCompanyConfigurator: React.FC<HeroCompanyConfiguratorProps> = (
             <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-slate-900/85 backdrop-blur-md border border-white/15 rounded-full text-xs font-mono text-slate-200 shadow-lg">
               <span className="w-2 h-2 rounded-full bg-emerald-400 shrink-0 animate-pulse" />
               <span className="font-semibold text-slate-100">
-                {isAr ? 'مجمع الشارقة للبحوث والابتكار (SRTI Park) • ترخيص #B34-B047' : 'Sharjah Research & Technology Park • License #B34-B047'}
+                {isAr ? 'مرخّصة من مجمع الشارقة للبحوث والتكنولوجيا والابتكار (SRTI Park)' : 'Licensed by Sharjah Research & Technology Park (SRTI Park)'}
               </span>
             </div>
 

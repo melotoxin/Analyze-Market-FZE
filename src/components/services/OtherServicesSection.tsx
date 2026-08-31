@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import {
   Award,
   RefreshCw,
@@ -71,39 +71,25 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({
       slug: 'vat-corporate-tax-filing-services',
       colSpan: 'md:col-span-6 lg:col-span-4',
       title: isAr ? 'خدمات ضريبة الشركات والقيمة المضافة' : 'VAT & Corporate Tax Filing Services',
-      tag: 'FTA Registered Agent',
+      tag: 'Corporate Tax & VAT Filing',
       desc: isAr
         ? 'تسجيل رقم ضريبي (TRN)، إقرارات ضريبة الشركات بنسبة 9%، استيفاء شروط الوجود الاقتصادي، وإقرارات ضريبة القيمة المضافة الربع سنوية.'
-        : 'Federal Tax Authority (FTA) TRN registration, 9% Corporate Tax filing, Qualifying Free Zone Person (QFZP) 0% optimization, and quarterly VAT returns.',
-      features: ['Official FTA TRN Number', 'QFZP 0% Tax Optimization', 'Quarterly VAT 201 Submissions'],
+        : 'Federal Tax Authority (FTA) TRN registration support, 9% Corporate Tax filing, Qualifying Free Zone Person (QFZP) eligibility review, and quarterly VAT returns.',
+      features: ['FTA TRN Registration Support', 'QFZP 0% Eligibility Review', 'Quarterly VAT 201 Submissions'],
       actionLabel: isAr ? 'تفاصيل الخدمة' : 'View Service Roadmap',
       icon: Receipt,
       image: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80'
     },
     {
-      id: 'audit',
-      slug: 'audit-and-assurance-services',
-      colSpan: 'md:col-span-6 lg:col-span-6',
-      title: isAr ? 'خدمات التدقيق والضمان المالي' : 'Audit & Assurance Services',
-      tag: 'Certified Audit Reports',
-      desc: isAr
-        ? 'تقارير تدقيق حسابات معتمدة ومقبولة لدى جميع البنوك التجارية وهيئات المناطق الحرة والوزارات الاتحادية بالإمارات.'
-        : 'Statutory annual audit reports, balance sheet assurance, and independent financial verification accepted by UAE commercial banks and Free Zone authorities.',
-      features: ['Bank-Accepted Audit Statements', 'Free Zone Annual Compliance', 'Independent Verification & MOA Audit'],
-      actionLabel: isAr ? 'تفاصيل الخدمة' : 'View Service Roadmap',
-      icon: FileCheck2,
-      image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80'
-    },
-    {
       id: 'accounting',
       slug: 'accounting-services',
       colSpan: 'md:col-span-6 lg:col-span-6',
-      title: isAr ? 'خدمات المحاسبة ومسك الدفاتر' : 'Accounting & Bookkeeping Services',
-      tag: 'Cloud Bookkeeping & WPS',
+      title: isAr ? 'حلول برامج المحاسبة السحابية' : 'Cloud Accounting Software Solutions',
+      tag: 'Third-Party Software',
       desc: isAr
-        ? 'إعداد القوائم المالية الشهرية (الأرباح والخسائر، الميزانية العمومية)، نظام حماية الأجور (WPS)، وربط البرامج المحاسبية السحابية.'
-        : 'Monthly bookkeeping, P&L statements, balance sheet reconciliations, Wages Protection System (WPS) payroll, and cloud accounting software.',
-      features: ['Monthly P&L & Balance Sheet', 'WPS Compliant Payroll Management', 'Tax-Ready Financial Records'],
+        ? 'اختيار وتهيئة وربط برامج المحاسبة السحابية من مزودين خارجيين، بما في ذلك إعداد ملفات نظام حماية الأجور (WPS) والتدريب والدعم المستمر.'
+        : 'Selection, setup and integration of third-party cloud accounting software — including WPS payroll file configuration, team training and ongoing support.',
+      features: ['Third-Party Software Setup & Migration', 'WPS Payroll File Configuration', 'Team Training & Ongoing Support'],
       actionLabel: isAr ? 'تفاصيل الخدمة' : 'View Service Roadmap',
       icon: Calculator,
       image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80'
@@ -127,11 +113,11 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({
       slug: 'company-liquidation-services',
       colSpan: 'md:col-span-6 lg:col-span-6',
       title: isAr ? 'خدمات تصفية وإلغاء الشركات' : 'Company Liquidation Services',
-      tag: 'Official Liquidator',
+      tag: 'De-Registration Support',
       desc: isAr
-        ? 'تعيين مصفٍ قانوني معتمد، إعداد تقرير المصفي (Statement of Affairs)، خطابات براءة الذمة، وإلغاء السجل التجاري رسمياً.'
-        : 'Official liquidator appointment, Liquidator Report & No-Liability clearance letters, asset disposal, and formal trade registry cancellation.',
-      features: ['Certified Liquidator Report', 'Ministry & Visa Clearance', 'Formal De-Registration Gazette'],
+        ? 'إدارة وتنسيق إجراءات إغلاق الشركة: تجهيز الملف، التنسيق مع مصفٍّ مرخّص، متابعة إلغاء التأشيرات وإغلاق الحسابات حتى شطب الرخصة.'
+        : 'Coordination and file preparation for company closure: liaison with a licensed liquidator, visa cancellation follow-up, account closure and trade licence de-registration.',
+      features: ['Closure File Preparation', 'Licensed Liquidator Coordination', 'Visa Cancellation & Licence De-Registration'],
       actionLabel: isAr ? 'تفاصيل الخدمة' : 'View Service Roadmap',
       icon: XCircle,
       image: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80'

@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import {
   Building2,
   CheckCircle2,
@@ -64,7 +64,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
                   <span className="text-lg font-bold">SRTI Park Innovation District, Block B</span>
                 </div>
                 <span className="text-xs font-mono px-3 py-1 rounded-full bg-emerald-500/90 text-white font-bold backdrop-blur-sm">
-                  License #B34-B047
+                  Licensed by SRTI Park
                 </span>
               </div>
             </div>

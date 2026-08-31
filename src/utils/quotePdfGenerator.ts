@@ -1,4 +1,4 @@
-﻿import jsPDF from 'jspdf';
+import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 
 export interface QuoteDetails {
@@ -28,7 +28,7 @@ export const generateQuotePdf = (details: QuoteDetails) => {
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(203, 213, 225); // #CBD5E1
   doc.text('Sharjah Research Technology & Innovation Park (SRTI Park)', 14, 25);
-  doc.text('Block B - Office #B34-B047 | License #B34-B047 | www.amdxb.com', 14, 31);
+  doc.text('Block B - Office #B34-B047, SRTI Park, Sharjah, UAE | www.amdxb.com', 14, 31);
 
   // Quote Badge Top Right
   doc.setFillColor(16, 185, 129); // Emerald

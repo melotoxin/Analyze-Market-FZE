@@ -50,8 +50,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenConsultation, onNavigateSe
     { name: isAr ? 'خدمات الإقامة الذهبية (10 سنوات)' : 'Golden Visa Services (10-Year)', slug: 'golden-visa-services' as ServiceSlug },
     { name: isAr ? 'تجديد الرخص وخدمات العلاقات العامة' : 'License Renewal (PRO) Services', slug: 'license-renewal-pro-services' as ServiceSlug },
     { name: isAr ? 'الإقرارات الضريبية وضريبة الشركات' : 'VAT & Corporate Tax Filing', slug: 'vat-corporate-tax-filing-services' as ServiceSlug },
-    { name: isAr ? 'خدمات التدقيق والضمان المالي' : 'Audit & Assurance Services', slug: 'audit-and-assurance-services' as ServiceSlug },
-    { name: isAr ? 'خدمات المحاسبة ومسك الدفاتر' : 'Accounting & Bookkeeping Services', slug: 'accounting-services' as ServiceSlug },
+    { name: isAr ? 'حلول برامج المحاسبة السحابية' : 'Cloud Accounting Software Solutions', slug: 'accounting-services' as ServiceSlug },
   ];
 
   return (
@@ -173,7 +172,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenConsultation, onNavigateSe
       <div className="border-t border-slate-800 bg-slate-950 py-6">
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500 font-mono">
           <div>
-            Copyright © 2026 AnalyzeMarkets FZE. Registered under License #B34-B047. All rights reserved.
+            Copyright © 2026 AnalyzeMarkets FZE. Licensed by SRTI Park, Sharjah, UAE. All rights reserved.
           </div>
           <div className="flex flex-wrap items-center gap-3">
             <span>ISO 9001 Process Compliant</span>

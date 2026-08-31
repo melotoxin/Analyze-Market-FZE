@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import {
   Building2,
   XCircle,
@@ -37,7 +37,6 @@ const ICON_MAP: Record<ServiceSlug, any> = {
   'golden-visa-services': Award,
   'license-renewal-pro-services': RefreshCw,
   'vat-corporate-tax-filing-services': Receipt,
-  'audit-and-assurance-services': FileCheck2,
   'accounting-services': Calculator
 };
 
@@ -76,7 +75,6 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
     { slug: 'golden-visa-services', label: isAr ? 'الإقامة الذهبية' : 'Golden Visa Services' },
     { slug: 'license-renewal-pro-services', label: isAr ? 'تجديد الرخص (PRO)' : 'License Renewal (PRO)' },
     { slug: 'vat-corporate-tax-filing-services', label: isAr ? 'ضريبة الشركات والقيمة المضافة' : 'VAT & Corporate Tax' },
-    { slug: 'audit-and-assurance-services', label: isAr ? 'التدقيق والضمان المالي' : 'Audit & Assurance' },
     { slug: 'accounting-services', label: isAr ? 'المحاسبة ومسك الدفاتر' : 'Accounting Services' }
   ];
 

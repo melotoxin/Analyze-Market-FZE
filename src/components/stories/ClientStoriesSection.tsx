@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { ArrowRight, TrendingUp } from 'lucide-react';
 import { Language } from '../../data/translations';
 
@@ -40,7 +40,7 @@ export const ClientStoriesSection: React.FC<ClientStoriesSectionProps> = ({
       metrics: [
         { label: 'Capital Handled', value: 'AED 140M+' },
         { label: 'Banking Channels', value: 'Mashreq Neo + Emirates NBD' },
-        { label: 'Audit Verification', value: 'Big-4 Standard' },
+        { label: 'Corporate Structure', value: 'Dual-Entity' },
         { label: 'Asset Protection', value: '100% Statutory Privacy' }
       ],
       image: 'https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=800&q=80'

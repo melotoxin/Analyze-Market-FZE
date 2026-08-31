@@ -20,7 +20,6 @@ const SERVICES = [
   'Golden Visa Services',
   'License Renewal (PRO) Services',
   'VAT & Corporate Tax Filing Services',
-  'Audit & Assurance Services',
   'Accounting Services',
 ];
 

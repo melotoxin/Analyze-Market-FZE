@@ -69,12 +69,11 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   const servicesList: { name: string; tag: string; slug: ServiceSlug; icon: any; desc: string }[] = [
     { name: isAr ? 'تأسيس الشركات وإصدار التراخيص' : 'Company Incorporation', tag: 'Mainland & Free Zone', slug: 'company-incorporation', icon: Building2, desc: 'Turnkey formation across Mainland DED, 40+ Free Zones, and Offshore SPVs.' },
-    { name: isAr ? 'خدمات تصفية وإلغاء الشركات' : 'Company Liquidation Services', tag: 'Official Liquidator', slug: 'company-liquidation-services', icon: XCircle, desc: 'Official liquidator appointment, clearance letters, and formal de-registration.' },
+    { name: isAr ? 'خدمات تصفية وإلغاء الشركات' : 'Company Liquidation Services', tag: 'De-Registration Support', slug: 'company-liquidation-services', icon: XCircle, desc: 'Closure file preparation, licensed liquidator coordination, and formal de-registration.' },
     { name: isAr ? 'خدمات الإقامة الذهبية (10 سنوات)' : 'Golden Visa Services', tag: '10-Year Long-Term', slug: 'golden-visa-services', icon: Award, desc: '10-year Golden Visa processing for investors, founders, and specialized talent.' },
     { name: isAr ? 'خدمات تجديد الرخص (PRO)' : 'License Renewal (PRO) Services', tag: 'Annual Compliance', slug: 'license-renewal-pro-services', icon: RefreshCw, desc: 'Trade license renewals, Ejari attestation, and Establishment Card renewals.' },
-    { name: isAr ? 'خدمات ضريبة الشركات والقيمة المضافة' : 'VAT & Corporate Tax Filing Services', tag: 'FTA Agent 9%', slug: 'vat-corporate-tax-filing-services', icon: Receipt, desc: 'FTA TRN registration, 9% Corporate Tax filing, and QFZP 0% optimization.' },
-    { name: isAr ? 'خدمات التدقيق والضمان المالي' : 'Audit & Assurance Services', tag: 'Bank & Free Zone Audit', slug: 'audit-and-assurance-services', icon: FileCheck2, desc: 'Statutory annual audit reports and financial assurance accepted by UAE banks.' },
-    { name: isAr ? 'خدمات المحاسبة ومسك الدفاتر' : 'Accounting Services', tag: 'WPS & Bookkeeping', slug: 'accounting-services', icon: Calculator, desc: 'Monthly bookkeeping, balance sheet reconciliations, and WPS payroll.' },
+    { name: isAr ? 'خدمات ضريبة الشركات والقيمة المضافة' : 'VAT & Corporate Tax Filing Services', tag: 'Corporate Tax 9%', slug: 'vat-corporate-tax-filing-services', icon: Receipt, desc: 'FTA TRN registration, 9% Corporate Tax filing, and QFZP 0% optimization.' },
+    { name: isAr ? 'حلول برامج المحاسبة السحابية' : 'Cloud Accounting Software', tag: 'Third-Party Software', slug: 'accounting-services', icon: Calculator, desc: 'Setup, integration and support for third-party cloud accounting software.' },
   ];
 
   const handleServiceClick = (slug: ServiceSlug) => {
@@ -110,7 +109,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           <div className="flex items-center gap-3">
-            <span>Official License #B34-B047</span>
+            <span>Licensed by SRTI Park, Sharjah</span>
             <span className="text-slate-600">|</span>
             <span className="text-emerald-400 font-semibold">● Ministry Compliant</span>
           </div>

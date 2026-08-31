@@ -1,4 +1,4 @@
-﻿export type Language = 'en' | 'ar';
+export type Language = 'en' | 'ar';
 
 export const TRANSLATIONS = {
   en: {
@@ -16,7 +16,7 @@ export const TRANSLATIONS = {
     getFreeConsultation: 'Get Free Consultation',
     callUs: '+971 56 339 6961',
     officeBadge: 'SRTI Park, Block B - Office B34-B047, Sharjah UAE',
-    licenseBadge: 'License: AnalyzeMarkets FZE',
+    licenseBadge: 'Licensed by SRTI Park, Sharjah',
 
     // Hero
     heroPill: 'AnalyzeMarkets FZE | Sharjah Innovation Park',

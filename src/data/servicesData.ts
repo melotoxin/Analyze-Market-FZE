@@ -1,10 +1,9 @@
-﻿export type ServiceSlug =
+export type ServiceSlug =
   | 'company-incorporation'
   | 'company-liquidation-services'
   | 'golden-visa-services'
   | 'license-renewal-pro-services'
   | 'vat-corporate-tax-filing-services'
-  | 'audit-and-assurance-services'
   | 'accounting-services';
 
 export interface ServiceDetail {
@@ -69,24 +68,24 @@ export const SERVICES_CATALOG: Record<ServiceSlug, ServiceDetail> = {
   },
   'company-liquidation-services': {
     slug: 'company-liquidation-services',
-    titleEn: 'Company Liquidation Services in UAE',
+    titleEn: 'Company Liquidation & De-Registration Support',
     titleAr: 'خدمات تصفية وإلغاء الشركات',
-    subtitleEn: 'Official liquidator appointment, Liquidator’s Report, No-Liability clearance letters, and formal commercial deregistration.',
-    subtitleAr: 'إنهاء العمليات المالية وإلغاء السجل التجاري وإصدار تقرير المصفي الرسمي',
-    tagEn: 'Official Liquidator',
-    tagAr: 'مصفٍ قانوني معتمد',
-    leadEn: 'Liquidation is the formal legal process of ending a company’s financial operations and distributing remaining assets to creditors and shareholders. As an accredited advisory firm, we manage the entire statutory liquidation process, author the certified Liquidator’s Report (Statement of Affairs), obtain government clearance letters, and formally deregister the trade license.',
-    leadAr: 'التصفية هي الإنهاء القانوني للعمليات المالية للشركة وتوزيع الأصول وسداد الالتزامات. نقوم بتعيين المصفي وإعداد تقرير المصفي واستخراج خطابات براءة الذمة وإلغاء الرخصة.',
+    subtitleEn: 'End-to-end coordination of company closure: liquidator liaison, clearance letters, visa cancellation and formal trade licence de-registration.',
+    subtitleAr: 'تنسيق كامل لإجراءات إغلاق الشركة: التنسيق مع المصفي، خطابات براءة الذمة، إلغاء التأشيرات وشطب الرخصة التجارية',
+    tagEn: 'De-Registration Support',
+    tagAr: 'دعم شطب الرخصة',
+    leadEn: 'Liquidation is the formal legal process of ending a company’s financial operations and settling obligations to creditors and shareholders. UAE law requires the Liquidator’s Report to be issued by a licensed auditor or registered liquidator — a role we do not perform. We manage everything around it: preparing the closure file, appointing and coordinating a licensed liquidator on your behalf, obtaining government clearance letters, cancelling visas and accounts, and submitting the final de-registration dossier.',
+    leadAr: 'التصفية هي الإنهاء القانوني للعمليات المالية للشركة وسداد الالتزامات. يشترط القانون الإماراتي أن يصدر تقرير المصفي عن مدقق حسابات مرخّص أو مصفٍّ مسجَّل، وهو دور لا نقوم به. نتولى ما عدا ذلك: تجهيز ملف الإغلاق، والتنسيق مع مصفٍّ مرخّص نيابةً عنك، واستخراج خطابات براءة الذمة، وإلغاء التأشيرات والحسابات، وتقديم ملف الشطب النهائي.',
     steps: [
-      { title: '1. Shareholder Resolution & Liquidator Appointment', desc: 'Drafting board resolution to dissolve company and officially appoint AnalyzeMarkets as certified liquidator.' },
-      { title: '2. Preparation of Liquidator’s Statement of Affairs', desc: 'Independent audit of accounts and authoring the official liquidator’s letter / statement of solvency.' },
+      { title: '1. Shareholder Resolution & Liquidator Appointment', desc: 'Drafting the board resolution to dissolve the company and appointing a licensed third-party liquidator on your behalf.' },
+      { title: '2. Closure File Preparation & Liquidator Liaison', desc: 'Compiling the accounts and records the appointed liquidator needs, and managing correspondence until the Liquidator’s Report is issued.' },
       { title: '3. Public Newspaper Gazette Notification', desc: 'Publishing mandatory 45-day liquidation advertisement in official Arabic and English newspapers (if required by jurisdiction).' },
       { title: '4. Visa Cancellations & Ministry Clearances', desc: 'Cancelling all employment and investor visas, obtaining Ministry of Human Resources & Emiratisation (MOHRE) clearance.' },
       { title: '5. Customs, Utility & Bank Account Closure', desc: 'Securing no-liability certificates from Federal Tax Authority (FTA), customs, telecommunications, and corporate banks.' },
       { title: '6. Final Trade License Deregistration', desc: 'Submitting final liquidation dossier to DED or Free Zone authority for issuance of the formal License Cancellation Certificate.' }
     ],
     deliverables: [
-      'Certified Liquidator’s Statement of Affairs',
+      'Liquidator’s Report obtained from the appointed licensed liquidator',
       'Official Gazette Publication Affidavits',
       'MOHRE & Immigration Clearances',
       'FTA Corporate Tax De-Registration Clearance',
@@ -102,8 +101,8 @@ export const SERVICES_CATALOG: Record<ServiceSlug, ServiceDetail> = {
     ],
     faqs: [
       {
-        q: 'Why is an official liquidator required in the UAE?',
-        a: 'UAE Commercial Companies Law mandates that a licensed auditor or certified liquidator oversee the dissolution to guarantee that all creditor liabilities, employee dues, and tax obligations are fulfilled.'
+        q: 'Who acts as the official liquidator?',
+        a: 'A licensed audit firm or registered liquidator, appointed on your behalf. UAE Commercial Companies Law reserves that role for licensed auditors, so AnalyzeMarkets does not perform it. We select and engage the liquidator, prepare the file they require, and manage every other step of the closure.'
       },
       {
         q: 'Can a Free Zone company be liquidated without auditing?',
@@ -199,9 +198,9 @@ export const SERVICES_CATALOG: Record<ServiceSlug, ServiceDetail> = {
     slug: 'vat-corporate-tax-filing-services',
     titleEn: 'VAT & Corporate Tax Filing Services',
     titleAr: 'خدمات ضريبة الشركات وضريبة القيمة المضافة',
-    subtitleEn: 'Federal Tax Authority (FTA) TRN registration, 9% Corporate Tax returns, Qualifying Free Zone Person (QFZP) 0% optimization, and quarterly VAT.',
+    subtitleEn: 'Federal Tax Authority (FTA) TRN registration support, 9% Corporate Tax returns, Qualifying Free Zone Person (QFZP) eligibility review, and quarterly VAT.',
     subtitleAr: 'تسجيل رقم ضريبي (TRN)، إقرارات ضريبة الشركات بنسبة 9%، واستيفاء معايير الإعفاء الضريبي',
-    tagEn: 'FTA Registered Agent',
+    tagEn: 'Corporate Tax & VAT Filing',
     tagAr: 'وكيل ضريبي معتمد',
     leadEn: 'Under Federal Decree-Law No. 47 of 2022, UAE businesses are subject to a 9% federal corporate tax rate on taxable net profits exceeding AED 375,000, while Qualifying Free Zone Persons (QFZPs) benefit from 0% on qualifying income. Our certified tax agents ensure 100% FTA compliance, statutory TRN registration, and optimized tax returns.',
     leadAr: 'نقدم خدمات التسجيل الضريبي لدى الهيئة الاتحادية للضرائب، وتقديم إقرارات ضريبة الشركات بنسبة 9%، واستيفاء شروط الإعفاء 0% للشركات المؤهلة في المناطق الحرة.',
@@ -236,87 +235,45 @@ export const SERVICES_CATALOG: Record<ServiceSlug, ServiceDetail> = {
       }
     ]
   },
-  'audit-and-assurance-services': {
-    slug: 'audit-and-assurance-services',
-    titleEn: 'Audit & Assurance Services in UAE',
-    titleAr: 'خدمات التدقيق والضمان المالي',
-    subtitleEn: 'Statutory annual audit reports, financial assurance, and independent verification accepted by UAE commercial banks and Free Zones.',
-    subtitleAr: 'تقارير تدقيق سنوية معتمدة مقبولة لدى كافة البنوك وهيئات المناطق الحرة والوزارات',
-    tagEn: 'Certified Audit Reports',
-    tagAr: 'تقارير تدقيق معتمدة',
-    leadEn: 'Independent audit reports are mandatory for annual Free Zone license renewals, bank loan facilities, corporate tax filing, and shareholder governance. In collaboration with certified chartered accountants, we perform thorough audit procedures conforming to International Financial Reporting Standards (IFRS).',
-    leadAr: 'تقارير تدقيق الحسابات المستقلة معتمدة ومتوافقة مع المعايير الدولية لإعداد التقارير المالية (IFRS)، ومقبولة لدى جميع البنوك وهيئات المناطق الحرة.',
-    steps: [
-      { title: '1. Audit Planning & Risk Assessment', desc: 'Scoping internal controls, accounting systems, and material financial reporting parameters.' },
-      { title: '2. Substantive Testing & Balance Sheet Verification', desc: 'Verification of bank balances, trade receivables, revenue recognition, and vendor liabilities.' },
-      { title: '3. Preparation of IFRS Compliant Financials', desc: 'Compiling balance sheet, income statement, cash flow statement, and accompanying disclosure notes.' },
-      { title: '4. Issuance of Independent Auditor’s Report', desc: 'Signing and stamping certified audit report by licensed chartered accountant.' },
-      { title: '5. Submission to Regulatory Authorities', desc: 'Filing audited statements with Free Zone authorities (DMCC, JAFZA, DAFZA, SRTI) and corporate banks.' }
-    ],
-    deliverables: [
-      'Signed Independent Auditor’s Report',
-      'Audited Balance Sheet & P&L Statements (IFRS)',
-      'Cash Flow & Changes in Equity Statements',
-      'Management Letter on Internal Control Observations',
-      'Free Zone Portal Financial Upload Confirmation'
-    ],
-    documents: [
-      'General Ledger & Trial Balance',
-      'Bank Statements & Year-End Bank Confirmations',
-      'Inventory Stock Sheets (if applicable)',
-      'Fixed Asset Register & Depreciation Schedules',
-      'Major Customer & Supplier Contracts'
-    ],
-    faqs: [
-      {
-        q: 'Is an annual audit mandatory for Free Zone companies?',
-        a: 'Yes, major Free Zones (including DMCC, JAFZA, DAFZA, RAKEZ, and SRTI) require submitted audited financial statements annually before license renewal.'
-      },
-      {
-        q: 'Are your audit reports accepted by UAE commercial banks?',
-        a: 'Yes, our reports are prepared under IFRS and accepted across all tier-1 UAE banks for credit facilities and annual KYC updates.'
-      }
-    ]
-  },
   'accounting-services': {
     slug: 'accounting-services',
-    titleEn: 'Cloud Accounting & Bookkeeping Services',
-    titleAr: 'خدمات المحاسبة ومسك الدفاتر المالية',
-    subtitleEn: 'Monthly bookkeeping, P&L statements, balance sheet reconciliations, Wages Protection System (WPS) payroll, and cloud accounting.',
-    subtitleAr: 'إعداد القوائم المالية الشهرية، نظام حماية الأجور (WPS)، وربط البرامج المحاسبية السحابية',
-    tagEn: 'Cloud Bookkeeping',
-    tagAr: 'محاسبة سحابية',
-    leadEn: 'Accurate and timely accounting is the foundation of tax compliance, investor reporting, and financial control. Our dedicated accountants manage your daily transaction entries, bank reconciliations, VAT-ready books, and Wages Protection System (WPS) payroll using modern cloud platforms (Zoho Books, QuickBooks, Xero).',
-    leadAr: 'مسك دفاتر محاسبية شهرية منتظمة وإصدار ميزانيات الأرباح والخسائر وحسابات الرواتب عبر نظام حماية الأجور (WPS) وربط البرامج السحابية.',
+    titleEn: 'Cloud Accounting Software Solutions',
+    titleAr: 'حلول برامج المحاسبة السحابية',
+    subtitleEn: 'Implementation, migration and support for third-party cloud accounting platforms, including Wages Protection System (WPS) payroll file configuration.',
+    subtitleAr: 'تهيئة وربط ودعم برامج المحاسبة السحابية من مزودين خارجيين، بما في ذلك إعداد ملفات نظام حماية الأجور (WPS)',
+    tagEn: 'Third-Party Software',
+    tagAr: 'برامج خارجية',
+    leadEn: 'We are a technology and advisory partner, not your bookkeeper. We help you select, configure and adopt third-party cloud accounting software (Zoho Books, QuickBooks, Xero) — mapping a UAE chart of accounts, applying FTA VAT tax codes, configuring Wages Protection System (WPS) payroll files, migrating your historical data, and training your team. Your own staff or your appointed accountant keeps the books inside the platform.',
+    leadAr: 'نحن شريك تقني واستشاري ولسنا محاسبك. نساعدك في اختيار وتهيئة واعتماد برامج المحاسبة السحابية من مزودين خارجيين (Zoho Books وQuickBooks وXero)، مع إعداد دليل الحسابات ورموز ضريبة القيمة المضافة وملفات نظام حماية الأجور (WPS)، ونقل بياناتك التاريخية وتدريب فريقك. يتولى فريقك أو محاسبك المعيَّن مسك الدفاتر داخل النظام.',
     steps: [
-      { title: '1. Accounting Software Setup & Chart of Accounts', desc: 'Configuring cloud accounting ledger mapped specifically to your UAE industry and FTA VAT rules.' },
-      { title: '2. Monthly Transaction Recording & Bank Reconciliation', desc: 'Entering sales invoices, expense receipts, and reconciling all corporate bank accounts.' },
-      { title: '3. Wages Protection System (WPS) Payroll Processing', desc: 'Generating SIF files for monthly bank salary disbursements compliant with UAE labor laws.' },
-      { title: '4. Monthly Management Accounts Generation', desc: 'Delivering executive P&L statement, balance sheet, and aged receivables report.' },
-      { title: '5. Year-End Closing & Tax Preparation', desc: 'Finalizing trial balance for annual audit and corporate tax filing.' }
+      { title: '1. Platform Selection & Licensing', desc: 'Comparing third-party cloud accounting platforms against your sector, transaction volume and budget, then arranging the software subscription.' },
+      { title: '2. Chart of Accounts & VAT Configuration', desc: 'Configuring the ledger structure for your UAE industry and applying the correct FTA VAT tax codes inside the software.' },
+      { title: '3. Historical Data Migration', desc: 'Importing your existing spreadsheets or prior system data into the new platform and validating opening balances.' },
+      { title: '4. WPS Payroll File Configuration', desc: 'Setting up the payroll module so your team can generate MOHRE-compliant SIF files for salary disbursement.' },
+      { title: '5. Team Training & Ongoing Support', desc: 'Training your staff to operate the platform day to day, with a support channel for configuration questions.' }
     ],
     deliverables: [
-      'Monthly Profit & Loss (P&L) Statements',
-      'Monthly Balance Sheet & Cash Flow Reports',
-      'Bank & Credit Card Reconciliation Summaries',
-      'Monthly WPS Salary Information Files (SIF)',
-      'Quarterly VAT-Ready Transaction Reports',
-      'Real-Time Cloud Accounting Dashboard Access'
+      'Configured Cloud Accounting Platform Account',
+      'UAE Chart of Accounts & FTA VAT Tax Codes',
+      'Validated Historical Data Migration',
+      'WPS Payroll Module Configuration',
+      'Reporting Templates for P&L and Balance Sheet',
+      'Team Training Session & Written Handover Guide'
     ],
     documents: [
-      'Monthly Bank Statements in PDF/Excel',
-      'Customer Sales Invoices & Agreements',
-      'Vendor Bills & Expense Receipts',
-      'Employee Salary & Commission Structure'
+      'Existing accounting records or spreadsheets to migrate',
+      'Trade licence and FTA TRN certificate (for VAT setup)',
+      'Corporate bank account details for feed configuration',
+      'Employee salary structure (for payroll module setup)'
     ],
     faqs: [
       {
-        q: 'Can you migrate our existing spreadsheets into cloud accounting software?',
-        a: 'Yes, we set up and migrate your historical data into Zoho Books, QuickBooks, or Xero, configuring UAE VAT tax codes automatically.'
+        q: 'Do you keep our books for us?',
+        a: 'No. Our licence covers software implementation and advisory, not bookkeeping. We configure the third-party platform, migrate your data and train your team; your own staff or an appointed accountant records the transactions. We can introduce you to a licensed accounting firm if you need one.'
       },
       {
-        q: 'How does WPS payroll compliance work in the UAE?',
-        a: 'Under MOHRE regulations, private sector salaries must be routed through the central Wages Protection System via electronic SIF files, which our payroll team prepares and submits monthly.'
+        q: 'How is WPS payroll handled?',
+        a: 'Under MOHRE regulations, private sector salaries must be routed through the Wages Protection System via electronic SIF files. We configure the payroll module so your team can generate compliant SIF files each month; the submission itself stays with you and your bank.'
       }
     ]
   }
