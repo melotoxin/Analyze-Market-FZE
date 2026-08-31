@@ -2,17 +2,26 @@ import React, { useState, useRef, useEffect } from 'react';
 
 interface HeroVideoBackgroundProps {
   posterUrl?: string;
-  videoUrl?: string;
-  /** Parallax offset as a percentage of the element height. */
+  /** Local path under /public — only used when enableVideo is true. */
+  videoUrl?: string | null;
+  enableVideo?: boolean;
   translateYPercent?: number;
   scale?: number;
 }
 
-// Matches the preload hint in index.html so the LCP backdrop is fetched once, early.
-export const HERO_POSTER_URL =
+/** Self-hosted Burj Khalifa / Dubai skyline — same look as before Mixkit. */
+export const HERO_POSTER_URL = '/hero/burj-poster.jpg';
+
+/** CDN fallback if the local poster is missing (e.g. before deploy). */
+export const HERO_POSTER_FALLBACK =
   'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1920&q=80';
 
-/** A decorative autoplaying video is not worth a phone's data plan or battery. */
+/**
+ * Drop a Flow-exported clip at public/hero/burj-hero.mp4 and set enableVideo on the hero.
+ * Until then the static poster is shown (no third-party stock video).
+ */
+export const HERO_VIDEO_URL = '/hero/burj-hero.mp4';
+
 function shouldPlayVideo(): boolean {
   if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return false;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
@@ -25,18 +34,28 @@ function shouldPlayVideo(): boolean {
 
 export const HeroVideoBackground: React.FC<HeroVideoBackgroundProps> = ({
   posterUrl = HERO_POSTER_URL,
-  videoUrl = 'https://assets.mixkit.co/videos/30992/30992-720.mp4',
+  videoUrl = null,
+  enableVideo = false,
   translateYPercent = 0,
   scale = 1,
 }) => {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [playVideo, setPlayVideo] = useState(false);
+  const [resolvedPoster, setResolvedPoster] = useState(posterUrl);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  // Decide after mount: the poster alone must be enough to render a correct hero.
+  const activeVideo = enableVideo && videoUrl ? videoUrl : null;
+
   useEffect(() => {
-    setPlayVideo(shouldPlayVideo());
-  }, []);
+    setResolvedPoster(posterUrl);
+    const probe = new Image();
+    probe.onerror = () => setResolvedPoster(HERO_POSTER_FALLBACK);
+    probe.src = posterUrl;
+  }, [posterUrl]);
+
+  useEffect(() => {
+    setPlayVideo(Boolean(activeVideo && shouldPlayVideo()));
+  }, [activeVideo]);
 
   useEffect(() => {
     if (videoRef.current) videoRef.current.playbackRate = 0.7;
@@ -56,13 +75,13 @@ export const HeroVideoBackground: React.FC<HeroVideoBackgroundProps> = ({
           (isVideoLoaded ? 'opacity-0' : 'opacity-100')
         }
         style={{
-          backgroundImage: 'url(' + posterUrl + ')',
+          backgroundImage: 'url(' + resolvedPoster + ')',
           backgroundPosition: 'center 12%',
           backgroundSize: 'cover',
         }}
       />
 
-      {playVideo && (
+      {playVideo && activeVideo && (
         <video
           ref={videoRef}
           autoPlay
@@ -70,6 +89,7 @@ export const HeroVideoBackground: React.FC<HeroVideoBackgroundProps> = ({
           loop
           playsInline
           preload="none"
+          poster={resolvedPoster}
           onCanPlay={() => setIsVideoLoaded(true)}
           className={
             'w-full h-full object-cover transition-opacity duration-1000 ' +
@@ -78,7 +98,7 @@ export const HeroVideoBackground: React.FC<HeroVideoBackgroundProps> = ({
           }
           style={{ objectPosition: 'center 12%' }}
         >
-          <source src={videoUrl} type="video/mp4" />
+          <source src={activeVideo} type="video/mp4" />
         </video>
       )}
 
