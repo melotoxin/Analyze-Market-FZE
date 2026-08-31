@@ -31,6 +31,10 @@ const call = async (body: any, method = 'POST', ip = '1.2.3.4') => {
 
 const valid = { name: 'Alexander Vance', phone: '+971 56 339 6961', service: 'Golden Visa' };
 
+const originalFetch = globalThis.fetch;
+globalThis.fetch = async () =>
+  new Response(JSON.stringify({ id: 'test-email' }), { status: 200 });
+
 // Method guard
 assert.equal((await call(valid, 'GET')).statusCode, 405);
 
@@ -60,5 +64,7 @@ for (let i = 0; i < 5; i++) await call(valid, 'POST', ip);
 assert.equal((await call(valid, 'POST', ip)).statusCode, 429);
 // A different IP is unaffected.
 assert.notEqual((await call(valid, 'POST', 'other-ip')).statusCode, 429);
+
+globalThis.fetch = originalFetch;
 
 console.log('lead api: all assertions passed');

@@ -25,7 +25,7 @@ function shouldPlayVideo(): boolean {
 
 export const HeroVideoBackground: React.FC<HeroVideoBackgroundProps> = ({
   posterUrl = HERO_POSTER_URL,
-  videoUrl = 'https://assets.mixkit.co/videos/preview/mixkit-dubai-city-buildings-at-night-4217-large.mp4',
+  videoUrl = 'https://assets.mixkit.co/videos/30992/30992-720.mp4',
   translateYPercent = 0,
   scale = 1,
 }) => {

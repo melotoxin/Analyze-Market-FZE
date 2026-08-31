@@ -15,12 +15,14 @@ import {
   Send,
   Phone,
   MessageCircle,
+  Mail,
   HelpCircle,
   FileText
 } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { Language, TRANSLATIONS } from '../../data/translations';
 import { ServiceSlug, SERVICES_CATALOG } from '../../data/servicesData';
+import { openAdvisoryEmail, openAdvisoryWhatsApp } from '../../utils/submitLead';
 import confetti from 'canvas-confetti';
 
 interface ServiceDetailPageProps {
@@ -93,15 +95,35 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
           </button>
 
           <div className="flex items-center gap-3">
-            <a
-              href="https://wa.me/971563396961"
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              type="button"
+              onClick={() =>
+                openAdvisoryWhatsApp({
+                  name: clientName.trim() || 'Prospective client',
+                  phone: clientPhone.trim() || 'To be provided',
+                  service: isAr ? service.titleAr : service.titleEn,
+                })
+              }
               className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-emerald-50 border border-emerald-200 text-xs font-bold text-emerald-800 hover:bg-emerald-100 transition-all shadow-sm"
             >
               <MessageCircle className="w-3.5 h-3.5 text-emerald-600" />
               <span>{isAr ? 'مستشار واتساب المباشر' : 'WhatsApp Advisor'}</span>
-            </a>
+            </button>
+
+            <button
+              type="button"
+              onClick={() =>
+                openAdvisoryEmail({
+                  name: clientName.trim() || 'Prospective client',
+                  phone: clientPhone.trim() || 'To be provided',
+                  service: isAr ? service.titleAr : service.titleEn,
+                })
+              }
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-sky-50 border border-sky-200 text-xs font-bold text-sky-800 hover:bg-sky-100 transition-all shadow-sm"
+            >
+              <Mail className="w-3.5 h-3.5 text-sky-600" />
+              <span>{isAr ? 'مستشار البريد' : 'Email Advisor'}</span>
+            </button>
 
             <button
               onClick={() => onOpenConsultation(isAr ? service.titleAr : service.titleEn)}

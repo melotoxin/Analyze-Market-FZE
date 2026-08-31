@@ -1,6 +1,11 @@
 ﻿import React, { useState } from 'react';
-import { HelpCircle, ChevronDown, ChevronUp, MessageCircle } from 'lucide-react';
+import { HelpCircle, ChevronDown, ChevronUp, MessageCircle, Mail } from 'lucide-react';
 import { Language, TRANSLATIONS } from '../../data/translations';
+import {
+  ADVISORY_EMAIL,
+  openAdvisoryEmail,
+  openAdvisoryWhatsApp,
+} from '../../utils/submitLead';
 
 interface FaqSectionProps {
   onOpenConsultation: () => void;
@@ -48,6 +53,16 @@ export const FaqSection: React.FC<FaqSectionProps> = ({
     }
   ];
 
+  const faqAdvisory = {
+    name: 'Prospective client',
+    phone: 'To be provided',
+    service: 'FAQ advisory enquiry',
+    notes: 'Reached via FAQ section — seeking guidance on UAE company formation.',
+  };
+
+  const contactBtn =
+    'inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg font-bold text-xs transition-all duration-200 shadow-sm motion-safe:hover:-translate-y-0.5 motion-safe:hover:shadow-md active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 cursor-pointer';
+
   return (
     <section id="faq" className="py-20 sm:py-28 bg-white border-b border-slate-200 font-sans text-slate-900">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -81,17 +96,33 @@ export const FaqSection: React.FC<FaqSectionProps> = ({
               <p className="text-xs text-slate-600">
                 Speak directly with an accredited senior formation director in Sharjah or Dubai.
               </p>
-              <div>
-                <a
-                  href="https://wa.me/971563396961"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs transition-all shadow-sm"
+              <div className="flex flex-col sm:flex-row flex-wrap gap-2">
+                <button
+                  type="button"
+                  onClick={() => openAdvisoryWhatsApp(faqAdvisory)}
+                  className={`${contactBtn} bg-emerald-600 hover:bg-emerald-500 text-white focus-visible:ring-emerald-500`}
                 >
                   <MessageCircle className="w-4 h-4" />
-                  <span>WhatsApp Senior Advisor</span>
-                </a>
+                  <span>{isAr ? 'واتساب المستشار' : 'WhatsApp Senior Advisor'}</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => openAdvisoryEmail(faqAdvisory)}
+                  className={`${contactBtn} bg-white hover:bg-slate-50 text-slate-900 border border-slate-300 hover:border-slate-400 focus-visible:ring-slate-400`}
+                >
+                  <Mail className="w-4 h-4" />
+                  <span>{isAr ? 'بريد المستشار' : 'Email Senior Advisor'}</span>
+                </button>
               </div>
+              <p className="text-[10px] text-slate-500 font-mono">
+                {isAr ? 'البريد:' : 'Email:'}{' '}
+                <a
+                  href={`mailto:${ADVISORY_EMAIL}`}
+                  className="text-slate-700 hover:text-emerald-700 hover:underline"
+                >
+                  {ADVISORY_EMAIL}
+                </a>
+              </p>
             </div>
           </div>
 

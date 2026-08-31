@@ -13,7 +13,7 @@ import { Language } from './data/translations';
 import { CURRENCIES, Currency, isCurrency } from './data/pricing';
 import { usePersistentState } from './utils/usePersistentState';
 import { useRoute, useDocumentMeta } from './utils/router';
-import { WHATSAPP_URL, openExternal } from './utils/submitLead';
+import { WHATSAPP_URL, openExternal, openAdvisoryEmail } from './utils/submitLead';
 
 // Everything below the fold is split out of the initial bundle: the landing view
 // only needs the hero, the trust ribbon and the services grid to be interactive.
@@ -146,6 +146,13 @@ export function App() {
           break;
         case 'whatsapp':
           openExternal(WHATSAPP_URL);
+          break;
+        case 'email':
+          openAdvisoryEmail({
+            name: 'Prospective client',
+            phone: 'To be provided',
+            service: 'Command search advisory enquiry',
+          });
           break;
         case 'freezone':
           handleOpenConsultation('Free Zone Inquiry: ' + value);

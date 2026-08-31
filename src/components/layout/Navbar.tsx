@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { Language } from '../../data/translations';
 import { AmDxbLogo } from '../ui/AmDxbLogo';
+import { NavBlinkText } from '../ui/NavBlinkText';
 import { ServiceSlug } from '../../data/servicesData';
 import { servicePath } from '../../utils/router';
 
@@ -98,6 +99,9 @@ export const Navbar: React.FC<NavbarProps> = ({
     onNavigateSection(sectionId);
   };
 
+  const navLinkClass =
+    'shrink-0 px-2 xl:px-3 py-2 rounded-lg cursor-pointer nav-link-glow text-slate-800 font-semibold';
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 font-sans" ref={navRef}>
       
@@ -146,10 +150,14 @@ export const Navbar: React.FC<NavbarProps> = ({
                 type="button"
                 onClick={() => setServicesOpen(!servicesOpen)}
                 aria-expanded={servicesOpen}
-                className="inline-flex items-center gap-1 px-2 xl:px-3 py-2 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer text-slate-900 font-bold"
+                className={'inline-flex items-center gap-1 px-2 xl:px-3 py-2 rounded-lg cursor-pointer text-slate-900 font-bold nav-link-glow'}
               >
-                <span className="xl:hidden">{isAr ? 'خدماتنا' : 'Services'}</span>
-                <span className="hidden xl:inline">{isAr ? 'خدماتنا' : 'Our Services'}</span>
+                <span className="xl:hidden">
+                  <NavBlinkText active={servicesOpen}>{isAr ? 'خدماتنا' : 'Services'}</NavBlinkText>
+                </span>
+                <span className="hidden xl:inline">
+                  <NavBlinkText active={servicesOpen}>{isAr ? 'خدماتنا' : 'Our Services'}</NavBlinkText>
+                </span>
                 <ChevronDown className={'w-3.5 h-3.5 shrink-0 transition-transform ' + (servicesOpen ? 'rotate-180' : '')} />
               </button>
 
@@ -186,32 +194,48 @@ export const Navbar: React.FC<NavbarProps> = ({
               )}
             </div>
 
-            <button onClick={() => handleSectionClick('packages')} className="shrink-0 px-2 xl:px-3 py-2 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer">
-              {isAr ? 'الباقات' : 'Packages'}
+            <button onClick={() => handleSectionClick('packages')} className={navLinkClass}>
+              <NavBlinkText>{isAr ? 'الباقات' : 'Packages'}</NavBlinkText>
             </button>
 
-            <button onClick={() => handleSectionClick('how-we-work')} className="shrink-0 px-2 xl:px-3 py-2 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer">
-              <span className="xl:hidden">{isAr ? 'المنهجية' : 'Process'}</span>
-              <span className="hidden xl:inline">{isAr ? 'منهجية العمل' : 'How We Work'}</span>
+            <button onClick={() => handleSectionClick('how-we-work')} className={navLinkClass}>
+              <span className="xl:hidden">
+                <NavBlinkText>{isAr ? 'المنهجية' : 'Process'}</NavBlinkText>
+              </span>
+              <span className="hidden xl:inline">
+                <NavBlinkText>{isAr ? 'منهجية العمل' : 'How We Work'}</NavBlinkText>
+              </span>
             </button>
 
-            <button onClick={() => handleSectionClick('freezones')} className="shrink-0 px-2 xl:px-3 py-2 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer">
-              <span className="xl:hidden">{isAr ? 'الحرة' : 'Zones'}</span>
-              <span className="hidden xl:inline">{isAr ? 'المناطق الحرة' : 'Free Zones'}</span>
+            <button onClick={() => handleSectionClick('freezones')} className={navLinkClass}>
+              <span className="xl:hidden">
+                <NavBlinkText>{isAr ? 'الحرة' : 'Zones'}</NavBlinkText>
+              </span>
+              <span className="hidden xl:inline">
+                <NavBlinkText>{isAr ? 'المناطق الحرة' : 'Free Zones'}</NavBlinkText>
+              </span>
             </button>
 
-            <button onClick={() => handleSectionClick('cost-calculator')} className="shrink-0 px-2 xl:px-3 py-2 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer">
-              <span className="xl:hidden">{isAr ? 'الحاسبة' : 'Calculator'}</span>
-              <span className="hidden xl:inline">{isAr ? 'حاسبة التكاليف' : 'Cost Calculator'}</span>
+            <button onClick={() => handleSectionClick('cost-calculator')} className={navLinkClass}>
+              <span className="xl:hidden">
+                <NavBlinkText>{isAr ? 'الحاسبة' : 'Calculator'}</NavBlinkText>
+              </span>
+              <span className="hidden xl:inline">
+                <NavBlinkText>{isAr ? 'حاسبة التكاليف' : 'Cost Calculator'}</NavBlinkText>
+              </span>
             </button>
 
-            <button onClick={() => handleSectionClick('client-stories')} className="shrink-0 px-2 xl:px-3 py-2 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer">
-              <span className="xl:hidden">{isAr ? 'قصص' : 'Stories'}</span>
-              <span className="hidden xl:inline">{isAr ? 'قصص النجاح' : 'Client Stories'}</span>
+            <button onClick={() => handleSectionClick('client-stories')} className={navLinkClass}>
+              <span className="xl:hidden">
+                <NavBlinkText>{isAr ? 'قصص' : 'Stories'}</NavBlinkText>
+              </span>
+              <span className="hidden xl:inline">
+                <NavBlinkText>{isAr ? 'قصص النجاح' : 'Client Stories'}</NavBlinkText>
+              </span>
             </button>
 
-            <button onClick={() => handleSectionClick('about')} className="shrink-0 px-2 xl:px-3 py-2 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer">
-              {isAr ? 'عن الشركة' : 'About'}
+            <button onClick={() => handleSectionClick('about')} className={navLinkClass}>
+              <NavBlinkText>{isAr ? 'عن الشركة' : 'About'}</NavBlinkText>
             </button>
 
           </nav>
@@ -311,12 +335,12 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           <div className="pt-3 border-t border-slate-100 space-y-1 text-xs font-bold text-slate-800">
-            <button onClick={() => handleSectionClick('packages')} className="w-full text-start py-2 px-2">Packages</button>
-            <button onClick={() => handleSectionClick('how-we-work')} className="w-full text-start py-2 px-2">How We Work</button>
-            <button onClick={() => handleSectionClick('freezones')} className="w-full text-start py-2 px-2">Free Zones Directory</button>
-            <button onClick={() => handleSectionClick('cost-calculator')} className="w-full text-start py-2 px-2">Cost Calculator</button>
-            <button onClick={() => handleSectionClick('client-stories')} className="w-full text-start py-2 px-2">Client Stories</button>
-            <button onClick={() => handleSectionClick('about')} className="w-full text-start py-2 px-2">About Us</button>
+            <button onClick={() => handleSectionClick('packages')} className="w-full text-start py-2 px-2 rounded-lg nav-link-glow"><NavBlinkText>Packages</NavBlinkText></button>
+            <button onClick={() => handleSectionClick('how-we-work')} className="w-full text-start py-2 px-2 rounded-lg nav-link-glow"><NavBlinkText>How We Work</NavBlinkText></button>
+            <button onClick={() => handleSectionClick('freezones')} className="w-full text-start py-2 px-2 rounded-lg nav-link-glow"><NavBlinkText>Free Zones Directory</NavBlinkText></button>
+            <button onClick={() => handleSectionClick('cost-calculator')} className="w-full text-start py-2 px-2 rounded-lg nav-link-glow"><NavBlinkText>Cost Calculator</NavBlinkText></button>
+            <button onClick={() => handleSectionClick('client-stories')} className="w-full text-start py-2 px-2 rounded-lg nav-link-glow"><NavBlinkText>Client Stories</NavBlinkText></button>
+            <button onClick={() => handleSectionClick('about')} className="w-full text-start py-2 px-2 rounded-lg nav-link-glow"><NavBlinkText>About Us</NavBlinkText></button>
           </div>
 
           <div className="pt-3 border-t border-slate-100">

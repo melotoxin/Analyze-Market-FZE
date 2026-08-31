@@ -3,12 +3,10 @@ import {
   Award,
   RefreshCw,
   Receipt,
-  FileCheck2,
   Calculator,
   XCircle,
   Building2,
   ArrowRight,
-  CheckCircle2
 } from 'lucide-react';
 import { Language } from '../../data/translations';
 import { ServiceSlug } from '../../data/servicesData';
@@ -33,9 +31,8 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({
     title: string;
     tag: string;
     desc: string;
-    features: string[];
     actionLabel: string;
-    icon: any;
+    icon: typeof Building2;
     image: string;
   }[] = [
     {
@@ -47,7 +44,6 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({
       desc: isAr
         ? 'تأسيس الشركات في البر الرئيسي والمناطق الحرة والأوفشور مع الموافقة الأولية وحجز الاسم التجاري وتوثيق عقد التأسيس.'
         : 'Turnkey formation across Mainland DED, 40+ Free Zones, and Offshore SPVs with instant trade name reservation and notarized MOA.',
-      features: ['100% Expat Equity Ownership', '2-4 Days License SLA', 'Tier-1 Banking Fast-Track'],
       actionLabel: isAr ? 'تفاصيل الخدمة' : 'View Service Roadmap',
       icon: Building2,
       image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80'
@@ -61,7 +57,6 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({
       desc: isAr 
         ? 'إقامة طويلة الأمد لمدة 10 سنوات للمستثمرين العقاريين (2 مليون درهم+) ورواد الأعمال والمدراء التنفيذيين والنوابغ، مع كفالة كاملة للأسرة دون الحاجة لكفيل محلي.'
         : 'Turnkey 10-year Golden Visa processing for property investors (AED 2M+), enterprise founders, senior executives, and specialized talent with 100% family sponsorship.',
-      features: ['100% Sponsor-Free Independence', 'Full Family & Team Sponsorship', 'VIP Medical & Biometrics'],
       actionLabel: isAr ? 'تفاصيل الخدمة' : 'View Service Roadmap',
       icon: Award,
       image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=80'
@@ -75,7 +70,6 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({
       desc: isAr
         ? 'تسجيل رقم ضريبي (TRN)، إقرارات ضريبة الشركات بنسبة 9%، استيفاء شروط الوجود الاقتصادي، وإقرارات ضريبة القيمة المضافة الربع سنوية.'
         : 'Federal Tax Authority (FTA) TRN registration support, 9% Corporate Tax filing, Qualifying Free Zone Person (QFZP) eligibility review, and quarterly VAT returns.',
-      features: ['FTA TRN Registration Support', 'QFZP 0% Eligibility Review', 'Quarterly VAT 201 Submissions'],
       actionLabel: isAr ? 'تفاصيل الخدمة' : 'View Service Roadmap',
       icon: Receipt,
       image: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80'
@@ -87,9 +81,8 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({
       title: isAr ? 'حلول برامج المحاسبة السحابية' : 'Cloud Accounting Software Solutions',
       tag: 'Third-Party Software',
       desc: isAr
-        ? 'اختيار وتهيئة وربط برامج المحاسبة السحابية من مزودين خارجيين، بما في ذلك إعداد ملفات نظام حماية الأجور (WPS) والتدريب والدعم المستمر.'
-        : 'Selection, setup and integration of third-party cloud accounting software — including WPS payroll file configuration, team training and ongoing support.',
-      features: ['Third-Party Software Setup & Migration', 'WPS Payroll File Configuration', 'Team Training & Ongoing Support'],
+        ? 'استشارات حول اختيار وتهيئة برامج المحاسبة السحابية من مزودين خارجيين — إعداد النظام ونقل البيانات وتدريب الفريق.'
+        : 'Advisory on selecting and configuring third-party cloud accounting platforms — software setup, data migration, and team onboarding support.',
       actionLabel: isAr ? 'تفاصيل الخدمة' : 'View Service Roadmap',
       icon: Calculator,
       image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80'
@@ -103,7 +96,6 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({
       desc: isAr
         ? 'تجديد الرخص التجارية السنوية، توثيق عقود الإيجار (إيجاري)، بطاقة المنشأة، وتعديل الشركاء وعقود التأسيس.'
         : 'Fast-track trade license renewal, Ejari registration, Establishment Card renewals, and corporate MOA amendments.',
-      features: ['Zero Penalty Fast-Track', 'Ejari & Commercial Lease Attestation', 'Shareholder & Activity Amendments'],
       actionLabel: isAr ? 'تفاصيل الخدمة' : 'View Service Roadmap',
       icon: RefreshCw,
       image: 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800&q=80'
@@ -117,7 +109,6 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({
       desc: isAr
         ? 'إدارة وتنسيق إجراءات إغلاق الشركة: تجهيز الملف، التنسيق مع مصفٍّ مرخّص، متابعة إلغاء التأشيرات وإغلاق الحسابات حتى شطب الرخصة.'
         : 'Coordination and file preparation for company closure: liaison with a licensed liquidator, visa cancellation follow-up, account closure and trade licence de-registration.',
-      features: ['Closure File Preparation', 'Licensed Liquidator Coordination', 'Visa Cancellation & Licence De-Registration'],
       actionLabel: isAr ? 'تفاصيل الخدمة' : 'View Service Roadmap',
       icon: XCircle,
       image: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80'
@@ -186,15 +177,6 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({
                     <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
                       {svc.desc}
                     </p>
-                  </div>
-
-                  <div className="space-y-1.5 pt-3 border-t border-slate-100 font-mono text-xs text-slate-700">
-                    {svc.features.map((f, i) => (
-                      <div key={i} className="flex items-center gap-2">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                        <span className="truncate">{f}</span>
-                      </div>
-                    ))}
                   </div>
 
                   <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-slate-900">

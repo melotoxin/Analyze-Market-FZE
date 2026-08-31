@@ -68,7 +68,7 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
       popular: false,
       price: formatMoney(22800, currency),
       turnaround: '5 - 8 Business Days',
-      image: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=600&q=80',
+      image: 'https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=600&q=80',
       features: isAr
         ? ['الاستفادة من الحوافز الضريبية والوصول للمستهلك المحلي', 'مكتب رئيسي موحد دون تكرار التكاليف', 'تأشيرات وإقامات مرنة لكبار التنفيذيين', 'تمثيل تجاري رسمي بكافة الدوائر الحكومية']
         : ['Combine Free Zone tax perks with Mainland local sales', 'Single operations hub without duplicate overhead', 'Flexible executive residence visa quotas', 'Direct representation across federal ministries'],

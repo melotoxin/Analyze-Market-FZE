@@ -3,9 +3,9 @@ import confetti from 'canvas-confetti';
 import { Modal } from '../ui/Modal';
 import { Button } from '../ui/Button';
 import { COMPANY_DETAILS } from '../../data/mockData';
-import { Phone, CheckCircle2, Send, MessageCircle, AlertCircle } from 'lucide-react';
+import { Phone, CheckCircle2, Send, MessageCircle, Mail, AlertCircle } from 'lucide-react';
 import { Language } from '../../data/translations';
-import { submitLead, WHATSAPP_URL, openExternal } from '../../utils/submitLead';
+import { submitLead, openAdvisoryWhatsApp, openAdvisoryEmail } from '../../utils/submitLead';
 
 interface QuickConsultationModalProps {
   isOpen: boolean;
@@ -33,6 +33,7 @@ export const QuickConsultationModal: React.FC<QuickConsultationModalProps> = ({
   const uid = useId();
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
   const [packageChoice, setPackageChoice] = useState(defaultPackage || SERVICES[0]);
   const [notes, setNotes] = useState('');
   const [honeypot, setHoneypot] = useState('');
@@ -52,6 +53,7 @@ export const QuickConsultationModal: React.FC<QuickConsultationModalProps> = ({
       await submitLead({
         name,
         phone,
+        email: email.trim() || undefined,
         service: packageChoice,
         notes,
         source: 'consultation-modal',
@@ -74,6 +76,7 @@ export const QuickConsultationModal: React.FC<QuickConsultationModalProps> = ({
       setError('');
       setName('');
       setPhone('');
+      setEmail('');
       setNotes('');
     }, 200);
   };
@@ -81,6 +84,14 @@ export const QuickConsultationModal: React.FC<QuickConsultationModalProps> = ({
   const inputClass =
     'w-full bg-slate-50 dark:bg-[#182032] border border-slate-200 dark:border-[#1e293b] rounded-xl px-3 py-2.5 text-xs text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition-colors';
   const labelClass = 'text-[11px] font-semibold uppercase text-slate-600 dark:text-[#94a3b8] block';
+
+  const advisoryPayload = {
+    name,
+    phone,
+    email: email.trim() || undefined,
+    service: packageChoice,
+    notes: notes.trim() || undefined,
+  };
 
   return (
     <Modal
@@ -146,11 +157,19 @@ export const QuickConsultationModal: React.FC<QuickConsultationModalProps> = ({
             </Button>
             <button
               type="button"
-              onClick={() => openExternal(WHATSAPP_URL)}
+              onClick={() => openAdvisoryWhatsApp(advisoryPayload)}
               className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg border border-emerald-500/40 text-emerald-600 dark:text-emerald-400 text-xs font-bold hover:bg-emerald-50 dark:hover:bg-emerald-950/40 transition-colors"
             >
               <MessageCircle className="w-3.5 h-3.5" />
               <span>{isAr ? 'محادثة واتساب' : 'Chat on WhatsApp'}</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => openAdvisoryEmail(advisoryPayload)}
+              className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg border border-sky-500/40 text-sky-600 dark:text-sky-400 text-xs font-bold hover:bg-sky-50 dark:hover:bg-sky-950/40 transition-colors"
+            >
+              <Mail className="w-3.5 h-3.5" />
+              <span>{isAr ? 'إرسال بريد' : 'Send by Email'}</span>
             </button>
           </div>
         </div>
@@ -226,6 +245,23 @@ export const QuickConsultationModal: React.FC<QuickConsultationModalProps> = ({
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               placeholder="+971 56 339 6961"
+              className={inputClass}
+            />
+          </div>
+
+          <div className="space-y-1">
+            <label htmlFor={uid + '-email'} className={labelClass}>
+              {isAr ? 'البريد الإلكتروني (اختياري)' : 'Email (Optional)'}
+            </label>
+            <input
+              id={uid + '-email'}
+              name="email"
+              type="email"
+              dir="ltr"
+              autoComplete="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="you@company.com"
               className={inputClass}
             />
           </div>

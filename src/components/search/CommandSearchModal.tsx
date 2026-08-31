@@ -9,6 +9,7 @@ import {
   X,
   Phone,
   MessageCircle,
+  Mail,
   Sparkles
 } from 'lucide-react';
 import { Language } from '../../data/translations';
@@ -72,7 +73,8 @@ export const CommandSearchModal: React.FC<CommandSearchModalProps> = ({
     { label: 'Calculate 2026 Company Incorporation Cost', icon: Calculator, action: 'scroll-calculator' },
     { label: '10-Year Golden Visa Eligibility Check', icon: Award, action: 'consult-visa' },
     { label: 'Book SRTI Park Corporate Advisory Session', icon: Building, action: 'consult-srti' },
-    { label: 'Connect with Senior Director via WhatsApp', icon: MessageCircle, action: 'whatsapp' }
+    { label: 'Connect with Senior Director via WhatsApp', icon: MessageCircle, action: 'whatsapp' },
+    { label: 'Email advisory team with pre-filled brief', icon: Mail, action: 'email' },
   ];
 
   const filteredFreeZones = freeZones.filter(

@@ -10,6 +10,7 @@ type Lead = {
   name: string;
   phone: string;
   service: string;
+  email?: string;
   notes?: string;
   quote?: string;
   source?: string;
@@ -41,7 +42,10 @@ const escapeHtml = (s: string) =>
 
 // Deliberately permissive: UAE clients write numbers many ways. We only reject
 // input that cannot be a phone number at all.
-const PHONE_OK = /^[+()\d][\d\s().-]{6,24}$/;
+const PHONE_OK = /^[+()\d](?=.*\d)[\d\s().-]{6,24}$/;
+const EMAIL_OK = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+const leadRef = () => `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
 
 export default async function handler(req: any, res: any) {
   if (req.method !== 'POST') {
@@ -67,6 +71,7 @@ export default async function handler(req: any, res: any) {
 
   const name = clean(body.name, 120);
   const phone = clean(body.phone, 32);
+  const email = clean(body.email, 160);
   const service = clean(body.service, 160) || 'General enquiry';
   const notes = clean(body.notes, 2000);
   const quote = clean(body.quote, 120);
@@ -75,10 +80,13 @@ export default async function handler(req: any, res: any) {
   if (name.length < 2) return res.status(400).json({ error: 'Please enter your full name.' });
   if (!PHONE_OK.test(phone))
     return res.status(400).json({ error: 'Please enter a valid phone number.' });
+  if (email && !EMAIL_OK.test(email))
+    return res.status(400).json({ error: 'Please enter a valid email address.' });
 
   const rows: [string, string][] = [
     ['Name', name],
     ['Phone / WhatsApp', phone],
+    ...(email ? [['Email', email] as [string, string]] : []),
     ['Service', service],
     ['Estimate', quote || '—'],
     ['Source', source],
@@ -99,11 +107,11 @@ export default async function handler(req: any, res: any) {
     ${notes ? `<p style="font-family:sans-serif"><b>Notes</b><br>${escapeHtml(notes).replace(/\n/g, '<br>')}</p>` : ''}
   `;
 
+  const ref = leadRef();
   const key = process.env.RESEND_API_KEY;
   if (!key) {
-    // Never lose a lead because the mailer is misconfigured: log it so it is
-    // recoverable from Vercel's function logs, and tell the client to call instead.
-    console.error('LEAD_UNSENT_NO_API_KEY', JSON.stringify({ name, phone, service, quote, notes }));
+    // Log a correlation id only — never PII in function logs.
+    console.error('LEAD_UNSENT_NO_API_KEY', { ref, source });
     return res.status(503).json({ error: 'Email service is not configured.' });
   }
 
@@ -114,17 +122,19 @@ export default async function handler(req: any, res: any) {
       body: JSON.stringify({
         from: FROM,
         to: [TO],
-        reply_to: TO,
+        reply_to: email || TO,
         subject: `New lead: ${name} — ${service}`,
         html,
       }),
     });
     if (!r.ok) {
-      console.error('LEAD_SEND_FAILED', r.status, await r.text(), JSON.stringify({ name, phone }));
+      const detail = await r.text();
+      console.error('LEAD_SEND_FAILED', { ref, status: r.status, detail: detail.slice(0, 200) });
       return res.status(502).json({ error: 'Could not send your request.' });
     }
   } catch (err) {
-    console.error('LEAD_SEND_ERROR', err, JSON.stringify({ name, phone }));
+    const message = err instanceof Error ? err.message : 'unknown';
+    console.error('LEAD_SEND_ERROR', { ref, message });
     return res.status(502).json({ error: 'Could not send your request.' });
   }
 

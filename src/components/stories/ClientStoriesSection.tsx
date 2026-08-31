@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { ArrowRight, TrendingUp } from 'lucide-react';
+import React, { useCallback, useState } from 'react';
+import { ArrowRight, ChevronLeft, ChevronRight, TrendingUp } from 'lucide-react';
 import { Language } from '../../data/translations';
 
 interface ClientStoriesSectionProps {
@@ -62,6 +62,16 @@ export const ClientStoriesSection: React.FC<ClientStoriesSectionProps> = ({
     }
   ];
 
+  const storyCount = stories.length;
+
+  const goToPrevStory = useCallback(() => {
+    setActiveStory((idx) => (idx - 1 + storyCount) % storyCount);
+  }, [storyCount]);
+
+  const goToNextStory = useCallback(() => {
+    setActiveStory((idx) => (idx + 1) % storyCount);
+  }, [storyCount]);
+
   return (
     <section id="client-stories" className="py-20 sm:py-28 bg-white border-b border-slate-200 font-sans text-slate-900">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -85,20 +95,41 @@ export const ClientStoriesSection: React.FC<ClientStoriesSectionProps> = ({
         </div>
 
         {/* Tab Navigation for Case Studies */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-8 border-b border-slate-200 scrollbar-none">
-          {stories.map((s, idx) => (
-            <button
-              key={idx}
-              onClick={() => setActiveStory(idx)}
-              className={'px-5 py-2.5 text-xs font-mono font-bold rounded-lg transition-all whitespace-nowrap cursor-pointer ' + (
-                activeStory === idx
-                  ? 'bg-slate-900 text-white shadow-sm'
-                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200'
-              )}
-            >
-              <span>{s.client}</span>
-            </button>
-          ))}
+        <div className="flex items-center gap-2 mb-8 border-b border-slate-200 pb-4">
+          <button
+            type="button"
+            onClick={goToPrevStory}
+            aria-label={isAr ? 'القصة السابقة' : 'Previous case study'}
+            className="shrink-0 p-2.5 rounded-lg border border-slate-200 bg-white text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-colors cursor-pointer"
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+
+          <div className="flex flex-1 items-center gap-2 overflow-x-auto scrollbar-none min-w-0">
+            {stories.map((s, idx) => (
+              <button
+                key={idx}
+                type="button"
+                onClick={() => setActiveStory(idx)}
+                className={'px-5 py-2.5 text-xs font-mono font-bold rounded-lg transition-all whitespace-nowrap cursor-pointer shrink-0 ' + (
+                  activeStory === idx
+                    ? 'bg-slate-900 text-white shadow-sm'
+                    : 'bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200'
+                )}
+              >
+                <span>{s.client}</span>
+              </button>
+            ))}
+          </div>
+
+          <button
+            type="button"
+            onClick={goToNextStory}
+            aria-label={isAr ? 'القصة التالية' : 'Next case study'}
+            className="shrink-0 p-2.5 rounded-lg border border-slate-200 bg-white text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-colors cursor-pointer"
+          >
+            <ChevronRight className="w-5 h-5" />
+          </button>
         </div>
 
         {/* Active Featured Case Study Card */}

@@ -7,6 +7,7 @@ import {
   Calculator,
   FileDown,
   MessageCircle,
+  Mail,
   Building,
   Laptop,
   Warehouse
@@ -24,7 +25,7 @@ import {
   Workspace,
   Activity,
 } from '../../data/pricing';
-import { submitLead, WHATSAPP_URL, openExternal } from '../../utils/submitLead';
+import { submitLead, openAdvisoryWhatsApp, openAdvisoryEmail } from '../../utils/submitLead';
 
 interface EnterpriseSetupStudioProps {
   onOpenConsultation: (details?: string) => void;
@@ -49,7 +50,9 @@ export const EnterpriseSetupStudio: React.FC<EnterpriseSetupStudioProps> = ({
   // Lead dispatch inputs
   const [clientName, setClientName] = useState('');
   const [clientPhone, setClientPhone] = useState('');
+  const [clientEmail, setClientEmail] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitChannel, setSubmitChannel] = useState<'whatsapp' | 'email' | null>(null);
   const [isDownloadingPdf, setIsDownloadingPdf] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
@@ -112,48 +115,44 @@ export const EnterpriseSetupStudio: React.FC<EnterpriseSetupStudioProps> = ({
     }
   };
 
-  const handleStudioSubmit = async (e: React.FormEvent) => {
+  const handleStudioSubmit = async (e: React.FormEvent, channel: 'whatsapp' | 'email') => {
     e.preventDefault();
     if (!clientName.trim() || !clientPhone.trim()) return;
     setError('');
     setIsSubmitting(true);
 
-    // Record the lead first: the WhatsApp handoff used to be the only trace of it,
-    // so anyone who never sent the prefilled message was lost entirely.
+    const advisory = {
+      name: clientName.trim(),
+      phone: clientPhone.trim(),
+      email: clientEmail.trim() || undefined,
+      service: 'Venture Estimator quote',
+      notes: quoteSummary,
+      quote: formattedTotal,
+    };
+
     try {
       await submitLead({
-        name: clientName,
-        phone: clientPhone,
-        service: 'Venture Estimator quote',
-        notes: quoteSummary,
-        quote: formattedTotal,
+        ...advisory,
         source: 'venture-estimator',
       });
     } catch (err) {
-      console.error('Lead capture failed, continuing to WhatsApp', err);
+      console.error('Lead capture failed, continuing to advisory channel', err);
     } finally {
       setIsSubmitting(false);
     }
 
+    setSubmitChannel(channel);
     setIsSubmitted(true);
     confetti({ particleCount: 70, spread: 50, origin: { y: 0.6 } });
 
-    const message =
-      'Hello AM DXB Advisory, I configured a ' +
-      quoteSummary +
-      ' at an estimated tariff of ' +
-      formattedTotal +
-      '. Name: ' +
-      clientName +
-      ', Phone: ' +
-      clientPhone +
-      '. Please share the registration roadmap.';
-
     setTimeout(() => {
-      openExternal(WHATSAPP_URL + '?text=' + encodeURIComponent(message));
+      if (channel === 'whatsapp') openAdvisoryWhatsApp(advisory);
+      else openAdvisoryEmail(advisory);
       setIsSubmitted(false);
+      setSubmitChannel(null);
       setClientName('');
       setClientPhone('');
+      setClientEmail('');
     }, 1500);
   };
 
@@ -362,11 +361,21 @@ export const EnterpriseSetupStudio: React.FC<EnterpriseSetupStudioProps> = ({
         {isSubmitted ? (
           <div className="p-3.5 bg-emerald-50 border border-emerald-200 rounded-xl text-center space-y-1 font-mono">
             <CheckCircle2 className="w-5 h-5 text-emerald-600 mx-auto" />
-            <span className="text-xs font-bold text-emerald-950 block">Connecting to Senior Advisor via WhatsApp...</span>
-            <span className="text-[11px] text-emerald-800 block">Pre-filled mandate dispatched.</span>
+            <span className="text-xs font-bold text-emerald-950 block">
+              {submitChannel === 'email'
+                ? isAr
+                  ? 'جارٍ فتح بريدك لإرسال الطلب...'
+                  : 'Opening your email client...'
+                : isAr
+                  ? 'جارٍ الاتصال بمستشار عبر واتساب...'
+                  : 'Connecting to Senior Advisor via WhatsApp...'}
+            </span>
+            <span className="text-[11px] text-emerald-800 block">
+              {isAr ? 'تم تجهيز الرسالة مسبقاً.' : 'Pre-filled advisory message ready.'}
+            </span>
           </div>
         ) : (
-          <form onSubmit={handleStudioSubmit} className="space-y-2">
+          <form className="space-y-2" onSubmit={(e) => e.preventDefault()}>
             {error && (
               <p role="alert" className="text-[11px] text-rose-600 font-medium">
                 {error}
@@ -408,20 +417,37 @@ export const EnterpriseSetupStudio: React.FC<EnterpriseSetupStudioProps> = ({
               </div>
             </div>
 
+            <div>
+              <label htmlFor={uid + '-studio-email'} className="sr-only">
+                {isAr ? 'البريد الإلكتروني' : 'Email address'}
+              </label>
+              <input
+                id={uid + '-studio-email'}
+                type="email"
+                dir="ltr"
+                autoComplete="email"
+                value={clientEmail}
+                onChange={(e) => setClientEmail(e.target.value)}
+                placeholder={isAr ? 'البريد الإلكتروني (اختياري)' : 'Email (optional, for reply)'}
+                className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-800 focus:border-slate-800"
+              />
+            </div>
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
               <button
                 type="button"
                 onClick={handleDownloadPdf}
                 disabled={isDownloadingPdf}
-                className="bg-white hover:bg-slate-100 border border-slate-300 text-slate-900 font-bold text-[11px] py-2.5 rounded-lg flex items-center justify-center gap-1.5 cursor-pointer shadow-sm transition-all"
+                className="bg-white hover:bg-slate-100 border border-slate-300 text-slate-900 font-bold text-[11px] py-2.5 rounded-lg flex items-center justify-center gap-1.5 cursor-pointer shadow-sm transition-all sm:col-span-2"
               >
                 <FileDown className="w-3.5 h-3.5 text-slate-700" aria-hidden="true" />
                 <span>{isDownloadingPdf ? 'Generating...' : 'Download PDF Quote'}</span>
               </button>
 
               <button
-                type="submit"
+                type="button"
                 disabled={isSubmitting}
+                onClick={(e) => handleStudioSubmit(e, 'whatsapp')}
                 className="bg-slate-900 hover:bg-slate-800 text-white font-bold text-[11px] uppercase tracking-wider py-2.5 rounded-lg flex items-center justify-center gap-1.5 cursor-pointer shadow-sm transition-all disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 <MessageCircle className="w-3.5 h-3.5" />
@@ -431,8 +457,26 @@ export const EnterpriseSetupStudio: React.FC<EnterpriseSetupStudioProps> = ({
                       ? 'جارٍ الإرسال...'
                       : 'Sending...'
                     : isAr
-                      ? 'بدء الإجراءات واتساب'
+                      ? 'واتساب — تأكيد العرض'
                       : 'Lock Quote on WhatsApp'}
+                </span>
+              </button>
+
+              <button
+                type="button"
+                disabled={isSubmitting}
+                onClick={(e) => handleStudioSubmit(e, 'email')}
+                className="bg-white hover:bg-slate-50 border border-slate-300 text-slate-900 font-bold text-[11px] uppercase tracking-wider py-2.5 rounded-lg flex items-center justify-center gap-1.5 cursor-pointer shadow-sm transition-all disabled:opacity-60 disabled:cursor-not-allowed"
+              >
+                <Mail className="w-3.5 h-3.5" />
+                <span>
+                  {isSubmitting
+                    ? isAr
+                      ? 'جارٍ الإرسال...'
+                      : 'Sending...'
+                    : isAr
+                      ? 'بريد — تأكيد العرض'
+                      : 'Send Quote by Email'}
                 </span>
               </button>
             </div>
