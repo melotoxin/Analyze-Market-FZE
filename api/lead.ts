@@ -33,7 +33,12 @@ function rateLimited(ip: string): boolean {
 }
 
 const clean = (v: unknown, max: number): string =>
-  typeof v === 'string' ? v.replace(/[\u0000-\u001F\u007F]/g, '').trim().slice(0, max) : '';
+  typeof v === 'string'
+    ? // Stripping control characters is the point: left in, they would corrupt the
+      // outgoing email headers and body (a classic header-injection vector).
+      // eslint-disable-next-line no-control-regex
+      v.replace(/[\u0000-\u001F\u007F]/g, '').trim().slice(0, max)
+    : '';
 
 const escapeHtml = (s: string) =>
   s.replace(/[&<>"']/g, (c) =>

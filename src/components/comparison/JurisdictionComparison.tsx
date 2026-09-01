@@ -117,9 +117,11 @@ export const JurisdictionComparison: React.FC<JurisdictionComparisonProps> = ({
         {/* 3 Top Summary Interactive Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
           
-          <div
+          <button
+            type="button"
+            aria-pressed={selectedCol === 'freezone'}
             onClick={() => setSelectedCol('freezone')}
-            className={'p-6 rounded-2xl border transition-all cursor-pointer relative group bg-white ' + (
+            className={'p-6 rounded-2xl border transition-all cursor-pointer relative group bg-white text-start w-full focus:outline-none focus:ring-2 focus:ring-sky-500 ' + (
               selectedCol === 'freezone'
                 ? 'border-slate-900 ring-1 ring-slate-900 shadow-md'
                 : 'border-slate-200 hover:border-slate-400'
@@ -139,11 +141,13 @@ export const JurisdictionComparison: React.FC<JurisdictionComparisonProps> = ({
               <span className="text-slate-500">Tax Treatment:</span>
               <span className="text-emerald-700 font-bold">0% Corporate Tax (QFZP)</span>
             </div>
-          </div>
+          </button>
 
-          <div
+          <button
+            type="button"
+            aria-pressed={selectedCol === 'mainland'}
             onClick={() => setSelectedCol('mainland')}
-            className={'p-6 rounded-2xl border transition-all cursor-pointer relative group bg-white ' + (
+            className={'p-6 rounded-2xl border transition-all cursor-pointer relative group bg-white text-start w-full focus:outline-none focus:ring-2 focus:ring-sky-500 ' + (
               selectedCol === 'mainland'
                 ? 'border-slate-900 ring-1 ring-slate-900 shadow-md'
                 : 'border-slate-200 hover:border-slate-400'
@@ -163,11 +167,13 @@ export const JurisdictionComparison: React.FC<JurisdictionComparisonProps> = ({
               <span className="text-slate-500">Trade Freedom:</span>
               <span className="text-slate-900 font-bold">100% Unrestricted</span>
             </div>
-          </div>
+          </button>
 
-          <div
+          <button
+            type="button"
+            aria-pressed={selectedCol === 'offshore'}
             onClick={() => setSelectedCol('offshore')}
-            className={'p-6 rounded-2xl border transition-all cursor-pointer relative group bg-white ' + (
+            className={'p-6 rounded-2xl border transition-all cursor-pointer relative group bg-white text-start w-full focus:outline-none focus:ring-2 focus:ring-sky-500 ' + (
               selectedCol === 'offshore'
                 ? 'border-slate-900 ring-1 ring-slate-900 shadow-md'
                 : 'border-slate-200 hover:border-slate-400'
@@ -187,7 +193,7 @@ export const JurisdictionComparison: React.FC<JurisdictionComparisonProps> = ({
               <span className="text-slate-500">Office Needed:</span>
               <span className="text-emerald-700 font-bold">Zero Physical Office</span>
             </div>
-          </div>
+          </button>
 
         </div>
 

@@ -94,6 +94,9 @@ export const CommandSearchModal: React.FC<CommandSearchModalProps> = ({
           <Search className="w-5 h-5 text-slate-400 shrink-0" />
           <input
             type="text"
+            /* The palette only ever opens on an explicit user action (Cmd+K or the
+               search button), so focusing the input is expected, not a surprise. */
+            // eslint-disable-next-line jsx-a11y/no-autofocus
             autoFocus
             value={query}
             onChange={(e) => setQuery(e.target.value)}

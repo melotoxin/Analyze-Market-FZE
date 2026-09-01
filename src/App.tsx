@@ -225,11 +225,7 @@ export function App() {
           />
 
           <ScrollReveal direction="up" delay={0.1}>
-            <OtherServicesSection
-              onOpenConsultation={handleOpenConsultation}
-              onNavigateService={handleNavigateService}
-              lang={lang}
-            />
+            <OtherServicesSection onNavigateService={handleNavigateService} lang={lang} />
           </ScrollReveal>
 
           <Suspense fallback={<SectionFallback />}>

@@ -76,9 +76,9 @@ export const UaeCostVisualizerSection: React.FC<UaeCostVisualizerSectionProps> =
             
             {/* 1. Jurisdiction Choice */}
             <div className="space-y-2">
-              <label className="text-xs font-mono font-bold uppercase text-slate-700 block">
+              <span className="text-xs font-mono font-bold uppercase text-slate-700 block">
                 1. Select Legal Jurisdiction:
-              </label>
+              </span>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 {[
                   { id: 'freezone', label: 'Free Zone (40+ Zones)', sub: '0% Corporate Tax (QFZP)' },
@@ -107,9 +107,9 @@ export const UaeCostVisualizerSection: React.FC<UaeCostVisualizerSectionProps> =
             {/* 2. Visa Allocation Slider */}
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <label className="text-xs font-mono font-bold uppercase text-slate-700">
-                  2. Executive & Investor Visas:
-                </label>
+                <span className="text-xs font-mono font-bold uppercase text-slate-700">
+                  2. Executive &amp; Investor Visas:
+                </span>
                 <span className="text-xs font-mono font-bold px-3 py-1 rounded-full bg-slate-900 text-white">
                   {visas} {visas === 1 ? 'Visa' : 'Visas'}
                 </span>
@@ -133,9 +133,9 @@ export const UaeCostVisualizerSection: React.FC<UaeCostVisualizerSectionProps> =
 
             {/* 3. Office & Workspace Requirements */}
             <div className="space-y-2">
-              <label className="text-xs font-mono font-bold uppercase text-slate-700 block">
+              <span className="text-xs font-mono font-bold uppercase text-slate-700 block">
                 3. Workspace Facility:
-              </label>
+              </span>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 {[
                   { id: 'flexi', label: 'Flexi-Desk (Included)', sub: 'Zero Lease Overhead' },

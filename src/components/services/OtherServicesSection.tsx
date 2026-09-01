@@ -8,17 +8,16 @@ import {
   Building2,
   ArrowRight,
 } from 'lucide-react';
+import { servicePath } from '../../utils/router';
 import { Language } from '../../data/translations';
 import { ServiceSlug } from '../../data/servicesData';
 
 interface OtherServicesSectionProps {
-  onOpenConsultation: (serviceName?: string) => void;
   onNavigateService?: (slug: ServiceSlug) => void;
   lang: Language;
 }
 
 export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({
-  onOpenConsultation,
   onNavigateService,
   lang
 }) => {
@@ -142,10 +141,18 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({
             const Icon = svc.icon;
 
             return (
-              <div
+              // A real link, not a clickable div: keyboard users can reach it, it
+              // opens in a new tab on ctrl/cmd-click, and crawlers follow it to the
+              // service page. The main services grid was previously invisible to both.
+              <a
                 key={svc.id}
-                onClick={() => onNavigateService ? onNavigateService(svc.slug) : onOpenConsultation(svc.title)}
-                className={svc.colSpan + ' bg-white border border-slate-200 hover:border-slate-400 rounded-2xl overflow-hidden flex flex-col justify-between transition-all cursor-pointer group shadow-sm hover:shadow-md'}
+                href={servicePath(svc.slug)}
+                onClick={(e) => {
+                  if (e.metaKey || e.ctrlKey || e.shiftKey || !onNavigateService) return;
+                  e.preventDefault();
+                  onNavigateService(svc.slug);
+                }}
+                className={svc.colSpan + ' bg-white border border-slate-200 hover:border-slate-400 rounded-2xl overflow-hidden flex flex-col justify-between transition-all cursor-pointer group shadow-sm hover:shadow-md no-underline focus:outline-none focus:ring-2 focus:ring-sky-500'}
               >
                 {/* Visual Photographic Header */}
                 <div className="relative h-48 sm:h-52 w-full overflow-hidden bg-slate-100">
@@ -184,7 +191,7 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({
                     <span className="group-hover:translate-x-1 transition-transform">➔</span>
                   </div>
                 </div>
-              </div>
+              </a>
             );
           })}
         </div>
