@@ -7,6 +7,7 @@ import { OtherServicesSection } from './components/services/OtherServicesSection
 import { QuickConsultationModal } from './components/consultation/QuickConsultationModal';
 import { CommandSearchModal } from './components/search/CommandSearchModal';
 import { MobileBottomDock } from './components/layout/MobileBottomDock';
+import { NotFoundSection } from './components/layout/NotFoundSection';
 import { ScrollReveal } from './components/ui/ScrollReveal';
 import { ServiceSlug } from './data/servicesData';
 import { Language } from './data/translations';
@@ -68,11 +69,12 @@ export function App() {
   const [selectedPackage, setSelectedPackage] = useState<string | undefined>(undefined);
   const [isCommandSearchOpen, setIsCommandSearchOpen] = useState(false);
 
-  const [activeServiceSlug, navigate] = useRoute();
+  const [route, navigate] = useRoute();
+  const activeServiceSlug = route.slug;
   const [lang, setLang] = usePersistentState<Language>('amdxb:lang', 'en', isLanguage);
   const [currency, setCurrency] = usePersistentState<Currency>('amdxb:currency', 'AED', isCurrency);
 
-  useDocumentMeta(activeServiceSlug, lang);
+  useDocumentMeta(activeServiceSlug, lang, route.notFound);
 
   useEffect(() => {
     const handleGlobalKeyDown = (e: KeyboardEvent) => {
@@ -194,7 +196,15 @@ export function App() {
         onNavigateHome={handleNavigateHome}
       />
 
-      {activeServiceSlug ? (
+      {route.notFound ? (
+        <main id="main-content" className="flex-grow relative z-10">
+          <NotFoundSection
+            lang={lang}
+            onNavigateHome={handleNavigateHome}
+            onNavigateService={handleNavigateService}
+          />
+        </main>
+      ) : activeServiceSlug ? (
         <main id="main-content" className="flex-grow relative z-10">
           <Suspense fallback={<SectionFallback />}>
             <ServiceDetailPage

@@ -98,10 +98,12 @@ export const CommandSearchModal: React.FC<CommandSearchModalProps> = ({
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder={isAr ? 'ابحث عن منطقة حرة، نشاط تجاري، أو خدمة...' : 'Search 40+ Free Zones, commercial activities, or services...'}
+            aria-label={isAr ? 'ابحث عن منطقة حرة أو نشاط تجاري أو خدمة' : 'Search free zones, commercial activities, or services'}
             className="w-full text-sm text-slate-900 placeholder-slate-400 bg-transparent focus:outline-none font-medium"
           />
           <button
             onClick={onClose}
+            aria-label={isAr ? 'إغلاق البحث' : 'Close search'}
             className="p-1 rounded-md text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
           >
             <X className="w-4 h-4" />
