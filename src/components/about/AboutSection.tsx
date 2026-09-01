@@ -49,7 +49,9 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
             {/* Real Photo Banner */}
             <div className="h-48 relative overflow-hidden bg-slate-100">
               <img
-                src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80"
+                src="/img/1486406146926-c627a9-w1200.webp"
+                width={1200}
+                height={800}
                 alt="SRTI Park Innovation Center"
                 className="w-full h-full object-cover object-center"
                 loading="lazy"
@@ -114,7 +116,9 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
             
             <div className="h-48 relative overflow-hidden bg-slate-100">
               <img
-                src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=80"
+                src="/img/1512453979798-5ea266-w800.webp"
+                width={800}
+                height={533}
                 alt="Dubai Commercial Hub"
                 className="w-full h-full object-cover object-center"
                 loading="lazy"

@@ -25,7 +25,7 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
       popular: true,
       price: formatMoney(11500, currency),
       turnaround: '2 - 4 Business Days',
-      image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600&q=80',
+      image: '/img/1512453979798-5ea266-w600.webp',
       features: isAr
         ? ['تحويل كامل للأرباح ورأس المال بنسبة 100%', '0% ضريبة دخل شخصي ومزايا ضريبية تفضيلية', 'أكثر من 40 منطقة حرة معتمدة في الإمارات السبع', 'مساعدة مباشرة وسريعة لفتح الحساب البنكي']
         : ['100% Repatriation of Capital & Profits', '0% Personal Tax & 0% QFZP Corporate Tax', 'Access to 40+ Established Free Zones', 'Guaranteed Corporate Bank Account Support'],
@@ -39,7 +39,7 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
       popular: false,
       price: formatMoney(17500, currency),
       turnaround: '4 - 7 Business Days',
-      image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80',
+      image: '/img/1486406146926-c627a9-w600.webp',
       features: isAr
         ? ['ممارسة التجارة بحرية في أي مكان داخل الإمارات', 'المشاركة في المناقصات والعقود الحكومية', 'تأشيرات عمل بلا سقف (مرتبطة بمساحة المكتب)', 'توثيق رسمي لدى دوائر التنمية الاقتصادية (DED)']
         : ['Trade anywhere inside UAE Mainland & GCC', 'Direct participation in Government Tenders', 'Uncapped visa quota (linked to lease size)', 'Official DED / DET Commercial Licensing Clearance'],
@@ -53,7 +53,7 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
       popular: false,
       price: formatMoney(13500, currency),
       turnaround: '3 - 5 Business Days',
-      image: 'https://images.unsplash.com/photo-1580674684081-7617fbf3d745?auto=format&fit=crop&w=600&q=80',
+      image: '/img/1580674684081-7617fb-w600.webp',
       features: isAr
         ? ['هيكل ملكية مثالي للعقارات والأصول العالمية', 'سرية مصرفية وقانونية كاملة', 'حسابات بنكية دولية متعددة العملات', 'لا تشترط وجود مكتب فعلي داخل الدولة']
         : ['Global Real Estate & Asset Holding Structure', 'Statutory Privacy & Shareholder Protection', 'Multi-currency International Bank Accounts', 'No Physical Office Requirement in UAE'],
@@ -67,7 +67,7 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
       popular: false,
       price: formatMoney(22800, currency),
       turnaround: '5 - 8 Business Days',
-      image: 'https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=600&q=80',
+      image: '/img/1518684079-3c830dcef-w600.webp',
       features: isAr
         ? ['الاستفادة من الحوافز الضريبية والوصول للمستهلك المحلي', 'مكتب رئيسي موحد دون تكرار التكاليف', 'تأشيرات وإقامات مرنة لكبار التنفيذيين', 'تمثيل تجاري رسمي بكافة الدوائر الحكومية']
         : ['Combine Free Zone tax perks with Mainland local sales', 'Single operations hub without duplicate overhead', 'Flexible executive residence visa quotas', 'Direct representation across federal ministries'],

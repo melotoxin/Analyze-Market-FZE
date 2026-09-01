@@ -45,7 +45,7 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({
         : 'Turnkey formation across Mainland DED, 40+ Free Zones, and Offshore SPVs with instant trade name reservation and notarized MOA.',
       actionLabel: isAr ? 'تفاصيل الخدمة' : 'View Service Roadmap',
       icon: Building2,
-      image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80'
+      image: '/img/1486406146926-c627a9-w800.webp'
     },
     {
       id: 'golden-visa',
@@ -58,7 +58,7 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({
         : 'Turnkey 10-year Golden Visa processing for property investors (AED 2M+), enterprise founders, senior executives, and specialized talent with 100% family sponsorship.',
       actionLabel: isAr ? 'تفاصيل الخدمة' : 'View Service Roadmap',
       icon: Award,
-      image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=80'
+      image: '/img/1512453979798-5ea266-w800.webp'
     },
     {
       id: 'tax-vat',
@@ -71,7 +71,7 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({
         : 'Federal Tax Authority (FTA) TRN registration support, 9% Corporate Tax filing, Qualifying Free Zone Person (QFZP) eligibility review, and quarterly VAT returns.',
       actionLabel: isAr ? 'تفاصيل الخدمة' : 'View Service Roadmap',
       icon: Receipt,
-      image: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80'
+      image: '/img/1554224155-8d04cb21c-w800.webp'
     },
     {
       id: 'accounting',
@@ -84,7 +84,7 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({
         : 'Advisory on selecting and configuring third-party cloud accounting platforms — software setup, data migration, and team onboarding support.',
       actionLabel: isAr ? 'تفاصيل الخدمة' : 'View Service Roadmap',
       icon: Calculator,
-      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80'
+      image: '/img/1460925895917-afdab8-w800.webp'
     },
     {
       id: 'pro-renewal',
@@ -97,7 +97,7 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({
         : 'Fast-track trade license renewal, Ejari registration, Establishment Card renewals, and corporate MOA amendments.',
       actionLabel: isAr ? 'تفاصيل الخدمة' : 'View Service Roadmap',
       icon: RefreshCw,
-      image: 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800&q=80'
+      image: '/img/1497215728101-856f4e-w800.webp'
     },
     {
       id: 'liquidation',
@@ -110,7 +110,7 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({
         : 'Coordination and file preparation for company closure: liaison with a licensed liquidator, visa cancellation follow-up, account closure and trade licence de-registration.',
       actionLabel: isAr ? 'تفاصيل الخدمة' : 'View Service Roadmap',
       icon: XCircle,
-      image: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80'
+      image: '/img/1589829545856-d10d55-w800.webp'
     }
   ];
 

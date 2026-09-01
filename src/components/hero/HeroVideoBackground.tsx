@@ -14,7 +14,7 @@ export const HERO_POSTER_URL = '/hero/burj-poster.jpg';
 
 /** CDN fallback if the local poster is missing (e.g. before deploy). */
 export const HERO_POSTER_FALLBACK =
-  'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1920&q=80';
+  '/img/1512453979798-5ea266-w1920.webp';
 
 /**
  * Drop a Flow-exported clip at public/hero/burj-hero.mp4 and set enableVideo on the hero.

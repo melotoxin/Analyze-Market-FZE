@@ -30,7 +30,7 @@ export const FreeZonesDirectory: React.FC<FreeZonesDirectoryProps> = ({
       visas: 'Up to 5 Visas', 
       focus: 'AI, Tech, Software & R&D', 
       featured: true,
-      image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80',
+      image: '/img/1486406146926-c627a9-w800.webp',
       url: 'https://srtip.ae/'
     },
     { 
@@ -40,7 +40,7 @@ export const FreeZonesDirectory: React.FC<FreeZonesDirectoryProps> = ({
       visas: 'Up to 6 Visas', 
       focus: 'Media, Creative, E-Commerce', 
       featured: false,
-      image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=80',
+      image: '/img/1512453979798-5ea266-w800.webp',
       url: 'https://shams.ae/'
     },
     { 
@@ -50,7 +50,7 @@ export const FreeZonesDirectory: React.FC<FreeZonesDirectoryProps> = ({
       visas: 'Up to 10 Visas', 
       focus: 'General Trading, Consulting', 
       featured: true,
-      image: 'https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=800&q=80',
+      image: '/img/1518684079-3c830dcef-w800.webp',
       url: 'https://ifza.com/'
     },
     { 
@@ -60,7 +60,7 @@ export const FreeZonesDirectory: React.FC<FreeZonesDirectoryProps> = ({
       visas: 'Unlimited', 
       focus: 'Commodities, Tech & Finance', 
       featured: false,
-      image: 'https://images.unsplash.com/photo-1580674684081-7617fbf3d745?auto=format&fit=crop&w=800&q=80',
+      image: '/img/1580674684081-7617fb-w800.webp',
       url: 'https://dmcc.ae/'
     },
     { 
@@ -70,7 +70,7 @@ export const FreeZonesDirectory: React.FC<FreeZonesDirectoryProps> = ({
       visas: 'Up to 4 Visas', 
       focus: 'E-commerce, Digital & Media', 
       featured: false,
-      image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80',
+      image: '/img/1566073771259-6a8506-w800.webp',
       url: 'https://meydanfz.ae/'
     },
     { 
@@ -80,7 +80,7 @@ export const FreeZonesDirectory: React.FC<FreeZonesDirectoryProps> = ({
       visas: 'Up to 8 Visas', 
       focus: 'Aviation, Logistics & Trade', 
       featured: false,
-      image: 'https://images.unsplash.com/photo-1529070538774-1843cb3265df?auto=format&fit=crop&w=800&q=80',
+      image: '/img/1529070538774-1843cb-w800.webp',
       url: 'https://dafz.ae/'
     },
     { 
@@ -90,7 +90,7 @@ export const FreeZonesDirectory: React.FC<FreeZonesDirectoryProps> = ({
       visas: 'Up to 4 Visas', 
       focus: 'Industrial, Trading & Services', 
       featured: false,
-      image: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=800&q=80',
+      image: '/img/1581092160562-40aa08-w800.webp',
       url: 'https://rakez.com/'
     },
     { 
@@ -100,7 +100,7 @@ export const FreeZonesDirectory: React.FC<FreeZonesDirectoryProps> = ({
       visas: 'Up to 5 Visas', 
       focus: 'E-Commerce, Manufacturing', 
       featured: false,
-      image: 'https://images.unsplash.com/photo-1577495508048-b635879837f1?auto=format&fit=crop&w=800&q=80',
+      image: '/img/1577495508048-b63587-w800.webp',
       url: 'https://afz.ae/'
     }
   ];

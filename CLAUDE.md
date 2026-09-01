@@ -22,7 +22,16 @@ Always **pull before editing**, **commit + push after** so both assistants see t
 - React 18 + TypeScript + Vite 6 + Tailwind
 - Vercel serverless: `api/lead.ts` → Resend email
 - No database; content in `src/data/`
-- CSP hash sync: `scripts/check-csp-hash.mjs` + `vercel.json`
+- CSP: `scripts/check-csp-hash.mjs` validates the JSON-LD and keeps `script-src`
+  aligned with any *executable* inline script. JSON-LD is a data block, so CSP does
+  not gate it — verified by serving `dist` with the production headers.
+- Tests: Vitest + Testing Library (`vitest.config.ts`, `src/test/setup.ts`).
+  Uses the threads pool with one worker; the default forks pool hangs on Windows.
+- CI: `.github/workflows/ci.yml` runs lint, typecheck, test, build on every push.
+- Analytics: `@vercel/analytics` + `@vercel/speed-insights`, cookieless. Custom
+  events live in `src/utils/telemetry.ts` — never pass visitor-entered text.
+- Images: all local under `public/img` (WebP). `scripts/fetch-images.mjs` re-runs
+  the download/convert step if a new remote image is ever introduced.
 
 ## Licence constraints (trade licence **6702**, SRTI Park)
 
@@ -50,6 +59,9 @@ Do **not** over-claim: no fake ISO badges, “guaranteed banking”, audit servi
 ## Pending / optional
 
 - [ ] Licence-only content pass (remove overstated sections: fake case studies claims, jurisdiction comparison fluff, etc.)
+- [ ] Soften remaining marketing claims: "guaranteed" banking, "99.8% Bank Match",
+      "2-4 Days SLA", "Ministry Compliant"
+- [ ] Component tests for the estimator and the mobile dock (modal + footer done)
 - [ ] Generate hero video via Google Flow → `public/hero/burj-hero.mp4`
 - [ ] Verify `og-image.png` on production after deploy
 - [ ] Resend domain verification for `amdxb.com`
@@ -72,9 +84,20 @@ vercel.json                          # CSP + SPA rewrites
 npm install
 npm run dev -- --port 5173 --strictPort   # front end only; forms need vercel dev
 npx vercel dev                            # front end + /api/lead
-npm test
+
+npm run lint          # eslint (react-hooks, jsx-a11y, typescript-eslint)
+npm test              # tsx assertion scripts + vitest component suite
+npm run test:watch    # vitest watch
+npm run verify        # lint + typecheck + test + build, all of it
 npm run build
+
+npm run ship                # verify, commit, push -> Vercel deploys from main
+npm run ship -- "message"   # same, with your own commit message
+npm run ship -- --dry-run   # run the gate only, commit nothing
 ```
+
+`npm run ship` refuses to run if you are not on main or if origin/main is ahead,
+and never stages the untracked local artifacts listed below.
 
 ## Env (see `.env.example`)
 
