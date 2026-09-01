@@ -28,7 +28,7 @@ export const generateQuotePdf = (details: QuoteDetails) => {
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(203, 213, 225); // #CBD5E1
   doc.text('Sharjah Research Technology & Innovation Park (SRTI Park)', 14, 25);
-  doc.text('Block B - Office #B34-B047, SRTI Park, Sharjah, UAE | www.amdxb.com', 14, 31);
+  doc.text('Block B - Office #B34-047, SRTI Park, Sharjah, UAE | www.amdxb.com', 14, 31);
 
   // Quote Badge Top Right
   doc.setFillColor(16, 185, 129); // Emerald
@@ -171,7 +171,7 @@ export const generateQuotePdf = (details: QuoteDetails) => {
 
   doc.setFontSize(7);
   doc.setTextColor(148, 163, 184);
-  doc.text('Headquarters: SRTI Park, Block B - Office #B34-B047, Sharjah, UAE | Direct Hotline: +971 56 339 6961 | Email: contact@amdxb.com', 105, 282, { align: 'center' });
+  doc.text('Headquarters: SRTI Park, Block B - Office #B34-047, Sharjah, UAE | Direct Hotline: +971 56 339 6961 | Email: contact@amdxb.com', 105, 282, { align: 'center' });
 
   // Trigger browser download
   const cleanName = details.clientName ? details.clientName.replace(/[^a-zA-Z0-9]/g, '_') : 'Company';

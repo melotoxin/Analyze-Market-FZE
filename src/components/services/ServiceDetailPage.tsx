@@ -1,27 +1,17 @@
 import React, { useState } from 'react';
 import {
-  Building2,
-  XCircle,
-  Award,
-  RefreshCw,
-  Receipt,
-  FileCheck2,
-  Calculator,
   ArrowLeft,
-  ArrowRight,
   CheckCircle2,
-  ShieldCheck,
   Clock,
   Send,
-  Phone,
   MessageCircle,
   Mail,
   HelpCircle,
   FileText
 } from 'lucide-react';
-import { Button } from '../ui/Button';
-import { Language, TRANSLATIONS } from '../../data/translations';
-import { ServiceSlug, SERVICES_CATALOG } from '../../data/servicesData';
+import { Language } from '../../data/translations';
+import { ServiceSlug, SERVICES_CATALOG, getServiceNav } from '../../data/servicesData';
+import { SERVICE_ICONS } from '../../data/serviceIcons';
 import { openAdvisoryEmail, openAdvisoryWhatsApp } from '../../utils/submitLead';
 import confetti from 'canvas-confetti';
 
@@ -33,14 +23,6 @@ interface ServiceDetailPageProps {
   lang: Language;
 }
 
-const ICON_MAP: Record<ServiceSlug, any> = {
-  'company-incorporation': Building2,
-  'company-liquidation-services': XCircle,
-  'golden-visa-services': Award,
-  'license-renewal-pro-services': RefreshCw,
-  'vat-corporate-tax-filing-services': Receipt,
-  'accounting-services': Calculator
-};
 
 export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
   slug,
@@ -50,7 +32,6 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
   lang
 }) => {
   const isAr = lang === 'ar';
-  const t = TRANSLATIONS[lang];
 
   const [clientName, setClientName] = useState('');
   const [clientPhone, setClientPhone] = useState('');
@@ -69,16 +50,11 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
   };
 
   const service = SERVICES_CATALOG[slug] || SERVICES_CATALOG['company-incorporation'];
-  const Icon = ICON_MAP[slug] || Building2;
+  const Icon = SERVICE_ICONS[slug];
 
-  const allSlugs: { slug: ServiceSlug; label: string }[] = [
-    { slug: 'company-incorporation', label: isAr ? 'تأسيس الشركات' : 'Company Incorporation' },
-    { slug: 'company-liquidation-services', label: isAr ? 'تصفية الشركات' : 'Company Liquidation' },
-    { slug: 'golden-visa-services', label: isAr ? 'الإقامة الذهبية' : 'Golden Visa Services' },
-    { slug: 'license-renewal-pro-services', label: isAr ? 'تجديد الرخص (PRO)' : 'License Renewal (PRO)' },
-    { slug: 'vat-corporate-tax-filing-services', label: isAr ? 'ضريبة الشركات والقيمة المضافة' : 'VAT & Corporate Tax' },
-    { slug: 'accounting-services', label: isAr ? 'المحاسبة ومسك الدفاتر' : 'Accounting Services' }
-  ];
+  const allSlugs = getServiceNav(lang);
+
+
 
   return (
     <div className="min-h-screen bg-[#FBFBFA] text-slate-900 font-sans pt-24 pb-28 relative z-10">
@@ -138,7 +114,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
         <div className="mb-10 overflow-x-auto scrollbar-none pb-2">
           <div className="flex items-center gap-2 min-w-max p-1.5 bg-white border border-slate-200 rounded-xl shadow-sm">
             {allSlugs.map((item) => {
-              const ItemIcon = ICON_MAP[item.slug] || Building2;
+              const ItemIcon = SERVICE_ICONS[item.slug];
               const isSelected = slug === item.slug;
 
               return (
@@ -306,7 +282,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
                 {isAr ? 'ابدأ إجراءاتك الآن مع فريق المستشارين المعتمد' : `Initiate ${isAr ? service.titleAr : service.titleEn}`}
               </h2>
               <p className="text-xs sm:text-sm text-slate-400">
-                SRTI Park, Block B - Office #B34-B047, Sharjah, UAE | Hotline: +971 56 339 6961
+                SRTI Park, Block B - Office #B34-047, Sharjah, UAE | Hotline: +971 56 339 6961
               </p>
             </div>
 

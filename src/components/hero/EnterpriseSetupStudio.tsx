@@ -28,13 +28,11 @@ import {
 import { submitLead, openAdvisoryWhatsApp, openAdvisoryEmail } from '../../utils/submitLead';
 
 interface EnterpriseSetupStudioProps {
-  onOpenConsultation: (details?: string) => void;
   lang: Language;
   currency: string;
 }
 
 export const EnterpriseSetupStudio: React.FC<EnterpriseSetupStudioProps> = ({
-  onOpenConsultation,
   lang,
   currency
 }) => {

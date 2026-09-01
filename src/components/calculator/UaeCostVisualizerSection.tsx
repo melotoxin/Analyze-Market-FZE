@@ -1,14 +1,9 @@
 import React, { useState } from 'react';
 import { 
   Calculator, 
-  Building2, 
-  Users, 
-  Briefcase, 
-  CheckCircle2, 
   ArrowRight, 
   ShieldCheck, 
   Coins,
-  Clock
 } from 'lucide-react';
 import { formatMoney } from '../../data/pricing';
 import { Language } from '../../data/translations';

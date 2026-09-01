@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Search,
   Building,
@@ -7,10 +7,8 @@ import {
   Calculator,
   ArrowRight,
   X,
-  Phone,
   MessageCircle,
   Mail,
-  Sparkles
 } from 'lucide-react';
 import { Language } from '../../data/translations';
 

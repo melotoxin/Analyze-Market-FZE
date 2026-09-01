@@ -22,6 +22,90 @@ export interface ServiceDetail {
   faqs: { q: string; a: string }[];
 }
 
+
+/**
+ * Short menu labels + one-line blurbs. The navbar, footer, service-detail rail and
+ * consultation dropdown each used to hand-maintain their own copy of this list; they
+ * had already drifted (the accounting service went out under four different names).
+ * Everything menu-shaped now derives from here.
+ */
+export interface ServiceNavEntry {
+  slug: ServiceSlug;
+  label: string;
+  tag: string;
+  desc: string;
+}
+
+const SERVICE_NAV_DATA: Record<
+  ServiceSlug,
+  { labelEn: string; labelAr: string; tagEn: string; tagAr: string; descEn: string; descAr: string }
+> = {
+  'company-incorporation': {
+    labelEn: 'Company Incorporation',
+    labelAr: 'تأسيس الشركات وإصدار التراخيص',
+    tagEn: 'Mainland & Free Zone',
+    tagAr: 'بر رئيسي ومناطق حرة',
+    descEn: 'Turnkey formation across Mainland DED, 40+ Free Zones, and Offshore SPVs.',
+    descAr: 'تأسيس متكامل في البر الرئيسي وأكثر من 40 منطقة حرة والشركات الخارجية.',
+  },
+  'company-liquidation-services': {
+    labelEn: 'Company Liquidation & De-Registration',
+    labelAr: 'تصفية الشركات وشطب الرخص',
+    tagEn: 'De-Registration Support',
+    tagAr: 'دعم شطب الرخصة',
+    descEn: 'Closure file preparation, licensed liquidator coordination, and formal de-registration.',
+    descAr: 'تجهيز ملف الإغلاق والتنسيق مع مصفٍّ مرخّص وشطب الرخصة رسمياً.',
+  },
+  'golden-visa-services': {
+    labelEn: 'Golden Visa Services',
+    labelAr: 'خدمات الإقامة الذهبية (10 سنوات)',
+    tagEn: '10-Year Long-Term',
+    tagAr: 'إقامة 10 سنوات',
+    descEn: '10-year Golden Visa processing for investors, founders, and specialized talent.',
+    descAr: 'إجراءات الإقامة الذهبية لعشر سنوات للمستثمرين والمؤسسين وأصحاب الكفاءات.',
+  },
+  'license-renewal-pro-services': {
+    labelEn: 'License Renewal (PRO) Services',
+    labelAr: 'خدمات تجديد الرخص (PRO)',
+    tagEn: 'Annual Compliance',
+    tagAr: 'الامتثال السنوي',
+    descEn: 'Trade license renewals, Ejari attestation, and Establishment Card renewals.',
+    descAr: 'تجديد الرخص التجارية وتصديق الإيجاري وتجديد بطاقة المنشأة.',
+  },
+  'vat-corporate-tax-filing-services': {
+    labelEn: 'VAT & Corporate Tax Filing',
+    labelAr: 'ضريبة الشركات والقيمة المضافة',
+    tagEn: 'Corporate Tax 9%',
+    tagAr: 'ضريبة الشركات 9%',
+    descEn: 'FTA TRN registration support, 9% Corporate Tax filing, and QFZP eligibility review.',
+    descAr: 'دعم تسجيل الرقم الضريبي وإقرارات ضريبة الشركات ومراجعة أهلية الإعفاء.',
+  },
+  'accounting-services': {
+    labelEn: 'Cloud Accounting Software',
+    labelAr: 'حلول برامج المحاسبة السحابية',
+    tagEn: 'Third-Party Software',
+    tagAr: 'برامج خارجية',
+    descEn: 'Setup, integration and support for third-party cloud accounting software.',
+    descAr: 'تهيئة وربط ودعم برامج المحاسبة السحابية من مزودين خارجيين.',
+  },
+};
+
+export const SERVICE_SLUGS = Object.keys(SERVICE_NAV_DATA) as ServiceSlug[];
+
+/** Menu entries in display order, resolved for the active language. */
+export function getServiceNav(lang: 'en' | 'ar'): ServiceNavEntry[] {
+  const ar = lang === 'ar';
+  return SERVICE_SLUGS.map((slug) => {
+    const e = SERVICE_NAV_DATA[slug];
+    return {
+      slug,
+      label: ar ? e.labelAr : e.labelEn,
+      tag: ar ? e.tagAr : e.tagEn,
+      desc: ar ? e.descAr : e.descEn,
+    };
+  });
+}
+
 export const SERVICES_CATALOG: Record<ServiceSlug, ServiceDetail> = {
   'company-incorporation': {
     slug: 'company-incorporation',

@@ -1,6 +1,6 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { HelpCircle, ChevronDown, ChevronUp, MessageCircle, Mail } from 'lucide-react';
-import { Language, TRANSLATIONS } from '../../data/translations';
+import { Language } from '../../data/translations';
 import {
   ADVISORY_EMAIL,
   openAdvisoryEmail,
@@ -8,15 +8,12 @@ import {
 } from '../../utils/submitLead';
 
 interface FaqSectionProps {
-  onOpenConsultation: () => void;
   lang: Language;
 }
 
 export const FaqSection: React.FC<FaqSectionProps> = ({
-  onOpenConsultation,
   lang
 }) => {
-  const t = TRANSLATIONS[lang];
   const isAr = lang === 'ar';
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
@@ -48,8 +45,8 @@ export const FaqSection: React.FC<FaqSectionProps> = ({
     {
       q: isAr ? 'أين يقع المقر الرئيسي لشركة أنالايز ماركتس (AnalyzeMarkets FZE)؟' : 'Where is AnalyzeMarkets FZE officially located and licensed?',
       a: isAr 
-        ? 'يقع مقرنا الرئيسي في مجمع الشارقة للبحوث والتكنولوجيا والابتكار (SRTI Park)، المبنى B - المكتب B34-B047، ومرخصون رسمياً لتقديم خدمات الاستشارات الإدارية وأبحاث الأسواق وتأسيس الشركات.'
-        : 'Our headquarters is based in Sharjah Research Technology & Innovation Park (SRTI Park), Block B - Office B34-B047, officially accredited for management consultancy, market research, and corporate structuring services.'
+        ? 'يقع مقرنا الرئيسي في مجمع الشارقة للبحوث والتكنولوجيا والابتكار (SRTI Park)، المبنى B - المكتب B34-047، ومرخصون رسمياً لتقديم خدمات الاستشارات الإدارية وأبحاث الأسواق وتأسيس الشركات.'
+        : 'Our headquarters is based in Sharjah Research Technology & Innovation Park (SRTI Park), Block B - Office B34-047, officially accredited for management consultancy, market research, and corporate structuring services.'
     }
   ];
 

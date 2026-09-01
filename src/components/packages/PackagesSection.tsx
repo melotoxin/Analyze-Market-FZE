@@ -1,7 +1,7 @@
 import React from 'react';
 import { CheckCircle2, ArrowRight, Building, Globe, Shield, Clock, GitFork, Layers } from 'lucide-react';
 import { formatMoney } from '../../data/pricing';
-import { Language, TRANSLATIONS } from '../../data/translations';
+import { Language } from '../../data/translations';
 
 interface PackagesSectionProps {
   onSelectPackage: (packageName: string) => void;
@@ -14,7 +14,6 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
   lang,
   currency
 }) => {
-  const t = TRANSLATIONS[lang];
   const isAr = lang === 'ar';
 
   const packages = [

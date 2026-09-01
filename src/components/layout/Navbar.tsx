@@ -3,14 +3,6 @@ import {
   Globe,
   Menu,
   X,
-  Building2,
-  Award,
-  RefreshCw,
-  Receipt,
-  FileCheck2,
-  Calculator,
-  XCircle,
-  PhoneCall,
   ArrowRight,
   ChevronDown,
   Search
@@ -18,7 +10,8 @@ import {
 import { Language } from '../../data/translations';
 import { AmDxbLogo } from '../ui/AmDxbLogo';
 import { NavBlinkText } from '../ui/NavBlinkText';
-import { ServiceSlug } from '../../data/servicesData';
+import { ServiceSlug, getServiceNav } from '../../data/servicesData';
+import { SERVICE_ICONS } from '../../data/serviceIcons';
 import { servicePath } from '../../utils/router';
 
 interface NavbarProps {
@@ -68,14 +61,11 @@ export const Navbar: React.FC<NavbarProps> = ({
     };
   }, []);
 
-  const servicesList: { name: string; tag: string; slug: ServiceSlug; icon: any; desc: string }[] = [
-    { name: isAr ? 'تأسيس الشركات وإصدار التراخيص' : 'Company Incorporation', tag: 'Mainland & Free Zone', slug: 'company-incorporation', icon: Building2, desc: 'Turnkey formation across Mainland DED, 40+ Free Zones, and Offshore SPVs.' },
-    { name: isAr ? 'خدمات تصفية وإلغاء الشركات' : 'Company Liquidation Services', tag: 'De-Registration Support', slug: 'company-liquidation-services', icon: XCircle, desc: 'Closure file preparation, licensed liquidator coordination, and formal de-registration.' },
-    { name: isAr ? 'خدمات الإقامة الذهبية (10 سنوات)' : 'Golden Visa Services', tag: '10-Year Long-Term', slug: 'golden-visa-services', icon: Award, desc: '10-year Golden Visa processing for investors, founders, and specialized talent.' },
-    { name: isAr ? 'خدمات تجديد الرخص (PRO)' : 'License Renewal (PRO) Services', tag: 'Annual Compliance', slug: 'license-renewal-pro-services', icon: RefreshCw, desc: 'Trade license renewals, Ejari attestation, and Establishment Card renewals.' },
-    { name: isAr ? 'خدمات ضريبة الشركات والقيمة المضافة' : 'VAT & Corporate Tax Filing Services', tag: 'Corporate Tax 9%', slug: 'vat-corporate-tax-filing-services', icon: Receipt, desc: 'FTA TRN registration, 9% Corporate Tax filing, and QFZP 0% optimization.' },
-    { name: isAr ? 'حلول برامج المحاسبة السحابية' : 'Cloud Accounting Software', tag: 'Third-Party Software', slug: 'accounting-services', icon: Calculator, desc: 'Setup, integration and support for third-party cloud accounting software.' },
-  ];
+  // Derived from the catalog: menu labels used to be duplicated here and in the
+  // footer, and had already drifted out of sync with each other.
+  const servicesList = getServiceNav(lang);
+
+
 
   const handleServiceClick = (slug: ServiceSlug) => {
     setServicesOpen(false);
@@ -110,9 +100,9 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="max-w-[1440px] mx-auto flex items-center justify-between">
           <div className="flex items-center gap-4 text-slate-300 min-w-0">
             <span className="truncate">
-              <span className="lg:hidden">SRTI Park, Sharjah · Office B34-B047</span>
-              <span className="hidden lg:inline xl:hidden">SRTI Park HQ · Block B, Office B34-B047</span>
-              <span className="hidden xl:inline">Sharjah Research Technology & Innovation Park (SRTI Park HQ: Block B - Office B34-B047)</span>
+              <span className="lg:hidden">SRTI Park, Sharjah · Office B34-047</span>
+              <span className="hidden lg:inline xl:hidden">SRTI Park HQ · Block B, Office B34-047</span>
+              <span className="hidden xl:inline">Sharjah Research Technology & Innovation Park (SRTI Park HQ: Block B - Office B34-047)</span>
             </span>
           </div>
 
@@ -166,7 +156,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   <div className="bg-white border border-slate-200 rounded-2xl shadow-xl p-2 text-xs divide-y divide-slate-100">
                     <div className="p-2 space-y-1">
                       {servicesList.map((svc, idx) => {
-                        const Icon = svc.icon;
+                        const Icon = SERVICE_ICONS[svc.slug];
                         return (
                           <a
                             key={idx}
@@ -182,7 +172,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                               <Icon className="w-4 h-4" />
                             </div>
                             <div className="flex-1 min-w-0">
-                              <span className="font-bold text-xs block truncate text-slate-900">{svc.name}</span>
+                              <span className="font-bold text-xs block truncate text-slate-900">{svc.label}</span>
                               <span className="text-[10px] font-mono text-slate-500 block truncate">{svc.tag}</span>
                             </div>
                           </a>
@@ -328,7 +318,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 }}
                 className="w-full text-start p-2.5 rounded-lg bg-slate-50 text-xs font-semibold text-slate-800 flex items-center justify-between rtl:flex-row-reverse"
               >
-                <span>{svc.name}</span>
+                <span>{svc.label}</span>
                 <ArrowRight className="w-3.5 h-3.5 text-slate-400 rtl:rotate-180" />
               </a>
             ))}

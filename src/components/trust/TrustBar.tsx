@@ -1,13 +1,7 @@
-﻿import React from 'react';
-import { ExternalLink, ShieldCheck, Building2 } from 'lucide-react';
-import { Language } from '../../data/translations';
+import React from 'react';
+import { ExternalLink } from 'lucide-react';
 
-interface TrustBarProps {
-  lang: Language;
-}
-
-export const TrustBar: React.FC<TrustBarProps> = ({ lang }) => {
-  const isAr = lang === 'ar';
+export const TrustBar: React.FC = () => {
 
   const partners = [
     {

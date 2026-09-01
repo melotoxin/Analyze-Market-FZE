@@ -1,4 +1,4 @@
-﻿export interface CompanyInfo {
+export interface CompanyInfo {
   name: string;
   legalName: string;
   phone: string;
@@ -16,7 +16,7 @@ export const COMPANY_DETAILS: CompanyInfo = {
   phone: '+971 56 339 6961',
   email: 'info@amdxb.com',
   location: 'Sharjah, United Arab Emirates',
-  address: 'SRTI (Sharjah Research Technology & Innovation Park) Block B - Office B34-B047',
+  address: 'SRTI (Sharjah Research Technology & Innovation Park) Block B - Office B34-047',
   domain: 'amdxb.com',
   established: 'Sharjah, UAE',
   about: 'AnalyzeMarkets FZE is a Management Consultancy & Research Information company established in Sharjah, UAE. Our offerings include full business incorporation as well as comprehensive corporate support services, all bundled under one roof.'

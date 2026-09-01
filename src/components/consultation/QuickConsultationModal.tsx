@@ -5,6 +5,7 @@ import { Button } from '../ui/Button';
 import { COMPANY_DETAILS } from '../../data/mockData';
 import { Phone, CheckCircle2, Send, MessageCircle, Mail, AlertCircle } from 'lucide-react';
 import { Language } from '../../data/translations';
+import { getServiceNav } from '../../data/servicesData';
 import { submitLead, openAdvisoryWhatsApp, openAdvisoryEmail } from '../../utils/submitLead';
 
 interface QuickConsultationModalProps {
@@ -14,14 +15,6 @@ interface QuickConsultationModalProps {
   lang: Language;
 }
 
-const SERVICES = [
-  'Company Incorporation',
-  'Company Liquidation Services',
-  'Golden Visa Services',
-  'License Renewal (PRO) Services',
-  'VAT & Corporate Tax Filing Services',
-  'Accounting Services',
-];
 
 export const QuickConsultationModal: React.FC<QuickConsultationModalProps> = ({
   isOpen,
@@ -34,7 +27,8 @@ export const QuickConsultationModal: React.FC<QuickConsultationModalProps> = ({
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
-  const [packageChoice, setPackageChoice] = useState(defaultPackage || SERVICES[0]);
+  const serviceOptions = getServiceNav('en').map((s) => s.label);
+  const [packageChoice, setPackageChoice] = useState(defaultPackage || serviceOptions[0]);
   const [notes, setNotes] = useState('');
   const [honeypot, setHoneypot] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -278,10 +272,10 @@ export const QuickConsultationModal: React.FC<QuickConsultationModalProps> = ({
               className={inputClass + ' cursor-pointer'}
             >
               {/* A quote or package name arrives via defaultPackage and is not in the list. */}
-              {!SERVICES.includes(packageChoice) && (
+              {!serviceOptions.includes(packageChoice) && (
                 <option value={packageChoice}>{packageChoice}</option>
               )}
-              {SERVICES.map((s, i) => (
+              {serviceOptions.map((s, i) => (
                 <option key={s} value={s}>
                   {i + 1}. {s}
                 </option>

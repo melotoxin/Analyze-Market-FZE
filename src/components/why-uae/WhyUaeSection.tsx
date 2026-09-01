@@ -1,20 +1,17 @@
-﻿import React from 'react';
+import React from 'react';
 import {
   TrendingUp,
   Globe2,
   ShieldCheck,
-  Building,
   Coins
 } from 'lucide-react';
 import { Language } from '../../data/translations';
 
 interface WhyUaeSectionProps {
-  onOpenConsultation: () => void;
   lang: Language;
 }
 
 export const WhyUaeSection: React.FC<WhyUaeSectionProps> = ({
-  onOpenConsultation,
   lang
 }) => {
   const isAr = lang === 'ar';

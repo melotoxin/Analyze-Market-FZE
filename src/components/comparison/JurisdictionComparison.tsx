@@ -1,7 +1,5 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import {
-  Check,
-  X,
   ArrowRight,
   Shield,
   ShieldCheck,

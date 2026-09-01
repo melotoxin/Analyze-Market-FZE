@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, Suspense, lazy } from 'react';
+import { useState, useEffect, useCallback, Suspense, lazy } from 'react';
 import { Navbar } from './components/layout/Navbar';
 import { TrustBar } from './components/trust/TrustBar';
 import { Footer } from './components/layout/Footer';
@@ -214,7 +214,7 @@ export function App() {
             currency={currency}
           />
 
-          <TrustBar lang={lang} />
+          <TrustBar />
 
           <ScrollReveal direction="up" delay={0.1}>
             <OtherServicesSection
@@ -262,7 +262,7 @@ export function App() {
             </ScrollReveal>
 
             <ScrollReveal direction="up" delay={0.1}>
-              <WhyUaeSection onOpenConsultation={() => handleOpenConsultation()} lang={lang} />
+              <WhyUaeSection lang={lang} />
             </ScrollReveal>
 
             <ScrollReveal direction="up" delay={0.1}>
@@ -270,14 +270,13 @@ export function App() {
             </ScrollReveal>
 
             <ScrollReveal direction="up" delay={0.1}>
-              <FaqSection onOpenConsultation={() => handleOpenConsultation()} lang={lang} />
+              <FaqSection lang={lang} />
             </ScrollReveal>
           </Suspense>
         </main>
       )}
 
       <Footer
-        onOpenConsultation={() => handleOpenConsultation()}
         onNavigateService={handleNavigateService}
         lang={lang}
       />

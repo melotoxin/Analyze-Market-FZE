@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Search, Globe, ArrowRight, HelpCircle, Building2 } from 'lucide-react';
+import { Search, Globe, ArrowRight, HelpCircle } from 'lucide-react';
 import { formatMoney } from '../../data/pricing';
-import { Language, TRANSLATIONS } from '../../data/translations';
+import { Language } from '../../data/translations';
 
 interface FreeZonesDirectoryProps {
   onOpenConsultation: (fzName?: string) => void;
@@ -14,7 +14,6 @@ export const FreeZonesDirectory: React.FC<FreeZonesDirectoryProps> = ({
   lang,
   currency
 }) => {
-  const t = TRANSLATIONS[lang];
   const isAr = lang === 'ar';
   const [selectedEmirate, setSelectedEmirate] = useState<string>('All');
   const [search, setSearch] = useState<string>('');

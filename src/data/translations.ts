@@ -15,7 +15,7 @@ export const TRANSLATIONS = {
     navAbout: 'About Us',
     getFreeConsultation: 'Get Free Consultation',
     callUs: '+971 56 339 6961',
-    officeBadge: 'SRTI Park, Block B - Office B34-B047, Sharjah UAE',
+    officeBadge: 'SRTI Park, Block B - Office B34-047, Sharjah UAE',
     licenseBadge: 'Licensed by SRTI Park, Sharjah',
 
     // Hero
@@ -168,7 +168,7 @@ export const TRANSLATIONS = {
     navAbout: 'من نحن',
     getFreeConsultation: 'احصل على استشارة مجانية',
     callUs: '+971 56 339 6961',
-    officeBadge: 'مجمع الشارقة للبحوث والتكنولوجيا والابتكار، المبنى B - مكتب B34-B047',
+    officeBadge: 'مجمع الشارقة للبحوث والتكنولوجيا والابتكار، المبنى B - مكتب B34-047',
     licenseBadge: 'الترخيص: أنالايز ماركتس ش.م.ح (AnalyzeMarkets FZE)',
 
     // Hero

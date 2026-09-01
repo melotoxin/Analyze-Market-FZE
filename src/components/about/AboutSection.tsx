@@ -2,8 +2,6 @@ import React from 'react';
 import {
   Building2,
   CheckCircle2,
-  MapPin,
-  Award,
   ArrowRight,
   ExternalLink
 } from 'lucide-react';
@@ -73,7 +71,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-mono text-slate-700">
                 <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
                   <span className="text-slate-500 block uppercase text-[10px]">Registered Office:</span>
-                  <span className="text-slate-900 font-bold block text-sm">Office #B34-B047</span>
+                  <span className="text-slate-900 font-bold block text-sm">Office #B34-047</span>
                   <span className="text-slate-700 text-xs block font-medium">Sharjah, United Arab Emirates</span>
                 </div>
 

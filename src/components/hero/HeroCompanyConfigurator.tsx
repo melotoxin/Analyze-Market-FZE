@@ -2,13 +2,12 @@ import React from 'react';
 import {
   CheckCircle2,
   ArrowRight,
-  Sparkles,
   Compass,
   Layers
 } from 'lucide-react';
 import { HeroVideoBackground } from './HeroVideoBackground';
 import { EnterpriseSetupStudio } from './EnterpriseSetupStudio';
-import { Language, TRANSLATIONS } from '../../data/translations';
+import { Language } from '../../data/translations';
 import { useHeroParallax } from '../../utils/useHeroParallax';
 
 interface HeroCompanyConfiguratorProps {
@@ -18,12 +17,10 @@ interface HeroCompanyConfiguratorProps {
 }
 
 export const HeroCompanyConfigurator: React.FC<HeroCompanyConfiguratorProps> = ({
-  onOpenConsultation,
   lang,
   currency
 }) => {
   const isAr = lang === 'ar';
-  const t = TRANSLATIONS[lang];
   const { ref: containerRef, progress } = useHeroParallax<HTMLElement>();
 
   const scrollToSection = (id: string) => {
@@ -120,7 +117,6 @@ export const HeroCompanyConfigurator: React.FC<HeroCompanyConfiguratorProps> = (
           {/* Right 6 Cols: Clean Estimator Studio with Proper Top Clearance */}
           <div className="lg:col-span-6 flex justify-center lg:justify-end w-full lg:pt-4">
             <EnterpriseSetupStudio
-              onOpenConsultation={onOpenConsultation}
               lang={lang}
               currency={currency}
             />
