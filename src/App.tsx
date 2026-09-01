@@ -224,8 +224,6 @@ export function App() {
             currency={currency}
           />
 
-          <TrustBar />
-
           <ScrollReveal direction="up" delay={0.1}>
             <OtherServicesSection
               onOpenConsultation={handleOpenConsultation}
@@ -277,6 +275,10 @@ export function App() {
 
             <ScrollReveal direction="up" delay={0.1}>
               <AboutSection onOpenConsultation={() => handleOpenConsultation()} lang={lang} />
+            </ScrollReveal>
+
+            <ScrollReveal direction="up" delay={0.1}>
+              <TrustBar />
             </ScrollReveal>
 
             <ScrollReveal direction="up" delay={0.1}>
