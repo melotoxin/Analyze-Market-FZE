@@ -25,6 +25,15 @@ export const Modal: React.FC<ModalProps> = ({
   const panelRef = useRef<HTMLDivElement>(null);
   const restoreFocusTo = useRef<HTMLElement | null>(null);
 
+  // Callers rarely memoise onClose, so it is a new function on every render. Held
+  // in a ref the effect below can depend on isOpen alone — otherwise the focus
+  // trap was torn down and rebuilt on every keystroke, and its cleanup handed
+  // focus back to the page, so typing in a modal dropped focus after one letter.
+  const onCloseRef = useRef(onClose);
+  useEffect(() => {
+    onCloseRef.current = onClose;
+  }, [onClose]);
+
   useEffect(() => {
     if (!isOpen) return;
 
@@ -34,7 +43,7 @@ export const Modal: React.FC<ModalProps> = ({
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        onClose();
+        onCloseRef.current();
         return;
       }
       // Trap Tab inside the dialog: without this, keyboard and screen-reader users
@@ -69,7 +78,7 @@ export const Modal: React.FC<ModalProps> = ({
       document.body.style.overflow = previousOverflow;
       restoreFocusTo.current?.focus?.();
     };
-  }, [isOpen, onClose]);
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
