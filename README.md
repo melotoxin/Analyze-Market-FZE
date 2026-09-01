@@ -3,12 +3,16 @@
 Marketing and lead-generation site for AnalyzeMarkets FZE (SRTI Park, Sharjah).
 React 18 + TypeScript + Vite + Tailwind, deployed on Vercel.
 
+**Maintainers (Cursor + Claude):** read [`CLAUDE.md`](./CLAUDE.md) for canonical paths, licence limits, recent changes, and shared workflow. GitHub `main` is the single source of truth.
+
 ## Running locally
 
 ```bash
 npm install
-npm run dev
+npm run dev -- --port 5173 --strictPort
 ```
+
+Use the **`Analyze-Market-FZE-main`** folder only. If port 5173 shows a generic Vite “Get started” page, another project is bound to that port — stop it and restart dev from this repo.
 
 `npm run dev` serves the front end only. The `/api/lead` endpoint is a Vercel
 serverless function, so **forms will fail against `vite dev`** — that is expected,
