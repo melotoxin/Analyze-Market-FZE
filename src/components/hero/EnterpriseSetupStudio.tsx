@@ -26,6 +26,7 @@ import {
   Activity,
 } from '../../data/pricing';
 import { submitLead, openAdvisoryWhatsApp, openAdvisoryEmail } from '../../utils/submitLead';
+import { analytics } from '../../utils/telemetry';
 
 interface EnterpriseSetupStudioProps {
   lang: Language;
@@ -77,6 +78,18 @@ export const EnterpriseSetupStudio: React.FC<EnterpriseSetupStudioProps> = ({
   // All amounts come from data/pricing.ts so the hero, the packages grid and the
   // cost calculator can never disagree, and every currency renders its own symbol.
   const rawAedTotal = calculateSetupAed({ jurisdiction, workspace, activity, visaCount });
+
+  // Fire once per session when the visitor first customises the estimator, so the
+  // funnel reads: configured -> quote/PDF -> lead sent.
+  const configuredRef = React.useRef(false);
+  React.useEffect(() => {
+    if (configuredRef.current) return;
+    const untouched =
+      jurisdiction === 'freezone' && workspace === 'flexi' && activity === 'tech' && visaCount === 2;
+    if (untouched) return;
+    configuredRef.current = true;
+    analytics.estimatorConfigured({ jurisdiction, workspace, visas: visaCount });
+  }, [jurisdiction, workspace, activity, visaCount]);
   const formattedTotal = formatMoney(rawAedTotal, currency);
   const quoteSummary =
     jurisdictionLabels[jurisdiction] +
@@ -104,6 +117,7 @@ export const EnterpriseSetupStudio: React.FC<EnterpriseSetupStudioProps> = ({
         totalFormatted: formattedTotal,
         currency
       });
+      analytics.quotePdfDownloaded({ jurisdiction, currency });
       confetti({ particleCount: 50, spread: 40, origin: { y: 0.6 } });
     } catch (e) {
       console.error('PDF generation failed', e);
@@ -144,6 +158,7 @@ export const EnterpriseSetupStudio: React.FC<EnterpriseSetupStudioProps> = ({
     confetti({ particleCount: 70, spread: 50, origin: { y: 0.6 } });
 
     setTimeout(() => {
+      analytics.whatsappOpened({ source: 'venture-estimator-' + channel });
       if (channel === 'whatsapp') openAdvisoryWhatsApp(advisory);
       else openAdvisoryEmail(advisory);
       setIsSubmitted(false);

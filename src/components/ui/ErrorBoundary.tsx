@@ -1,5 +1,6 @@
 import React from 'react';
 import { COMPANY_DETAILS } from '../../data/mockData';
+import { reportError } from '../../utils/telemetry';
 
 interface State {
   hasError: boolean;
@@ -17,7 +18,8 @@ export class ErrorBoundary extends React.Component<{ children: React.ReactNode }
   }
 
   componentDidCatch(error: Error, info: React.ErrorInfo) {
-    console.error('Unhandled UI error', error, info.componentStack);
+    // Previously this only console.error'd, so a production crash left no trace.
+    reportError(error, info.componentStack ?? undefined);
   }
 
   render() {

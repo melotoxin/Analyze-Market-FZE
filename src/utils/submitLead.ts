@@ -1,3 +1,5 @@
+import { analytics } from './telemetry';
+
 export interface LeadPayload {
   name: string;
   phone: string;
@@ -23,6 +25,7 @@ export const ADVISORY_EMAIL = 'contact@amdxb.com';
 
 /** POSTs a lead to /api/lead. Throws with a user-safe message on failure. */
 export async function submitLead(payload: LeadPayload): Promise<void> {
+  const source = payload.source ?? 'unknown';
   let res: Response;
   try {
     res = await fetch('/api/lead', {
@@ -31,6 +34,9 @@ export async function submitLead(payload: LeadPayload): Promise<void> {
       body: JSON.stringify(payload),
     });
   } catch {
+    // Counted here rather than in each form, so no capture point can forget to.
+    // Only the source and a reason code — never the visitor's details.
+    analytics.leadFailed({ source, reason: 'network' });
     throw new Error('Network error. Please check your connection or call us directly.');
   }
 
@@ -39,8 +45,11 @@ export async function submitLead(payload: LeadPayload): Promise<void> {
       .json()
       .then((d) => (d && typeof d.error === 'string' ? d.error : ''))
       .catch(() => '');
+    analytics.leadFailed({ source, reason: 'http_' + res.status });
     throw new Error(message || 'Could not send your request. Please call us directly.');
   }
+
+  analytics.leadSubmitted({ source, service: payload.service });
 }
 
 export function formatAdvisoryMessage(msg: AdvisoryMessage): string {

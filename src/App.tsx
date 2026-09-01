@@ -14,6 +14,7 @@ import { Language } from './data/translations';
 import { CURRENCIES, Currency, isCurrency } from './data/pricing';
 import { usePersistentState } from './utils/usePersistentState';
 import { useRoute, useDocumentMeta } from './utils/router';
+import { analytics } from './utils/telemetry';
 import { WHATSAPP_URL, openExternal, openAdvisoryEmail } from './utils/submitLead';
 
 // Everything below the fold is split out of the initial bundle: the landing view
@@ -75,6 +76,12 @@ export function App() {
   const [currency, setCurrency] = usePersistentState<Currency>('amdxb:currency', 'AED', isCurrency);
 
   useDocumentMeta(activeServiceSlug, lang, route.notFound);
+
+  // Which service pages people actually read, and which dead URLs they land on.
+  useEffect(() => {
+    if (route.notFound) analytics.notFound({ path: window.location.pathname });
+    else if (activeServiceSlug) analytics.serviceViewed({ slug: activeServiceSlug });
+  }, [activeServiceSlug, route.notFound]);
 
   useEffect(() => {
     const handleGlobalKeyDown = (e: KeyboardEvent) => {
