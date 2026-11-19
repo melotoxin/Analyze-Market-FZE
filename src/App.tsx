@@ -37,11 +37,6 @@ const FreeZonesDirectory = lazy(() =>
     default: m.FreeZonesDirectory,
   })),
 );
-const UaeCostVisualizerSection = lazy(() =>
-  import('./components/calculator/UaeCostVisualizerSection').then((m) => ({
-    default: m.UaeCostVisualizerSection,
-  })),
-);
 const JurisdictionComparison = lazy(() =>
   import('./components/comparison/JurisdictionComparison').then((m) => ({
     default: m.JurisdictionComparison,
@@ -144,9 +139,6 @@ export function App() {
   const handleCommandSearchAction = useCallback(
     (actionType: string, value?: string) => {
       switch (actionType) {
-        case 'scroll-calculator':
-          handleNavigateSection('cost-calculator');
-          break;
         case 'consult-visa':
           handleOpenConsultation('Golden Visa Services');
           break;
@@ -171,7 +163,7 @@ export function App() {
           break;
       }
     },
-    [handleNavigateSection, handleOpenConsultation],
+    [handleOpenConsultation],
   );
 
   const cycleCurrency = useCallback(() => {
@@ -254,14 +246,6 @@ export function App() {
 
             <ScrollReveal direction="up" delay={0.1}>
               <FreeZonesDirectory
-                onOpenConsultation={handleOpenConsultation}
-                lang={lang}
-                currency={currency}
-              />
-            </ScrollReveal>
-
-            <ScrollReveal direction="up" delay={0.1}>
-              <UaeCostVisualizerSection
                 onOpenConsultation={handleOpenConsultation}
                 lang={lang}
                 currency={currency}

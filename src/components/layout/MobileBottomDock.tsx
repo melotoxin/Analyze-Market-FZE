@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import { MessageCircle, Calculator, Phone, Mail } from 'lucide-react';
+import { MessageCircle, CalendarCheck, Phone, Mail } from 'lucide-react';
 import { Language } from '../../data/translations';
 import { openAdvisoryEmail } from '../../utils/submitLead';
 
@@ -46,13 +46,13 @@ export const MobileBottomDock: React.FC<MobileBottomDockProps> = ({
         <span>{isAr ? 'بريد' : 'Email'}</span>
       </button>
 
-      {/* Book Consultation / Estimate */}
+      {/* Book Consultation */}
       <button
         onClick={() => onOpenConsultation('Mobile Quick Inquiry')}
         className={`flex-1 py-2.5 px-3 bg-slate-900 hover:bg-slate-700 text-white uppercase tracking-wider ${btnBase} cursor-pointer`}
       >
-        <Calculator className="w-3.5 h-3.5" />
-        <span>{isAr ? 'احسب التكلفة' : 'Get Quote'}</span>
+        <CalendarCheck className="w-3.5 h-3.5" />
+        <span>{isAr ? 'استشارة' : 'Consult'}</span>
       </button>
 
       {/* Call Hotline Icon */}

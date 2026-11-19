@@ -4,7 +4,6 @@ import {
   Building,
   Globe,
   Award,
-  Calculator,
   ArrowRight,
   X,
   MessageCircle,
@@ -68,7 +67,6 @@ export const CommandSearchModal: React.FC<CommandSearchModalProps> = ({
   ];
 
   const quickActions = [
-    { label: 'Calculate 2026 Company Incorporation Cost', icon: Calculator, action: 'scroll-calculator' },
     { label: '10-Year Golden Visa Eligibility Check', icon: Award, action: 'consult-visa' },
     { label: 'Book SRTI Park Corporate Advisory Session', icon: Building, action: 'consult-srti' },
     { label: 'Connect with Senior Director via WhatsApp', icon: MessageCircle, action: 'whatsapp' },

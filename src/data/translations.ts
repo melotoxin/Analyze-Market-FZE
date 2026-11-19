@@ -55,8 +55,8 @@ export const TRANSLATIONS = {
     workflowHeaderHint: 'Interactive Formation Pipeline (Click any stage to configure):',
     workflowTurnkey: '100% Turnkey Delivery',
     workflowConfigure: 'Configure →',
-    workflowSlaBanner: 'Continuous End-to-End Handholding until Bank Account is Live',
-    workflowSuccessRecord: '100% Guaranteed Success',
+    workflowSlaBanner: 'Continuous support from first filing through your bank application',
+    workflowSuccessRecord: 'Licensed UAE Advisory',
     workflowInspectorTitle: 'NODE SETTINGS & PARAMETERS',
     workflowOptionsTitle: 'CONFIGURABLE OPTIONS:',
     workflowOptGoldenVisa: '10-Year Golden Visa Path:',
@@ -82,7 +82,7 @@ export const TRANSLATIONS = {
     
     step4Title: 'Corporate Bank Account Opening',
     step4Type: 'STEP 04',
-    step4Status: 'Guaranteed Assistance',
+    step4Status: 'Application Support',
     step4Desc: 'Business profile curation, compliance pre-screening, and introduction to premier UAE & digital tier-1 banking institutions.',
 
     // Packages Section
@@ -208,8 +208,8 @@ export const TRANSLATIONS = {
     workflowHeaderHint: 'مسار التأسيس التفاعلي (انقر فوق أي مرحلة لضبط الإعدادات):',
     workflowTurnkey: 'تسليم جاهز 100%',
     workflowConfigure: 'تهيئة الإعدادات ←',
-    workflowSlaBanner: 'متابعة شاملة ومستمرة حتى استلام الرخصة وتفعيل الحساب البنكي',
-    workflowSuccessRecord: 'نسبة نجاح مضمونة 100%',
+    workflowSlaBanner: 'متابعة مستمرة من أول معاملة حتى تقديم طلب الحساب البنكي',
+    workflowSuccessRecord: 'استشارات مرخّصة في الإمارات',
     workflowInspectorTitle: 'إعدادات ومعايير المرحلة',
     workflowOptionsTitle: 'الخيارات المتاحة للتهيئة:',
     workflowOptGoldenVisa: 'مسار الإقامة الذهبية (10 سنوات):',
@@ -235,7 +235,7 @@ export const TRANSLATIONS = {
     
     step4Title: 'فتح الحساب البنكي للشركات',
     step4Type: 'الخطوة 04',
-    step4Status: 'مساعدة مضمونة',
+    step4Status: 'دعم تقديم الطلب',
     step4Desc: 'إعداد الملف المؤسسي للشركة، فحص متطلبات الامتثال، والتقديم لدى بنوك الإمارات الرائدة (Wio، بنك الإمارات دبي الوطني، المشرق).',
 
     // Packages Section

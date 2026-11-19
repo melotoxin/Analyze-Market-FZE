@@ -26,7 +26,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
         <div className="max-w-3xl mb-12 space-y-3">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-white border border-slate-200 rounded-full text-xs font-mono font-bold text-slate-700">
             <Building2 className="w-3.5 h-3.5 text-slate-700" />
-            <span>09 / Corporate Credentials</span>
+            <span>08 / Corporate Credentials</span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-950 tracking-tight font-sans">
@@ -111,7 +111,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
 
           </div>
 
-          {/* Right 5 Cols: Regulatory Guarantee Card with Photo */}
+          {/* Right 5 Cols: How we work card with photo */}
           <div className="lg:col-span-5 bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm flex flex-col justify-between">
             
             <div className="h-48 relative overflow-hidden bg-slate-100">
@@ -126,8 +126,8 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/30 to-transparent" />
               <div className="absolute bottom-4 left-6 right-6 text-white">
-                <span className="text-xs font-mono uppercase text-sky-300 font-bold block">100% Legal SLA</span>
-                <span className="text-lg font-bold">Guaranteed Regulatory Turnkey Delivery</span>
+                <span className="text-xs font-mono uppercase text-sky-300 font-bold block">How We Work</span>
+                <span className="text-lg font-bold">Licensed Advisory, End to End</span>
               </div>
             </div>
 
@@ -135,21 +135,21 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
               <ul className="space-y-3.5 text-xs sm:text-sm text-slate-600 font-sans">
                 <li className="flex items-start gap-2.5">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                  <span className="leading-snug">Guaranteed upfront fixed quotation with zero subsequent hidden charges.</span>
+                  <span className="leading-snug">Fixed written quotation upfront, with our fees stated in full before you commit.</span>
                 </li>
                 <li className="flex items-start gap-2.5">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                  <span className="leading-snug">Direct electronic submission to government authorities without secondary middlemen.</span>
+                  <span className="leading-snug">Your file prepared and submitted directly to the authorities, with no secondary middlemen.</span>
                 </li>
                 <li className="flex items-start gap-2.5">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                  <span className="leading-snug">Dedicated corporate concierge accompanying you through VIP medicals & biometrics.</span>
+                  <span className="leading-snug">A dedicated adviser accompanying you through medicals and biometrics appointments.</span>
                 </li>
               </ul>
 
               <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-mono text-slate-600">
                 <span>Sharjah Research & Tech Park</span>
-                <span className="font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-800">Govt Accredited</span>
+                <span className="font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-800">Trade Licence 6702</span>
               </div>
             </div>
 

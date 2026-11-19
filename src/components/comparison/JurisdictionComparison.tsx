@@ -27,8 +27,8 @@ export const JurisdictionComparison: React.FC<JurisdictionComparisonProps> = ({
       items: [
         {
           name: isAr ? 'ملكية أجنبية 100% للمستثمر' : '100% Expat Equity Ownership',
-          freezone: { val: '100% Guaranteed', highlight: true },
-          mainland: { val: '100% (1,000+ Codes)', highlight: true },
+          freezone: { val: '100% in all Free Zones', highlight: true },
+          mainland: { val: '100% on 1,000+ activities', highlight: true },
           offshore: { val: '100% Foreign Equity', highlight: true }
         },
         {
@@ -100,7 +100,7 @@ export const JurisdictionComparison: React.FC<JurisdictionComparisonProps> = ({
         <div className="max-w-3xl mb-12 space-y-3">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-white border border-slate-200 rounded-full text-xs font-mono font-bold text-slate-700">
             <Scale className="w-3.5 h-3.5 text-slate-700" />
-            <span>07 / Jurisdiction Matrix</span>
+            <span>06 / Jurisdiction Matrix</span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-950 tracking-tight font-sans">

@@ -80,16 +80,16 @@ export const ClientStoriesSection: React.FC<ClientStoriesSectionProps> = ({
         <div className="max-w-3xl mb-12 space-y-3">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-slate-100 border border-slate-200 rounded-full text-xs font-mono font-bold text-slate-700">
             <TrendingUp className="w-3.5 h-3.5 text-slate-700" />
-            <span>02 / Case Studies</span>
+            <span>02 / Example Scenarios</span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-950 tracking-tight font-sans">
-            {isAr ? 'تحولات حقيقية لشركات عالمية في الإمارات' : 'Proven outcomes for global enterprises & founders'}
+            {isAr ? 'أمثلة توضيحية لهياكل الشركات في الإمارات' : 'How we structure typical enterprises & founders'}
           </h2>
           <p className="text-base text-slate-600 leading-relaxed max-w-2xl font-normal">
             {isAr 
-              ? 'دراسات حالة توثق كيف ساعدنا الشركات العالمية والمستثمرين على التوسع في السوق الإماراتي مع إعفاءات ضريبية وحسابات بنكية مؤكدة.'
-              : 'Real case studies documenting accelerated corporate structuring, tax optimization, and residency in the UAE.'
+              ? 'سيناريوهات توضيحية مركّبة تبيّن كيفية بناء الهياكل المؤسسية والضريبية في الإمارات. الشركات المذكورة ليست عملاء حقيقيين، والنتائج تختلف حسب كل حالة.'
+              : 'Illustrative scenarios showing how corporate structuring, tax positioning, and residency come together in the UAE. These are composite examples, not real clients, and outcomes vary by case.'
             }
           </p>
         </div>
@@ -99,7 +99,7 @@ export const ClientStoriesSection: React.FC<ClientStoriesSectionProps> = ({
           <button
             type="button"
             onClick={goToPrevStory}
-            aria-label={isAr ? 'القصة السابقة' : 'Previous case study'}
+            aria-label={isAr ? 'المثال السابق' : 'Previous scenario'}
             className="shrink-0 p-2.5 rounded-lg border border-slate-200 bg-white text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-colors cursor-pointer"
           >
             <ChevronLeft className="w-5 h-5" />
@@ -125,7 +125,7 @@ export const ClientStoriesSection: React.FC<ClientStoriesSectionProps> = ({
           <button
             type="button"
             onClick={goToNextStory}
-            aria-label={isAr ? 'القصة التالية' : 'Next case study'}
+            aria-label={isAr ? 'المثال التالي' : 'Next scenario'}
             className="shrink-0 p-2.5 rounded-lg border border-slate-200 bg-white text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-colors cursor-pointer"
           >
             <ChevronRight className="w-5 h-5" />
@@ -193,7 +193,7 @@ export const ClientStoriesSection: React.FC<ClientStoriesSectionProps> = ({
             {/* CTA */}
             <div className="pt-2 flex items-center justify-between">
               <span className="text-xs font-mono text-slate-500">
-                Verified SRTI Case File
+                Illustrative scenario
               </span>
 
               <button

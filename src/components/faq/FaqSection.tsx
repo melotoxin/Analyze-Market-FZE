@@ -33,20 +33,20 @@ export const FaqSection: React.FC<FaqSectionProps> = ({
     {
       q: isAr ? 'ما هي المدة الزمنية اللازمة لإصدار الرخصة التجارية والإقامة؟' : 'What is the realistic timeline for trade license and residency visa issuance?',
       a: isAr 
-        ? 'يتم إصدار الرخصة التجارية والموافقة الأمنية خلال 2 إلى 4 أيام عمل. وتستغرق إجراءات تأشيرة الإقامة والهوية الإماراتية والفحص الطبي VIP من 3 إلى 5 أيام إضافية.'
-        : 'Trade license issuance typically takes 2 to 4 business days. Investor/employment residence visas and Emirates ID biometrics take an additional 3 to 5 business days with our VIP medical fast-track service.'
+        ? 'عادةً ما يستغرق إصدار الرخصة التجارية من 2 إلى 4 أيام عمل، وتستغرق الإقامة والهوية الإماراتية من 3 إلى 5 أيام إضافية. هذه مدد معتادة وليست التزاماً، فالجهات الحكومية هي من تحدد الوتيرة وقد تطول المدة عند نقص المستندات.'
+        : 'Trade license issuance commonly takes 2 to 4 business days, and residence visas plus Emirates ID biometrics a further 3 to 5. These are typical timelines, not commitments: the authorities set the pace, and incomplete documents or additional approvals can extend it.'
     },
     {
-      q: isAr ? 'هل فتح الحساب البنكي التجاري مضمون للشركات الجديدة؟' : 'Is corporate bank account opening guaranteed for new startups?',
+      q: isAr ? 'هل تساعدون الشركات الجديدة في فتح حساب بنكي تجاري؟' : 'Can you help a new company open a corporate bank account?',
       a: isAr 
-        ? 'نعمل بشكل مباشر مع شركائنا المصرفيين مثل Wio Business و Emirates NBD و Mashreq Bank. نقوم بإعداد الملف التعريفي والتحقق المسبق من النشاط لضمان أعلى معدل قبول ومطابقة يتجاوز 99%.'
-        : 'We maintain direct compliance channels with UAE banking partners (Wio Bank, Emirates NBD, Mashreq). We pre-screen your business model, source of funds, and compliance dossier to achieve a 99%+ first-time approval rate.'
+        ? 'نساعدك في إعداد ملف البنك: نموذج العمل ومصدر الأموال ومستندات الامتثال، ونرشدك إلى البنوك الأنسب لنشاطك مثل Wio و Emirates NBD و Mashreq. قرار فتح الحساب يعود للبنك وحده بعد إجراءات اعرف عميلك، ولا يمكن لأي جهة ضمانه.'
+        : 'We help you prepare the application: business model, source of funds, and compliance dossier, and we point you to the banks that best fit your activity (Wio, Emirates NBD, Mashreq). The decision rests with the bank after its own KYC, so no adviser can guarantee an account.'
     },
     {
       q: isAr ? 'أين يقع المقر الرئيسي لشركة أنالايز ماركتس (AnalyzeMarkets FZE)؟' : 'Where is AnalyzeMarkets FZE officially located and licensed?',
       a: isAr 
-        ? 'يقع مقرنا الرئيسي في مجمع الشارقة للبحوث والتكنولوجيا والابتكار (SRTI Park)، المبنى B - المكتب B34-047، ومرخصون رسمياً لتقديم خدمات الاستشارات الإدارية وأبحاث الأسواق وتأسيس الشركات.'
-        : 'Our headquarters is based in Sharjah Research Technology & Innovation Park (SRTI Park), Block B - Office B34-047, officially accredited for management consultancy, market research, and corporate structuring services.'
+        ? 'يقع مقرنا الرئيسي في مجمع الشارقة للبحوث والتكنولوجيا والابتكار (SRTI Park)، المبنى B - المكتب B34-047، ومرخصون لخدمات البحوث والمعلومات والاستشارات الإدارية واستشارات دراسات الجدوى (رخصة تجارية 6702).'
+        : 'Our headquarters is based in Sharjah Research Technology & Innovation Park (SRTI Park), Block B - Office B34-047, licensed for research and information services, management consultancy, and feasibility studies consultancy (trade licence 6702).'
     }
   ];
 
@@ -70,7 +70,7 @@ export const FaqSection: React.FC<FaqSectionProps> = ({
           <div className="lg:col-span-5 space-y-6 text-start">
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-slate-100 border border-slate-200 rounded-full text-xs font-mono font-bold text-slate-700">
               <HelpCircle className="w-3.5 h-3.5 text-slate-700" />
-              <span>10 / Frequently Asked Questions</span>
+              <span>09 / Frequently Asked Questions</span>
             </div>
 
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-950 tracking-tight font-sans">

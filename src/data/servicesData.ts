@@ -115,8 +115,8 @@ export const SERVICES_CATALOG: Record<ServiceSlug, ServiceDetail> = {
     subtitleAr: 'إجراءات قانونية متكاملة لتأسيس الشركات في البر الرئيسي والمناطق الحرة والأوفشور',
     tagEn: 'Mainland & Free Zone',
     tagAr: 'البر الرئيسي والمناطق الحرة',
-    leadEn: 'Incorporation is the process of creating a commercial entity legally so that it functions as an independent corporate person. Our turnkey formation services manage initial approvals, trade name reservation, notarized Memorandum of Association (MOA), establishment card registration, and guaranteed corporate bank account opening.',
-    leadAr: 'تأسيس الشركات هو العملية القانونية لإنشاء كيان تجاري مستقل. تشمل خدماتنا إصدار الموافقة المبدئية وحجز الاسم التجاري وتوثيق عقد التأسيس وبطاقة المنشأة وفتح الحساب البنكي.',
+    leadEn: 'Incorporation is the process of creating a commercial entity legally so that it functions as an independent corporate person. We advise on and coordinate the steps: initial approvals, trade name reservation, notarized Memorandum of Association (MOA), establishment card registration, and preparing your corporate bank account application.',
+    leadAr: 'تأسيس الشركات هو العملية القانونية لإنشاء كيان تجاري مستقل. نقدّم الاستشارة والتنسيق في الموافقة المبدئية وحجز الاسم التجاري وتوثيق عقد التأسيس وبطاقة المنشأة وتجهيز طلب الحساب البنكي.',
     steps: [
       { title: '1. Select Business Structure & Activity', desc: 'Choose between Mainland LLC, Free Zone (FZE / FZC), or Offshore SPV matching your specific economic activity codes.' },
       { title: '2. Trade Name Reservation & Initial Approval', desc: 'Secure statutory name clearance with the Department of Economic Development (DED) or Free Zone authority.' },

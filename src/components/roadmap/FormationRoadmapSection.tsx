@@ -94,7 +94,7 @@ export const FormationRoadmapSection: React.FC<FormationRoadmapSectionProps> = (
         <div className="max-w-3xl mb-12 space-y-3">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-white border border-slate-200 rounded-full text-xs font-mono font-bold text-slate-700">
             <Layers className="w-3.5 h-3.5 text-slate-700" />
-            <span>03 / How We Work</span>
+            <span>04 / How We Work</span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-950 tracking-tight font-sans">

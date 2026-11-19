@@ -31,7 +31,7 @@ export const WhyUaeSection: React.FC<WhyUaeSectionProps> = ({
         <div className="max-w-3xl mb-12 space-y-3">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-slate-100 border border-slate-200 rounded-full text-xs font-mono font-bold text-slate-700">
             <TrendingUp className="w-3.5 h-3.5 text-slate-700" />
-            <span>08 / Macroeconomic Strengths</span>
+            <span>07 / Why the UAE</span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-950 tracking-tight font-sans">

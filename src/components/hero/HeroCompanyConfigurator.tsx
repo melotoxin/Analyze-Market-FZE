@@ -6,7 +6,6 @@ import {
   Layers
 } from 'lucide-react';
 import { HeroVideoBackground } from './HeroVideoBackground';
-import { EnterpriseSetupStudio } from './EnterpriseSetupStudio';
 import { Language } from '../../data/translations';
 import { useHeroParallax } from '../../utils/useHeroParallax';
 
@@ -17,8 +16,7 @@ interface HeroCompanyConfiguratorProps {
 }
 
 export const HeroCompanyConfigurator: React.FC<HeroCompanyConfiguratorProps> = ({
-  lang,
-  currency
+  lang
 }) => {
   const isAr = lang === 'ar';
   const { ref: containerRef, progress } = useHeroParallax<HTMLElement>();
@@ -40,10 +38,10 @@ export const HeroCompanyConfigurator: React.FC<HeroCompanyConfiguratorProps> = (
 
       {/* 2. Main Content */}
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center w-full">
-          
-          {/* Left 6 Cols: Clean Narrative */}
-          <div className="lg:col-span-6 space-y-6 text-start">
+        <div className="w-full">
+
+          {/* Narrative */}
+          <div className="max-w-3xl space-y-6 text-start">
             
             {/* Accreditation Badge */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-slate-900/85 backdrop-blur-md border border-white/15 rounded-full text-xs font-mono text-slate-200 shadow-lg">
@@ -67,8 +65,8 @@ export const HeroCompanyConfigurator: React.FC<HeroCompanyConfiguratorProps> = (
             {/* Clear Subtitle */}
             <p className="text-base sm:text-lg text-slate-200 max-w-xl leading-relaxed font-normal drop-shadow-sm">
               {isAr 
-                ? 'حلول مؤسسية متكاملة لتأسيس الشركات في البر الرئيسي والمناطق الحرة (40+) والشركات القابضة، مع الإقامة الذهبية والامتثال الضريبي وحساب بنكي مؤكد تحت سقف واحد مع أنالايز ماركتس ش.م.ح.'
-                : 'Turnkey Mainland, 40+ Free Zone, and Offshore corporate structuring with 10-year Golden Visas, corporate tax filing, and guaranteed Tier-1 banking by AnalyzeMarkets FZE.'
+                ? 'استشارات وأبحاث لتأسيس الشركات في البر الرئيسي والمناطق الحرة (40+) والشركات القابضة، مع إرشادك خلال الإقامة الذهبية والامتثال الضريبي والتقديم لفتح حساب بنكي، من أنالايز ماركتس ش.م.ح.'
+                : 'Advisory and research on Mainland, 40+ Free Zone, and Offshore corporate structuring, with guidance through 10-year Golden Visas, corporate tax filing, and Tier-1 bank applications by AnalyzeMarkets FZE.'
               }
             </p>
 
@@ -84,11 +82,11 @@ export const HeroCompanyConfigurator: React.FC<HeroCompanyConfiguratorProps> = (
               </div>
               <div className="flex items-center gap-2 bg-slate-900/80 backdrop-blur-md px-3.5 py-2.5 rounded-xl border border-white/10 shadow-sm">
                 <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span className="truncate">{isAr ? 'إصدار الرخصة في 48 ساعة' : '2-4 Days Fast-Track'}</span>
+                <span className="truncate">{isAr ? 'الرخصة عادةً خلال 2-4 أيام' : '2-4 Days Typical'}</span>
               </div>
               <div className="flex items-center gap-2 bg-slate-900/80 backdrop-blur-md px-3.5 py-2.5 rounded-xl border border-white/10 shadow-sm">
                 <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span className="truncate">{isAr ? 'حسابات بنكية من الفئة الأولى' : 'Tier-1 Bank IBAN Match'}</span>
+                <span className="truncate">{isAr ? 'دعم طلب الحساب البنكي' : 'Bank Application Support'}</span>
               </div>
             </div>
 
@@ -112,14 +110,6 @@ export const HeroCompanyConfigurator: React.FC<HeroCompanyConfiguratorProps> = (
               </button>
             </div>
 
-          </div>
-
-          {/* Right 6 Cols: Clean Estimator Studio with Proper Top Clearance */}
-          <div className="lg:col-span-6 flex justify-center lg:justify-end w-full lg:pt-4">
-            <EnterpriseSetupStudio
-              lang={lang}
-              currency={currency}
-            />
           </div>
 
         </div>

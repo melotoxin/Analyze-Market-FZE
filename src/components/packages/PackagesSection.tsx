@@ -27,8 +27,8 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
       turnaround: '2 - 4 Business Days',
       image: '/img/1512453979798-5ea266-w600.webp',
       features: isAr
-        ? ['تحويل كامل للأرباح ورأس المال بنسبة 100%', '0% ضريبة دخل شخصي ومزايا ضريبية تفضيلية', 'أكثر من 40 منطقة حرة معتمدة في الإمارات السبع', 'مساعدة مباشرة وسريعة لفتح الحساب البنكي']
-        : ['100% Repatriation of Capital & Profits', '0% Personal Tax & 0% QFZP Corporate Tax', 'Access to 40+ Established Free Zones', 'Guaranteed Corporate Bank Account Support'],
+        ? ['تحويل كامل للأرباح ورأس المال بنسبة 100%', '0% ضريبة دخل شخصي ومزايا ضريبية تفضيلية', 'أكثر من 40 منطقة حرة معتمدة في الإمارات السبع', 'دعم في تجهيز طلب فتح الحساب البنكي']
+        : ['100% Repatriation of Capital & Profits', '0% Personal Tax & 0% QFZP Corporate Tax', 'Access to 40+ Established Free Zones', 'Support with your corporate bank account application'],
       icon: Globe
     },
     {
@@ -83,7 +83,7 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
         <div className="max-w-3xl mb-12 space-y-3">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-slate-100 border border-slate-200 rounded-full text-xs font-mono font-bold text-slate-700">
             <Layers className="w-3.5 h-3.5 text-slate-700" />
-            <span>04 / Turnkey Packages</span>
+            <span>03 / Packages</span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-950 tracking-tight font-sans">
@@ -91,8 +91,8 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({
           </h2>
           <p className="text-base text-slate-600 leading-relaxed max-w-2xl font-normal">
             {isAr 
-              ? 'أسعار واضحة تشمل كافة الرسوم الحكومية، والتسجيل التجاري، وتوثيق عقود التأسيس، وتفعيل الحسابات البنكية.'
-              : 'Fixed corporate packages with zero hidden fees. Includes commercial license, notarized MOA, VIP investor visas, and Tier-1 banking setup.'
+              ? 'أسعار إرشادية تشمل نطاق خدماتنا: الرخصة التجارية وتوثيق عقد التأسيس وتأشيرات المستثمر ودعم طلب الحساب البنكي. تختلف الرسوم الحكومية حسب النشاط والمنطقة، ونؤكد الرقم النهائي في عرض سعر مكتوب.'
+              : 'Indicative starting fees covering our advisory scope: commercial licence, notarized MOA, investor visas, and support with your bank application. Government fees vary by activity and zone; we confirm the exact figure in a written quotation.'
             }
           </p>
         </div>

@@ -130,7 +130,7 @@ export const OtherServicesSection: React.FC<OtherServicesSectionProps> = ({
           <p className="text-base text-slate-600 leading-relaxed max-w-2xl font-normal">
             {isAr 
               ? 'خدمات واستشارات الأعمال المعتمدة من أنالايز ماركتس ش.م.ح (AnalyzeMarkets FZE) بمجمع الشارقة للبحوث والتكنولوجيا والابتكار.'
-              : 'Our ISO-accredited corporate structuring approach covers every stage of your business operations in the UAE.'
+              : 'Our corporate structuring advisory covers every stage of your business operations in the UAE.'
             }
           </p>
         </div>

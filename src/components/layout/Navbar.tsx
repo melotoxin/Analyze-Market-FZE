@@ -206,15 +206,6 @@ export const Navbar: React.FC<NavbarProps> = ({
               </span>
             </button>
 
-            <button onClick={() => handleSectionClick('cost-calculator')} className={navLinkClass}>
-              <span className="xl:hidden">
-                <NavBlinkText>{isAr ? 'الحاسبة' : 'Calculator'}</NavBlinkText>
-              </span>
-              <span className="hidden xl:inline">
-                <NavBlinkText>{isAr ? 'حاسبة التكاليف' : 'Cost Calculator'}</NavBlinkText>
-              </span>
-            </button>
-
             <button onClick={() => handleSectionClick('client-stories')} className={navLinkClass}>
               <span className="xl:hidden">
                 <NavBlinkText>{isAr ? 'قصص' : 'Stories'}</NavBlinkText>
@@ -328,7 +319,6 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button onClick={() => handleSectionClick('packages')} className="w-full text-start py-2 px-2 rounded-lg nav-link-glow"><NavBlinkText>Packages</NavBlinkText></button>
             <button onClick={() => handleSectionClick('how-we-work')} className="w-full text-start py-2 px-2 rounded-lg nav-link-glow"><NavBlinkText>How We Work</NavBlinkText></button>
             <button onClick={() => handleSectionClick('freezones')} className="w-full text-start py-2 px-2 rounded-lg nav-link-glow"><NavBlinkText>Free Zones Directory</NavBlinkText></button>
-            <button onClick={() => handleSectionClick('cost-calculator')} className="w-full text-start py-2 px-2 rounded-lg nav-link-glow"><NavBlinkText>Cost Calculator</NavBlinkText></button>
             <button onClick={() => handleSectionClick('client-stories')} className="w-full text-start py-2 px-2 rounded-lg nav-link-glow"><NavBlinkText>Client Stories</NavBlinkText></button>
             <button onClick={() => handleSectionClick('about')} className="w-full text-start py-2 px-2 rounded-lg nav-link-glow"><NavBlinkText>About Us</NavBlinkText></button>
           </div>

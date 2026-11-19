@@ -173,7 +173,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
                 {isAr ? 'خارطة الإجراءات والجدول الزمني' : 'Standard Operating Procedure & Timeline'}
               </h2>
               <p className="text-xs text-slate-500 mt-0.5">
-                {isAr ? 'خطوات تنفيذ رسمية معتمدة ومضمونة' : 'Turnkey execution milestones handled end-to-end by our directors.'}
+                {isAr ? 'خطوات العمل التي يرافقك فيها مستشارونا' : 'The milestones our advisers guide you through, end to end.'}
               </p>
             </div>
           </div>

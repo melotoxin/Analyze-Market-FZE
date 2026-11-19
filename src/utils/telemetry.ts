@@ -25,14 +25,8 @@ function safeTrack(event: string, props?: Props) {
   }
 }
 
-/** The funnel that actually matters: estimator opened -> quote -> lead sent. */
+/** The funnel that actually matters: lead captured -> sent. */
 export const analytics = {
-  estimatorConfigured: (p: { jurisdiction: string; workspace: string; visas: number }) =>
-    safeTrack('estimator_configured', p),
-
-  quotePdfDownloaded: (p: { jurisdiction: string; currency: string }) =>
-    safeTrack('quote_pdf_downloaded', p),
-
   /** source distinguishes the four capture points. */
   leadSubmitted: (p: { source: string; service: string }) => safeTrack('lead_submitted', p),
 
