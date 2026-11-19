@@ -217,11 +217,7 @@ export function App() {
         </main>
       ) : (
         <main id="main-content" className="flex-grow relative z-10">
-          <HeroCompanyConfigurator
-            onOpenConsultation={handleOpenConsultation}
-            lang={lang}
-            currency={currency}
-          />
+          <HeroCompanyConfigurator onOpenConsultation={handleOpenConsultation} lang={lang} />
 
           <ScrollReveal direction="up" delay={0.1}>
             <OtherServicesSection onNavigateService={handleNavigateService} lang={lang} />

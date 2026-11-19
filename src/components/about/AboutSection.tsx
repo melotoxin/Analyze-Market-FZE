@@ -35,7 +35,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
           <p className="text-base text-slate-600 leading-relaxed max-w-2xl font-normal">
             {isAr 
               ? 'شركة استشارات إدارية ومعلومات أبحاث مرخصة رسمياً في مجمع الشارقة للبحوث والتكنولوجيا والابتكار (SRTI Park).'
-              : 'Officially accredited Management Consultancy & Research Information firm incorporated at Sharjah Research Technology & Innovation Park.'
+              : 'Licensed Management Consultancy & Research Information firm incorporated at Sharjah Research Technology & Innovation Park.'
             }
           </p>
         </div>

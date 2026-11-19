@@ -124,7 +124,7 @@ export const FreeZonesDirectory: React.FC<FreeZonesDirectoryProps> = ({
           </div>
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-950 tracking-tight font-sans">
-            {isAr ? 'دليل أكثر من 40 منطقة حرة بالإمارات' : 'Explore 40+ accredited UAE Free Zones'}
+            {isAr ? 'دليل أكثر من 40 منطقة حرة بالإمارات' : 'Explore 40+ UAE Free Zones'}
           </h2>
           <p className="text-base text-slate-600 leading-relaxed max-w-2xl font-normal">
             {isAr 

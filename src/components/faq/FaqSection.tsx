@@ -91,7 +91,7 @@ export const FaqSection: React.FC<FaqSectionProps> = ({
                 <span>Need immediate guidance on your case?</span>
               </div>
               <p className="text-xs text-slate-600">
-                Speak directly with an accredited senior formation director in Sharjah or Dubai.
+                Speak directly with a senior adviser in Sharjah or Dubai.
               </p>
               <div className="flex flex-col sm:flex-row flex-wrap gap-2">
                 <button

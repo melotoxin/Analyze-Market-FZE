@@ -175,15 +175,37 @@ export const QuickConsultationModal: React.FC<QuickConsultationModalProps> = ({
               className="p-2.5 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-400 rounded-lg text-xs flex items-start gap-2"
             >
               <AlertCircle className="w-4 h-4 shrink-0 mt-px" />
-              <span>
-                {error}{' '}
-                <a
-                  href={'tel:' + COMPANY_DETAILS.phone.replace(/\s/g, '')}
-                  className="underline font-bold"
-                >
-                  {COMPANY_DETAILS.phone}
-                </a>
-              </span>
+              <div className="space-y-2">
+                <span className="block">
+                  {error}{' '}
+                  <a
+                    href={'tel:' + COMPANY_DETAILS.phone.replace(/\s/g, '')}
+                    className="underline font-bold"
+                  >
+                    {COMPANY_DETAILS.phone}
+                  </a>
+                </span>
+                {/* The form is down but WhatsApp and email are not, so the enquiry
+                    does not have to be lost here. */}
+                <div className="flex flex-wrap gap-2">
+                  <button
+                    type="button"
+                    onClick={() => openAdvisoryWhatsApp(advisoryPayload)}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-emerald-500/40 text-emerald-700 dark:text-emerald-400 text-[11px] font-bold hover:bg-emerald-50 dark:hover:bg-emerald-950/40 transition-colors"
+                  >
+                    <MessageCircle className="w-3.5 h-3.5" />
+                    <span>{isAr ? 'أرسل عبر واتساب' : 'Send on WhatsApp'}</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => openAdvisoryEmail(advisoryPayload)}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-sky-500/40 text-sky-700 dark:text-sky-400 text-[11px] font-bold hover:bg-sky-50 dark:hover:bg-sky-950/40 transition-colors"
+                  >
+                    <Mail className="w-3.5 h-3.5" />
+                    <span>{isAr ? 'أرسل بالبريد' : 'Send by email'}</span>
+                  </button>
+                </div>
+              </div>
             </div>
           )}
 

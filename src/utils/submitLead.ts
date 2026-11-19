@@ -74,10 +74,12 @@ export function buildAdvisoryWhatsAppUrl(msg: AdvisoryMessage): string {
 }
 
 export function buildAdvisoryEmailUrl(msg: AdvisoryMessage): string {
-  const params = new URLSearchParams();
-  params.set('subject', `Advisory request — ${msg.service}`);
-  params.set('body', formatAdvisoryMessage(msg));
-  return `mailto:${ADVISORY_EMAIL}?${params.toString()}`;
+  // URLSearchParams form-encodes, which turns every space into "+". Mail clients
+  // follow RFC 6068 and show those plus signs literally, so the draft arrived as
+  // "Service:+Free+Zone". Percent-encoding is what mailto actually expects.
+  const subject = encodeURIComponent(`Advisory request — ${msg.service}`);
+  const body = encodeURIComponent(formatAdvisoryMessage(msg));
+  return `mailto:${ADVISORY_EMAIL}?subject=${subject}&body=${body}`;
 }
 
 /** window.open without noopener leaves the new tab able to reach back via opener. */

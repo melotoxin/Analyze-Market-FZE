@@ -32,13 +32,20 @@ function rateLimited(ip: string): boolean {
   return recent.length > MAX_PER_WINDOW;
 }
 
-const clean = (v: unknown, max: number): string =>
-  typeof v === 'string'
-    ? // Stripping control characters is the point: left in, they would corrupt the
-      // outgoing email headers and body (a classic header-injection vector).
-      // eslint-disable-next-line no-control-regex
-      v.replace(/[\u0000-\u001F\u007F]/g, '').trim().slice(0, max)
-    : '';
+// Stripping control characters is the point: left in, they would corrupt the
+// outgoing email headers and body (a classic header-injection vector). Single-line
+// fields lose all of them; `multiline` keeps \n, which the notes textarea produces
+// and the HTML body renders as <br> — without it a typed message arrived as one
+// run-on line with the words glued together.
+const clean = (v: unknown, max: number, multiline = false): string => {
+  if (typeof v !== 'string') return '';
+  const stripped = multiline
+    ? // eslint-disable-next-line no-control-regex
+      v.replace(/\r\n?/g, '\n').replace(/[\u0000-\u0009\u000B-\u001F\u007F]/g, '')
+    : // eslint-disable-next-line no-control-regex
+      v.replace(/[\u0000-\u001F\u007F]/g, '');
+  return stripped.trim().slice(0, max);
+};
 
 const escapeHtml = (s: string) =>
   s.replace(/[&<>"']/g, (c) =>
@@ -52,7 +59,19 @@ const EMAIL_OK = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const leadRef = () => `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
 
-export default async function handler(req: any, res: any) {
+// Minimal shape of the Vercel Node request/response, so this file typechecks
+// without pulling in @vercel/node just for two interfaces.
+interface LeadRequest {
+  method?: string;
+  headers: Record<string, string | string[] | undefined>;
+  body?: unknown;
+}
+interface LeadResponse {
+  setHeader(name: string, value: string): void;
+  status(code: number): { json(payload: unknown): unknown };
+}
+
+export default async function handler(req: LeadRequest, res: LeadResponse) {
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
     return res.status(405).json({ error: 'Method not allowed' });
@@ -64,9 +83,9 @@ export default async function handler(req: any, res: any) {
     return res.status(429).json({ error: 'Too many requests. Please try again shortly.' });
   }
 
-  let body: Lead;
+  let body: Partial<Lead>;
   try {
-    body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body || {};
+    body = (typeof req.body === 'string' ? JSON.parse(req.body) : req.body) || {};
   } catch {
     return res.status(400).json({ error: 'Invalid request body.' });
   }
@@ -78,7 +97,7 @@ export default async function handler(req: any, res: any) {
   const phone = clean(body.phone, 32);
   const email = clean(body.email, 160);
   const service = clean(body.service, 160) || 'General enquiry';
-  const notes = clean(body.notes, 2000);
+  const notes = clean(body.notes, 2000, true);
   const quote = clean(body.quote, 120);
   const source = clean(body.source, 60) || 'website';
 

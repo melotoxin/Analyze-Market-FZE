@@ -54,6 +54,27 @@ const trap = await call({ ...valid, company: 'bot corp' }, 'POST', 'ip-trap');
 assert.equal(trap.statusCode, 200);
 assert.deepEqual(trap.body, { ok: true });
 
+// A typed message keeps its line breaks: stripping every control character used to
+// glue the lines together into one run-on paragraph in the advisory inbox.
+{
+  let sent = '';
+  const capture = globalThis.fetch;
+  globalThis.fetch = async (_url: any, init: any) => {
+    sent = JSON.parse(init.body).html;
+    return new Response(JSON.stringify({ id: 'test-email' }), { status: 200 });
+  };
+  process.env.RESEND_API_KEY = 'test-key';
+  const res = await call(
+    { ...valid, notes: 'Line one\r\nLine two\u0007' },
+    'POST',
+    'ip-notes',
+  );
+  assert.equal(res.statusCode, 200);
+  assert.ok(sent.includes('Line one<br>Line two'), 'notes lost their line break: ' + sent);
+  assert.ok(!sent.includes('\u0007'), 'other control characters must still be stripped');
+  globalThis.fetch = capture;
+}
+
 // Without a key, a real lead is refused loudly rather than silently dropped.
 delete process.env.RESEND_API_KEY;
 assert.equal((await call(valid, 'POST', 'ip-nokey')).statusCode, 503);

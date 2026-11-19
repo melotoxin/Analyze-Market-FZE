@@ -12,7 +12,6 @@ import { useHeroParallax } from '../../utils/useHeroParallax';
 interface HeroCompanyConfiguratorProps {
   onOpenConsultation: (details?: string) => void;
   lang: Language;
-  currency: string;
 }
 
 export const HeroCompanyConfigurator: React.FC<HeroCompanyConfiguratorProps> = ({

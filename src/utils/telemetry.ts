@@ -4,9 +4,8 @@ import { track } from '@vercel/analytics';
  * Thin wrapper over Vercel Analytics custom events.
  *
  * Deliberately no third-party error SDK and no cookies: Vercel Analytics is
- * cookieless, so this adds no consent-banner obligation. Errors are reported via
- * reportError() below, which posts to our own /api/lead-adjacent logging path in
- * production and is a no-op in dev.
+ * cookieless, so this adds no consent-banner obligation. Errors go through
+ * reportError() below, which records a custom event and logs to the console.
  *
  * PRIVACY: never pass a name, phone number, email or any free text a visitor
  * typed. Event properties are for counts and categories only.

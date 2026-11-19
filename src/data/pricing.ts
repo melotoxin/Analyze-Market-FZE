@@ -22,39 +22,3 @@ export function formatMoney(aed: number, currency: string): string {
   const value = Math.round(aed * perAed).toLocaleString('en-US');
   return symbol === 'AED' ? `AED ${value}` : `${symbol}${value}`;
 }
-
-// --- Setup cost model (AED, 2026 tariffs) -------------------------------------
-
-export const BASE_PRICES = { freezone: 11500, mainland: 17500, offshore: 13500 } as const;
-export const WORKSPACE_ADDONS = { flexi: 0, office: 8500, warehouse: 18000 } as const;
-
-// Activity was previously a purely cosmetic control: four prominent buttons that
-// never entered the total. These are the real regulatory approval deltas.
-export const ACTIVITY_ADDONS = {
-  tech: 0,
-  consulting: 1200,
-  ecommerce: 2400,
-  trading: 3500,
-} as const;
-
-export const VISA_UNIT_COST = 3600;
-export const MAX_VISAS = 8;
-
-export type Jurisdiction = keyof typeof BASE_PRICES;
-export type Workspace = keyof typeof WORKSPACE_ADDONS;
-export type Activity = keyof typeof ACTIVITY_ADDONS;
-
-export function calculateSetupAed(opts: {
-  jurisdiction: Jurisdiction;
-  workspace: Workspace;
-  activity: Activity;
-  visaCount: number;
-}): number {
-  const visas = Math.min(MAX_VISAS, Math.max(0, Math.floor(opts.visaCount) || 0));
-  return (
-    BASE_PRICES[opts.jurisdiction] +
-    WORKSPACE_ADDONS[opts.workspace] +
-    ACTIVITY_ADDONS[opts.activity] +
-    visas * VISA_UNIT_COST
-  );
-}

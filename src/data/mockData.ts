@@ -164,8 +164,3 @@ export const WHY_UAE_POINTS = [
   }
 ];
 
-export const CONSULTANTS: any[] = [];
-export const SECTOR_METRICS: any = {};
-export const ADVISORY_SERVICES: any[] = [];
-export const CASE_STUDIES: any[] = [];
-export const DEMO_DELIVERABLES: any[] = [];
