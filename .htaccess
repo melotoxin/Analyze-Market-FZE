@@ -1,0 +1,82 @@
+# Apache equivalent of vercel.json — SPA routing, security headers, caching.
+# Keep this in step with vercel.json if either changes.
+
+Options -Indexes
+DirectoryIndex index.html
+
+# --- SPA routing ------------------------------------------------------------
+# Every path that is not a real file and not under /api/ renders index.html, so
+# /services/golden-visa-services is served by the client router instead of 404.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # The front end posts to /api/lead with no extension, which is what the Vercel
+  # function answered. Apache will not find a file called "lead", so map it to the
+  # PHP script explicitly — without this the contact form 404s.
+  RewriteRule ^api/lead/?$ api/lead.php [L]
+
+  # Anything else under /api/ is served as-is rather than falling into the SPA.
+  RewriteRule ^api/ - [L]
+
+  # Serve real files and directories as themselves.
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+# --- security headers -------------------------------------------------------
+<IfModule mod_headers.c>
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob:; connect-src 'self'; media-src 'self'; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests"
+  Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "DENY"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()"
+  Header always set Cross-Origin-Opener-Policy "same-origin"
+  Header always set X-DNS-Prefetch-Control "on"
+
+  # Hashed filenames, so they can be cached forever.
+  <FilesMatch "\.(js|css|woff2?|png|jpe?g|webp|svg|avif|mp4)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # The shell must never be cached, or a deploy leaves stale asset references.
+  <FilesMatch "^index\.html$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+
+  <FilesMatch "^(sitemap\.xml|robots\.txt)$">
+    Header set Cache-Control "public, max-age=3600"
+  </FilesMatch>
+</IfModule>
+
+# --- compression ------------------------------------------------------------
+# Vercel does this automatically; Apache needs telling.
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml application/javascript application/json image/svg+xml
+</IfModule>
+
+# --- correct types for what Vite emits --------------------------------------
+<IfModule mod_mime.c>
+  AddType application/javascript .js
+  AddType image/webp .webp
+  AddType image/avif .avif
+  AddType font/woff2 .woff2
+</IfModule>
+
+# --- force HTTPS ------------------------------------------------------------
+# cPanel terminates TLS upstream on some hosts, so test both conditions.
+<IfModule mod_rewrite.c>
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+</IfModule>
+
+# --- keep the Resend key unreachable ----------------------------------------
+# PHP is executed rather than served, so this is belt and braces.
+<Files "config.php">
+  Require all denied
+</Files>
