@@ -13,6 +13,7 @@
     "format:check": "prettier --check .",
     "verify": "npm run lint && tsc --noEmit && npm test && npm run build",
     "ship": "node scripts/ship.mjs",
+    "pack:cpanel": "node scripts/pack-cpanel.mjs",
     "test:unit": "tsx src/data/pricing.test.ts && tsx api/lead.test.ts",
     "test:watch": "vitest"
   },

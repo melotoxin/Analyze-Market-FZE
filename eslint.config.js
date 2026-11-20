@@ -13,7 +13,7 @@ import jsxA11y from 'eslint-plugin-jsx-a11y';
  * Everything else is left at its default; this is a gate, not a style council.
  */
 export default tseslint.config(
-  { ignores: ['dist', 'node_modules', 'public', '.vercel'] },
+  { ignores: ['dist', 'node_modules', 'public', '.vercel', 'deploy/dist-cpanel'] },
 
   js.configs.recommended,
   ...tseslint.configs.recommended,

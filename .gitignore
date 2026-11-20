@@ -33,3 +33,8 @@ dist-ssr
 
 .vercel
 .env*
+
+# cPanel deploy secrets and build output
+deploy/cpanel/api/config.php
+deploy/dist-cpanel/
+amdxb-cpanel.zip
